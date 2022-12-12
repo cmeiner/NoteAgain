@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "NoteAgain",
-    "slug": "NoteAgain",
+    "slug": "noteagain",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,6 +28,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "26f581c3-9e53-4cef-9b52-24020c9821e4"
+      }
+    },
+    "owner": "exarbete"
   }
 }
