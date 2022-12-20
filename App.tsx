@@ -1,10 +1,20 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
+import { usePost } from "./firebase/Hooks";
 
 export default function App() {
+  const data = {
+    name: "wewe",
+  };
+
+  const test = () => {
+    usePost("test", data);
+  };
+
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
+      <Button title="test" onPress={() => test()} />
       <StatusBar style="auto" />
     </View>
   );
@@ -22,5 +32,5 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-  }
+  },
 });
