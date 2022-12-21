@@ -9,13 +9,25 @@ import {
   TextP,
   TextThin,
 } from './src/utils/styles/FontStyles';
+import { auth } from "./config/firebaseConfig";
+import { createReminder } from "./hooks/firebase/ReminderHooks";
 
 export default function App() {
-  useFonts({
+  const data = {
+    title: "testTitle",
+    description: "testDesc",
+    remindAt: "test"
+  };
+   useFonts({
     SoraBold: require('./assets/fonts/Sora-Bold.ttf'),
     SoraRegular: require('./assets/fonts/Sora-Regular.ttf'),
     SoraThin: require('./assets/fonts/Sora-Thin.ttf'),
   });
+
+  const test = () => {
+    createReminder(data)
+  };
+
   return (
     <View style={styles.container}>
       <TextH1>Detta är H1</TextH1>
