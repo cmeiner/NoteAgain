@@ -1,15 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
+import { Button, StyleSheet, Text, View } from "react-native";
+import { loginUser, registerUser, usePost } from "./firebase/Hooks";
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { usePost } from './firebase/Hooks';
 
 export default function App() {
   const data = {
-    name: 'wewe',
+    email: "felix@x.se",
+    password: "test12345",
+    displayName: "test",
   };
 
   const test = () => {
-    usePost('test', data);
+    loginUser(data);
   };
 
   return (
