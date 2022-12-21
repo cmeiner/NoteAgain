@@ -13,7 +13,7 @@ type UserProps = {
   password: string;
 };
 
-export const usePost = async (api: string, data: any) => {
+export const usePost = async (api: string, data: object) => {
   await setDoc(doc(collection(db, api)), data);
   console.log(data, "added to the database");
 };
