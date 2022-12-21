@@ -1,23 +1,10 @@
 /**
  * * Status of shared reminders
- * ! pending
- * ! accepted
- * ! declined
+ * ? pending
+ * ? accepted
+ * ? declined
  */
 type Status = "pending" | "accepted" | "declined";
-
-/**
- * * TodoList Data
- * ! Todo Data
- * ! Share Data
- */
-type TodoList = {
-  id: string;
-  description?: string;
-  items: Todo[];
-  creator: string;
-  sharedWith: Share[];
-};
 
 /**
  * * Todo Data
@@ -29,19 +16,32 @@ type Todo = {
 };
 
 /**
- * * Share Data
- * ! Status
+ * * TodoList Data
+ * ! Todo Data
+ * TODO Share Data
  */
-type Share = {
-  senderID: string;
-  receiverID: string;
-  reminderType: string;
-  status: Status;
+type TodoList = {
+  id: string;
+  description?: string;
+  items: Todo[];
+  creator: string;
+  //   sharedWith: Share[];
 };
 
 /**
+ * TODO Share Data
+ *
+ */
+// type Share = {
+//   senderID: string;
+//   receiverID: string;
+//   reminderType: string;
+//   status: Status;
+// };
+
+/**
  * * Reminder Data
- * ! Share Data
+ * TODO Share Data
  */
 type Reminder = {
   id: string;
@@ -49,28 +49,28 @@ type Reminder = {
   description: string;
   creator: string;
   remindAt: string;
-  sharedWith: Share[];
+  //sharedWith: Share[];
 };
 
 /**
  * * User Data
- * ! Share Data
- * ! TodoList Data
- * ! Reminder Data
- *
+ * TODO Share Data
+ * TODO TodoList Data
+ * TODO Reminder Data
+ * ? Should we TYPO ID ?
  */
 type User = {
-  id: string;
+  //   id?: string;
   email: string;
   displayName: string;
-  reminders: Reminder[];
-  todos: TodoList[];
-  receivedItems: {
-    todos: TodoList[];
-    reminders: Reminder[];
-  };
-  sharedItems: {
-    todos: TodoList[];
-    reminders: Reminder[];
-  };
+  //   reminders: Reminder[];
+  //   todos: TodoList[];
+  //   receivedItems: {
+  //     todos: TodoList[];
+  //     reminders: Reminder[];
+  //   };
+  //   sharedItems: {
+  //     todos: TodoList[];
+  //     reminders: Reminder[];
+  //   };
 };
