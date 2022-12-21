@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { loginUser, registerUser, usePost } from "./firebase/Hooks";
+mport React from 'react';
 
 export default function App() {
   const data = {
