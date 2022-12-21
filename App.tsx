@@ -1,37 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { usePost } from './firebase/Hooks';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Login from './pages/Login';
+import Home from './pages/Home';
+// import { View, StyleSheet } from 'react-native';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const data = {
-    name: 'wewe',
-  };
-
-  const test = () => {
-    usePost('test', data);
-  };
-
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <Button title="test" onPress={() => test()} />
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   input: {
+//     height: 40,
+//     margin: 12,
+//     borderWidth: 1,
+//     padding: 10,
+//   },
+// });
