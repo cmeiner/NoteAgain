@@ -1,34 +1,48 @@
-import { Formik } from 'formik';
 import React from 'react';
-import { Button, TextInput, StyleSheet, Text, View } from 'react-native';
+import { Formik } from 'formik';
+import {
+  KeyboardAvoidingView,
+  TextInput,
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+} from 'react-native';
+import TestButton from './small/formButton';
 
-export const LoginForm = (props) => (
-  <View style={styles.container}>
-    <Formik
-      initialValues={{ email: '' }}
-      onSubmit={(values) => console.log(values)}
+export const LoginForm = () => {
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
     >
-      {({ handleChange, handleBlur, handleSubmit, values }) => (
-        <View>
-          <Text>Email</Text>
-          <TextInput
-            onChangeText={handleChange('email')}
-            onBlur={handleBlur('email')}
-            value={values.email}
-            style={{ width: 290, height: 100, backgroundColor: 'white' }}
-          />
-          <TextInput
-            onChangeText={handleChange('password')}
-            onBlur={handleBlur('password')}
-            value={values.email}
-          />
-
-          <Button onPress={handleSubmit} title="Submit" />
-        </View>
-      )}
-    </Formik>
-  </View>
-);
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        onSubmit={(values) => console.log(values)}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values }) => (
+          <View style={styles.formContainer}>
+            <Text style={styles.inputTitle}>Email</Text>
+            <TextInput
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
+              value={values.email}
+              style={styles.input}
+            />
+            <Text style={styles.inputTitle}>Password</Text>
+            <TextInput
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
+              value={values.password}
+              style={styles.input}
+            />
+            <TestButton title="Login" onPress={handleSubmit} />
+          </View>
+        )}
+      </Formik>
+    </KeyboardAvoidingView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -38,10 +52,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  formContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inputTitle: {
+    margin: 12,
+  },
   input: {
     height: 40,
+    width: 350,
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    borderRadius: 10,
   },
 });
