@@ -28,7 +28,7 @@ export const registerUser = async ({
     displayName: displayName,
     email: email,
   });
-  await updateProfile(auth.currentUser!, {
+  await updateProfile(auth.currentUser, {
     displayName: displayName,
     // TODO Add Profile Picture
   });
