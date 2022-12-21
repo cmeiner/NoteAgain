@@ -4,7 +4,6 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
-import { FormEvent } from "react";
 import { auth, db } from "./firebaseConfig";
 
 type UserProps = {
@@ -39,7 +38,7 @@ export const registerUser = async ({
 
 export const loginUser = async ({ email, password }: UserProps) => {
   try {
-    let userCredentials = await signInWithEmailAndPassword(
+    const userCredentials = await signInWithEmailAndPassword(
       auth,
       email,
       password
