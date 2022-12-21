@@ -1,5 +1,5 @@
 import { useFonts } from 'expo-font';
-import { FC, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { StyleSheet, Text } from 'react-native';
 
 type Props = {
