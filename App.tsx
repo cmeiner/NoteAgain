@@ -1,14 +1,15 @@
-import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View } from "react-native";
-import { usePost } from "./firebase/Hooks";
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import { usePost } from './firebase/Hooks';
 
 export default function App() {
   const data = {
-    name: "wewe",
+    name: 'wewe',
   };
 
   const test = () => {
-    usePost("test", data);
+    usePost('test', data);
   };
 
   return (
@@ -23,9 +24,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   input: {
     height: 40,
