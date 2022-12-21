@@ -43,11 +43,11 @@ type TodoList = {
  * * Reminder Data
  * TODO Share Data
  */
-type Reminder = {
-  id: string;
+export type Reminder = {
+  id?: string;
   title: string;
   description: string;
-  creator: string;
+  creator?: string;
   remindAt: string;
   //sharedWith: Share[];
 };

@@ -4,7 +4,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
-import { auth, db } from "./firebaseConfig";
+import { auth, db } from "../../config/firebaseConfig";
 
 type UserProps = {
   email: string;
@@ -12,10 +12,10 @@ type UserProps = {
   password: string;
 };
 
-export const usePost = async (api: string, data: object) => {
-  await setDoc(doc(collection(db, api)), data);
-  console.log(data, "added to the database");
-};
+// export const usePost = async (api: string, data: object) => {
+//   await setDoc(doc(collection(db, api)), data);
+//   console.log(data, "added to the database");
+// };
 
 export const registerUser = async ({
   email,

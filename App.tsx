@@ -1,17 +1,18 @@
 import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, Text, View } from "react-native";
-import { loginUser, registerUser, usePost } from "./firebase/Hooks";
 import React from 'react';
+import { auth } from "./config/firebaseConfig";
+import { createReminder } from "./hooks/firebase/ReminderHooks";
 
 export default function App() {
   const data = {
-    email: "felix@x.se",
-    password: "test12345",
-    displayName: "test",
+    title: "testTitle",
+    description: "testDesc",
+    remindAt: "test"
   };
 
   const test = () => {
-    loginUser(data);
+    createReminder(data)
   };
 
   return (
