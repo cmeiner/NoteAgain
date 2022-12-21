@@ -44,8 +44,11 @@ export const loginUser = async ({ email, password }: UserProps) => {
       email,
       password
     );
+    // TODO Create a nice toast message alerting that the user is signed in.
+    // TODO Send the user to their profile page.
     console.log(userCredentials);
   } catch (error) {
+    // TODO Create a nice toast message alerting the error.
     console.log(error);
   }
 };
