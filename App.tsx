@@ -1,9 +1,15 @@
 import * as React from 'react';
 import { LoginForm } from './components/LoginForm';
-// import { View, StyleSheet } from 'react-native';
+import { RegisterForm } from './components/RegisterForm';
+import { View } from 'react-native';
 
 export default function App() {
-  return <LoginForm />;
+  return (
+    <View>
+      <LoginForm />
+      <RegisterForm />
+    </View>
+  );
 }
 
 // const styles = StyleSheet.create({

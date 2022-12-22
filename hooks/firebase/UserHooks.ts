@@ -36,6 +36,7 @@ export const registerUser = async ({
     : null;
   // TODO Create a nice toast message alerting the user that the account is created.
   // TODO Send the user to the main page after user is created.
+  console.log('sucessful register');
 };
 
 export const loginUser = async ({ email, password }: UserProps) => {
@@ -52,5 +53,5 @@ export const loginUser = async ({ email, password }: UserProps) => {
     // TODO Create a nice toast message alerting the error.
     console.log(error);
   }
-  console.log(auth.currentUser);
+  console.log('Succesful login');
 };

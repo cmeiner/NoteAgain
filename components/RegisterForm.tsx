@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,
   TextInput,
@@ -8,10 +8,10 @@ import {
   Platform,
 } from 'react-native';
 import TestButton from './small/formButton';
-import { loginUser } from '../hooks/firebase/UserHooks';
+import { loginUser, registerUser } from '../hooks/firebase/UserHooks';
 import { useForm, Controller } from 'react-hook-form';
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   const {
     control,
     handleSubmit,
@@ -19,17 +19,20 @@ export const LoginForm = () => {
   } = useForm({
     defaultValues: {
       email: '',
+      displayName: '',
       password: '',
+      passwordConfirm: '',
     },
   });
-  const onSubmit = (data) => loginUser(data);
+
+  const onSubmit = (data) => registerUser(data);
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <Text>Login</Text>
+      <Text>Register new user</Text>
       <Controller
         control={control}
         rules={{
@@ -49,6 +52,25 @@ export const LoginForm = () => {
         name="email"
       />
       {errors.email && <Text>Please enter email</Text>}
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <View>
+            <Text>Display name</Text>
+            <TextInput
+              style={styles.input}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          </View>
+        )}
+        name="displayName"
+      />
+      {errors.email && <Text>Please enter email</Text>}
 
       <Controller
         control={control}
@@ -64,13 +86,14 @@ export const LoginForm = () => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              secureTextEntry={true}
             />
           </View>
         )}
         name="password"
       />
       {errors.password && <Text>Please enter password</Text>}
-      <TestButton title="Login" onPress={handleSubmit(onSubmit)} />
+      <TestButton title="Register" onPress={handleSubmit(onSubmit)} />
     </KeyboardAvoidingView>
   );
 };
