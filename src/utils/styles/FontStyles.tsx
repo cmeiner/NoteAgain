@@ -69,8 +69,9 @@ const fontStyles = StyleSheet.create({
     color: '#F5F5F5',
   },
   wh2: {
+    // Changed FontSize
     fontFamily: 'SoraBold',
-    fontSize: 48,
+    fontSize: 20,
     color: '#F5F5F5',
   },
   wh3: {
@@ -84,8 +85,9 @@ const fontStyles = StyleSheet.create({
     color: '#F5F5F5',
   },
   wthin: {
+    // Changed FontSize
     fontFamily: 'SoraThin',
-    fontSize: 24,
+    fontSize: 15,
     color: '#F5F5F5',
   },
   bh1: {

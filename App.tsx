@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <ReminderCard />
+      <ReminderCard title="Reminder 1" description="Pick up ur shit" />
       <Button title="test" onPress={() => alert('asd')} />
       <StatusBar style="auto" />
     </View>
@@ -33,6 +33,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    padding: 15,
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
