@@ -5,6 +5,7 @@ import { Button, StyleSheet, View } from 'react-native';
 import { auth } from './config/firebaseConfig';
 import { createReminder } from './hooks/firebase/ReminderHooks';
 import ReminderCard from './components/ReminderCard';
+import StartPage from './pages/StartPage';
 
 export default function App() {
   const data = {
@@ -24,19 +25,21 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <ReminderCard title="Reminder 1" description="Pick up ur shit" />
+      <StartPage />
+      {/* <ReminderCard title="Reminder 1" description="Pick up ur shit" />
       <Button title="test" onPress={() => alert('asd')} />
-      <StatusBar style="auto" />
+      <StatusBar style="auto" /> */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 70,
     padding: 15,
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
 });

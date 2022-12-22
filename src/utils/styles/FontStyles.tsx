@@ -96,7 +96,7 @@ const fontStyles = StyleSheet.create({
   },
   bh2: {
     fontFamily: 'SoraBold',
-    fontSize: 48,
+    fontSize: 18,
   },
   bh3: {
     fontFamily: 'SoraBold',
@@ -104,7 +104,7 @@ const fontStyles = StyleSheet.create({
   },
   bp: {
     fontFamily: 'SoraRegular',
-    fontSize: 24,
+    fontSize: 12,
   },
   bthin: {
     fontFamily: 'SoraThin',
