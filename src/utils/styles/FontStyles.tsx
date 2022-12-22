@@ -4,61 +4,109 @@ import { StyleSheet, Text } from 'react-native';
 
 type Props = {
   children: ReactNode;
+  color: string;
 };
 
-export const TextH1: FC<Props> = ({ children }) => {
+export const TextH1: FC<Props> = ({ children, color }) => {
   useFonts({
     SoraBold: require('../../../assets/fonts/Sora-Bold.ttf'),
   });
-  return <Text style={fontStyles.h1}>{children}</Text>;
+  return (
+    <Text style={color === 'white' ? fontStyles.wh1 : fontStyles.bh1}>
+      {children}
+    </Text>
+  );
 };
 
-export const TextH2: FC<Props> = ({ children }) => {
+export const TextH2: FC<Props> = ({ children, color }) => {
   useFonts({
     SoraBold: require('../../../assets/fonts/Sora-Bold.ttf'),
   });
-  return <Text style={fontStyles.h2}>{children}</Text>;
+  return (
+    <Text style={color === 'white' ? fontStyles.wh2 : fontStyles.bh2}>
+      {children}
+    </Text>
+  );
 };
 
-export const TextH3: FC<Props> = ({ children }) => {
+export const TextH3: FC<Props> = ({ children, color }) => {
   useFonts({
     SoraBold: require('../../../assets/fonts/Sora-Bold.ttf'),
   });
-  return <Text style={fontStyles.h3}>{children}</Text>;
+  return (
+    <Text style={color === 'white' ? fontStyles.wh3 : fontStyles.bh3}>
+      {children}
+    </Text>
+  );
 };
 
-export const TextP: FC<Props> = ({ children }) => {
+export const TextP: FC<Props> = ({ children, color }) => {
   useFonts({
     SoraRegular: require('../../../assets/fonts/Sora-Regular.ttf'),
   });
-  return <Text style={fontStyles.p}>{children}</Text>;
+  return (
+    <Text style={color === 'white' ? fontStyles.wp : fontStyles.bp}>
+      {children}
+    </Text>
+  );
 };
 
-export const TextThin: FC<Props> = ({ children }) => {
+export const TextThin: FC<Props> = ({ children, color }) => {
   useFonts({
     SoraThin: require('../../../assets/fonts/Sora-Thin.ttf'),
   });
-  return <Text style={fontStyles.thin}>{children}</Text>;
+  return (
+    <Text style={color === 'white' ? fontStyles.wthin : fontStyles.bthin}>
+      {children}
+    </Text>
+  );
 };
 
 const fontStyles = StyleSheet.create({
-  h1: {
+  wh1: {
+    fontFamily: 'SoraBold',
+    fontSize: 60,
+    color: '#F5F5F5',
+  },
+  wh2: {
+    // Changed FontSize
+    fontFamily: 'SoraBold',
+    fontSize: 20,
+    color: '#F5F5F5',
+  },
+  wh3: {
+    fontFamily: 'SoraBold',
+    fontSize: 30,
+    color: '#F5F5F5',
+  },
+  wp: {
+    fontFamily: 'SoraRegular',
+    fontSize: 24,
+    color: '#F5F5F5',
+  },
+  wthin: {
+    // Changed FontSize
+    fontFamily: 'SoraThin',
+    fontSize: 15,
+    color: '#F5F5F5',
+  },
+  bh1: {
     fontFamily: 'SoraBold',
     fontSize: 60,
   },
-  h2: {
+  bh2: {
     fontFamily: 'SoraBold',
     fontSize: 48,
   },
-  h3: {
+  bh3: {
     fontFamily: 'SoraBold',
     fontSize: 30,
   },
-  p: {
+  bp: {
     fontFamily: 'SoraRegular',
     fontSize: 24,
   },
-  thin: {
+  bthin: {
     fontFamily: 'SoraThin',
     fontSize: 24,
   },

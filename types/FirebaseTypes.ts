@@ -4,7 +4,7 @@
  * ? accepted
  * ? declined
  */
-type Status = "pending" | "accepted" | "declined";
+type Status = 'pending' | 'accepted' | 'declined';
 
 /**
  * * Todo Data
@@ -48,7 +48,7 @@ export type Reminder = {
   title: string;
   description: string;
   creator?: string;
-  remindAt: string;
+  remindAt?: string;
   //sharedWith: Share[];
 };
 
