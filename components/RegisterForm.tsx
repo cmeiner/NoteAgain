@@ -32,7 +32,6 @@ export const RegisterForm = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <Text>Register new user</Text>
       <Controller
         control={control}
         rules={{
@@ -40,18 +39,19 @@ export const RegisterForm = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View>
-            <Text>Email</Text>
             <TextInput
               style={styles.input}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              placeholder="Email"
+              textContentType="emailAddress"
             />
           </View>
         )}
         name="email"
       />
-      {errors.email && <Text>Please enter email</Text>}
+      {errors.email && <Text style={styles.errorText}>Please enter email</Text>}
       <Controller
         control={control}
         rules={{
@@ -59,40 +59,47 @@ export const RegisterForm = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View>
-            <Text>Display name</Text>
             <TextInput
               style={styles.input}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              placeholder="Display name"
+              textContentType="name"
             />
           </View>
         )}
         name="displayName"
       />
-      {errors.email && <Text>Please enter email</Text>}
+      {errors.email && (
+        <Text style={styles.errorText}>Please choose display name</Text>
+      )}
 
       <Controller
         control={control}
         rules={{
           maxLength: 100,
+          minLength: 6,
           required: true,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View>
-            <Text>Password</Text>
             <TextInput
               style={styles.input}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
               secureTextEntry={true}
+              placeholder="Password"
+              textContentType="newPassword"
             />
           </View>
         )}
         name="password"
       />
-      {errors.password && <Text>Please enter password</Text>}
+      {errors.password && (
+        <Text style={styles.errorText}>Please choose password</Text>
+      )}
       <TestButton title="Register" onPress={handleSubmit(onSubmit)} />
     </KeyboardAvoidingView>
   );
@@ -100,11 +107,10 @@ export const RegisterForm = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     width: 414,
     backgroundColor: '#F5F5F5',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
   },
   formContainer: {
     flex: 1,
@@ -115,11 +121,15 @@ const styles = StyleSheet.create({
     margin: 12,
   },
   input: {
-    height: 40,
+    height: 50,
     width: 350,
-    margin: 12,
+    marginTop: 24,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
+  },
+  errorText: {
+    color: 'red',
+    marginTop: 5,
   },
 });

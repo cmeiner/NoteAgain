@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { LoginForm } from '../components/LoginForm';
 import {
   StyleSheet,
   Image,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import { RegisterForm } from '../components/RegisterForm';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -17,7 +17,7 @@ export default function LoginPage() {
         source={require('../assets/logo.png')}
         style={{ width: 350, height: 200 }}
       />
-      <LoginForm />
+      <RegisterForm />
     </KeyboardAvoidingView>
   );
 }

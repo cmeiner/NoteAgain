@@ -6,6 +6,8 @@ import {
   Text,
   View,
   Platform,
+  Dimensions,
+  StatusBar,
 } from 'react-native';
 import TestButton from './small/formButton';
 import { loginUser } from '../hooks/firebase/UserHooks';
@@ -29,7 +31,6 @@ export const LoginForm = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <Text>Login</Text>
       <Controller
         control={control}
         rules={{
@@ -48,7 +49,9 @@ export const LoginForm = () => {
         )}
         name="email"
       />
-      {errors.email && <Text>Please enter email</Text>}
+      {errors.email && (
+        <Text style={styles.errorText}> Please enter email</Text>
+      )}
 
       <Controller
         control={control}
@@ -70,7 +73,9 @@ export const LoginForm = () => {
         )}
         name="password"
       />
-      {errors.password && <Text>Please enter password</Text>}
+      {errors.password && (
+        <Text style={styles.errorText}>Please enter password</Text>
+      )}
       <TestButton title="Login" onPress={handleSubmit(onSubmit)} />
     </KeyboardAvoidingView>
   );
@@ -78,11 +83,10 @@ export const LoginForm = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     width: 414,
     backgroundColor: '#F5F5F5',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
   },
   formContainer: {
     flex: 1,
@@ -93,11 +97,15 @@ const styles = StyleSheet.create({
     margin: 12,
   },
   input: {
-    height: 40,
+    height: 50,
     width: 350,
-    margin: 12,
+    marginTop: 24,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
+  },
+  errorText: {
+    color: 'red',
+    marginTop: 5,
   },
 });
