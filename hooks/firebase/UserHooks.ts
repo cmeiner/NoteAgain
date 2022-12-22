@@ -2,13 +2,13 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
-} from "firebase/auth";
-import { collection, doc, setDoc } from "firebase/firestore";
-import { auth, db } from "../../config/firebaseConfig";
+} from 'firebase/auth';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../../config/firebaseConfig';
 
 type UserProps = {
   email: string;
-  displayName: string;
+  displayName?: string;
   password: string;
 };
 
@@ -28,10 +28,12 @@ export const registerUser = async ({
     displayName: displayName,
     email: email,
   });
-  await updateProfile(auth.currentUser, {
-    displayName: displayName,
-    // TODO Add Profile Picture
-  });
+  auth.currentUser
+    ? await updateProfile(auth.currentUser, {
+        displayName: displayName,
+        // TODO Add Profile Picture
+      })
+    : null;
   // TODO Create a nice toast message alerting the user that the account is created.
   // TODO Send the user to the main page after user is created.
 };
@@ -50,4 +52,5 @@ export const loginUser = async ({ email, password }: UserProps) => {
     // TODO Create a nice toast message alerting the error.
     console.log(error);
   }
+  console.log(auth.currentUser);
 };

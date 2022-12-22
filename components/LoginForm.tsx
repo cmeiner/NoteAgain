@@ -1,5 +1,4 @@
 import React from 'react';
-import { Formik } from 'formik';
 import {
   KeyboardAvoidingView,
   TextInput,
@@ -9,37 +8,62 @@ import {
   Platform,
 } from 'react-native';
 import TestButton from './small/formButton';
+import { loginUser } from '../hooks/firebase/UserHooks';
+import { useForm, Controller } from 'react-hook-form';
 
 export const LoginForm = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+  const onSubmit = (data) => loginUser(data);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <Formik
-        initialValues={{ email: '', password: '' }}
-        onSubmit={(values) => console.log(values)}
-      >
-        {({ handleChange, handleBlur, handleSubmit, values }) => (
-          <View style={styles.formContainer}>
-            <Text style={styles.inputTitle}>Email</Text>
-            <TextInput
-              onChangeText={handleChange('email')}
-              onBlur={handleBlur('email')}
-              value={values.email}
-              style={styles.input}
-            />
-            <Text style={styles.inputTitle}>Password</Text>
-            <TextInput
-              onChangeText={handleChange('password')}
-              onBlur={handleBlur('password')}
-              value={values.password}
-              style={styles.input}
-            />
-            <TestButton title="Login" onPress={handleSubmit} />
-          </View>
+      <Controller
+        control={control}
+        rules={{
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
         )}
-      </Formik>
+        name="email"
+      />
+      {errors.email && <Text>Please enter email</Text>}
+
+      <Controller
+        control={control}
+        rules={{
+          maxLength: 100,
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="password"
+      />
+      {errors.password && <Text>Please enter password</Text>}
+      <TestButton title="Login" onPress={handleSubmit(onSubmit)} />
     </KeyboardAvoidingView>
   );
 };
