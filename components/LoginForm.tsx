@@ -37,12 +37,12 @@ export const LoginForm = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View>
-            <Text>Email</Text>
             <TextInput
               style={styles.input}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              placeholder="Email"
             />
           </View>
         )}
@@ -58,12 +58,13 @@ export const LoginForm = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View>
-            <Text>Password</Text>
             <TextInput
               style={styles.input}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              placeholder="Password"
+              secureTextEntry={true}
             />
           </View>
         )}
