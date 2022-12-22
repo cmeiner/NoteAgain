@@ -24,7 +24,11 @@ const TodoListCard = ({ items, title }: TodoList) => {
       </View>
       <View>
         {items.map((item: Todo) => (
-          <TodoCard completed={item.completed} title={item.title} />
+          <TodoCard
+            key={item.id}
+            completed={item.completed}
+            title={item.title}
+          />
         ))}
       </View>
     </View>
