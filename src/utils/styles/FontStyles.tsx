@@ -1,4 +1,9 @@
-import { useFonts } from 'expo-font';
+import {
+  Sora_100Thin,
+  Sora_400Regular,
+  Sora_700Bold,
+  useFonts,
+} from '@expo-google-fonts/sora';
 import React, { FC, ReactNode } from 'react';
 import { StyleSheet, Text } from 'react-native';
 
@@ -8,58 +13,59 @@ type Props = {
 
 export const TextH1: FC<Props> = ({ children }) => {
   useFonts({
-    SoraBold: require('../../../assets/fonts/Sora-Bold.ttf'),
+    Sora_700Bold,
   });
   return <Text style={fontStyles.h1}>{children}</Text>;
 };
 
 export const TextH2: FC<Props> = ({ children }) => {
   useFonts({
-    SoraBold: require('../../../assets/fonts/Sora-Bold.ttf'),
+    Sora_700Bold,
   });
   return <Text style={fontStyles.h2}>{children}</Text>;
 };
 
 export const TextH3: FC<Props> = ({ children }) => {
   useFonts({
-    SoraBold: require('../../../assets/fonts/Sora-Bold.ttf'),
+    Sora_700Bold,
   });
   return <Text style={fontStyles.h3}>{children}</Text>;
 };
 
 export const TextP: FC<Props> = ({ children }) => {
   useFonts({
-    SoraRegular: require('../../../assets/fonts/Sora-Regular.ttf'),
+    Sora_400Regular,
   });
   return <Text style={fontStyles.p}>{children}</Text>;
 };
 
 export const TextThin: FC<Props> = ({ children }) => {
   useFonts({
-    SoraThin: require('../../../assets/fonts/Sora-Thin.ttf'),
+    Sora_100Thin,
   });
   return <Text style={fontStyles.thin}>{children}</Text>;
 };
 
 const fontStyles = StyleSheet.create({
   h1: {
-    fontFamily: 'SoraBold',
+    fontFamily: 'Sora_700Bold',
     fontSize: 60,
+    textAlign: 'center',
   },
   h2: {
-    fontFamily: 'SoraBold',
+    fontFamily: 'Sora_700Bold',
     fontSize: 48,
   },
   h3: {
-    fontFamily: 'SoraBold',
+    fontFamily: 'Sora_700Bold',
     fontSize: 30,
   },
   p: {
-    fontFamily: 'SoraRegular',
+    fontFamily: 'Sora_400Regular',
     fontSize: 24,
   },
   thin: {
-    fontFamily: 'SoraThin',
+    fontFamily: 'Sora_100Thin',
     fontSize: 24,
   },
 });
