@@ -9,9 +9,9 @@ type Status = 'pending' | 'accepted' | 'declined';
 /**
  * * Todo Data
  */
-type Todo = {
-  id: string;
-  description: string;
+export type Todo = {
+  id?: string;
+  title: string;
   completed: boolean;
 };
 
@@ -20,11 +20,11 @@ type Todo = {
  * ! Todo Data
  * TODO Share Data
  */
-type TodoList = {
-  id: string;
-  description?: string;
+export type TodoList = {
+  id?: string;
+  title: string;
   items: Todo[];
-  creator: string;
+  creator?: string;
   //   sharedWith: Share[];
 };
 

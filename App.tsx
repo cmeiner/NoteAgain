@@ -2,11 +2,34 @@ import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Button, StyleSheet, View } from 'react-native';
+import TodoListCard from './components/TodoListCard';
 import { auth } from './config/firebaseConfig';
 import { createReminder } from './hooks/firebase/ReminderHooks';
-import ReminderCard from './components/ReminderCard';
+import { TodoList } from './types/FirebaseTypes';
 
 export default function App() {
+  const TodoListData: TodoList = {
+    title: 'FelixTest',
+    items: [
+      {
+        title: 'test',
+        completed: false,
+      },
+      {
+        title: 'test',
+        completed: false,
+      },
+      {
+        title: 'test',
+        completed: false,
+      },
+      {
+        title: 'test',
+        completed: false,
+      },
+    ],
+  };
+
   const data = {
     title: 'testTitle',
     description: 'testDesc',
@@ -24,9 +47,9 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <ReminderCard title="Reminder 1" description="Pick up ur shit" />
       <Button title="test" onPress={() => alert('asd')} />
       <StatusBar style="auto" />
+      <TodoListCard title={TodoListData.title} items={TodoListData.items} />
     </View>
   );
 }

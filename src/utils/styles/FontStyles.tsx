@@ -81,7 +81,7 @@ const fontStyles = StyleSheet.create({
   },
   wp: {
     fontFamily: 'SoraRegular',
-    fontSize: 24,
+    fontSize: 15,
     color: '#F5F5F5',
   },
   wthin: {
@@ -104,7 +104,7 @@ const fontStyles = StyleSheet.create({
   },
   bp: {
     fontFamily: 'SoraRegular',
-    fontSize: 24,
+    fontSize: 15,
   },
   bthin: {
     fontFamily: 'SoraThin',
