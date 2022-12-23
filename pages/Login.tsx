@@ -10,8 +10,8 @@ import {
 import { LoginForm } from '../src/components/LoginForm';
 import { RegisterForm } from '../src/components/RegisterForm';
 
-export default function LoginPage() {
-  const [registerForm, setRegisterForm] = useState(false);
+export const LoginPage = () => {
+  const [register, setRegister] = useState(false);
 
   return (
     <KeyboardAvoidingView
@@ -22,24 +22,24 @@ export default function LoginPage() {
         source={require('../assets/logo.png')}
         style={{ width: 350, height: 200 }}
       />
-      {registerForm ? (
+      {register ? (
         <View>
           <RegisterForm />
-          <Text style={styles.linkText} onPress={() => setRegisterForm(false)}>
+          <Text style={styles.linkText} onPress={() => setRegister(false)}>
             Already have an account?
           </Text>
         </View>
       ) : (
         <View>
           <LoginForm />
-          <Text style={styles.linkText} onPress={() => setRegisterForm(true)}>
+          <Text style={styles.linkText} onPress={() => setRegister(true)}>
             Don&apos;t have an acount yet?
           </Text>
         </View>
       )}
     </KeyboardAvoidingView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
