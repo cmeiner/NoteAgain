@@ -2,7 +2,7 @@ import {
   Sora_100Thin,
   Sora_400Regular,
   Sora_700Bold,
-  useFonts
+  useFonts,
 } from '@expo-google-fonts/sora';
 import React, { FC, ReactNode } from 'react';
 import { StyleSheet, Text } from 'react-native';
@@ -85,7 +85,7 @@ const fontStyles = StyleSheet.create({
   },
   wp: {
     fontFamily: 'Sora_400Regular',
-    fontSize: 24,
+    fontSize: 12,
     color: '#F5F5F5',
   },
   wthin: {
@@ -107,7 +107,7 @@ const fontStyles = StyleSheet.create({
   },
   bp: {
     fontFamily: 'Sora_400Regular',
-    fontSize: 24,
+    fontSize: 12,
   },
   bthin: {
     fontFamily: 'Sora_100Thin',
