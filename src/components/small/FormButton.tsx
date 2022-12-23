@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Text, StyleSheet, Pressable } from 'react-native';
 
-export default function testButton(props) {
-  const { onPress, title } = props;
+type Props = {
+  onPress: () => void;
+  title: string
+}
+
+export const FormButton: FC<Props> = ({
+  onPress, title
+}) => {
   return (
     <Pressable style={styles.button} onPress={onPress}>
       <Text style={styles.text}>{title}</Text>

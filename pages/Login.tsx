@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { LoginForm } from '../components/LoginForm';
 import {
-  StyleSheet,
   Image,
   KeyboardAvoidingView,
   Platform,
+  StyleSheet,
 } from 'react-native';
+import { LoginForm } from '../src/components/LoginForm';
 
 export default function LoginPage() {
   return (

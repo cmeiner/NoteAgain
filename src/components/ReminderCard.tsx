@@ -1,11 +1,7 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
-import {
-  MaterialCommunityIcons,
-  MaterialIcons,
-  Ionicons,
-} from '@expo/vector-icons';
-import { Reminder } from '../types/FirebaseTypes';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { StyleSheet, View } from 'react-native';
+import { Reminder } from '../../types/FirebaseTypes';
+import { TextH2, TextThin } from '../utils/styles/FontStyles';
 
 // ? Think of "RemindAt" attribute
 const ReminderCard = ({ title, description }: Reminder) => {
