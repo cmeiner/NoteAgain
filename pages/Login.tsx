@@ -33,7 +33,7 @@ export default function LoginPage() {
         <View>
           <LoginForm />
           <Text style={styles.linkText} onPress={() => setRegisterForm(true)}>
-            Don't have an acount yet?
+            Don&apos;t have an acount yet?
           </Text>
         </View>
       )}
