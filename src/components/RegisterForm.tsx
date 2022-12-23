@@ -1,19 +1,17 @@
 import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import {
   KeyboardAvoidingView,
-  TextInput,
+  Platform,
   StyleSheet,
   Text,
+  TextInput,
   View,
-  Platform,
-  Dimensions,
-  StatusBar,
 } from 'react-native';
-import TestButton from './small/formButton';
-import { loginUser } from '../hooks/firebase/UserHooks';
-import { useForm, Controller } from 'react-hook-form';
+import TestButton from '../../components/small/formButton';
+import { registerUser } from '../../hooks/firebase/UserHooks';
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   const {
     control,
     handleSubmit,
@@ -21,10 +19,13 @@ export const LoginForm = () => {
   } = useForm({
     defaultValues: {
       email: '',
+      displayName: '',
       password: '',
+      passwordConfirm: '',
     },
   });
-  const onSubmit = (data) => loginUser(data);
+
+  const onSubmit = (data) => registerUser(data);
 
   return (
     <KeyboardAvoidingView
@@ -44,19 +45,16 @@ export const LoginForm = () => {
               onChangeText={onChange}
               value={value}
               placeholder="Email"
+              textContentType="emailAddress"
             />
           </View>
         )}
         name="email"
       />
-      {errors.email && (
-        <Text style={styles.errorText}> Please enter email</Text>
-      )}
-
+      {errors.email && <Text style={styles.errorText}>Please enter email</Text>}
       <Controller
         control={control}
         rules={{
-          maxLength: 100,
           required: true,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
@@ -66,17 +64,43 @@ export const LoginForm = () => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder="Password"
+              placeholder="Display name"
+              textContentType="name"
+            />
+          </View>
+        )}
+        name="displayName"
+      />
+      {errors.email && (
+        <Text style={styles.errorText}>Please choose display name</Text>
+      )}
+
+      <Controller
+        control={control}
+        rules={{
+          maxLength: 100,
+          minLength: 6,
+          required: true,
+        }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <View>
+            <TextInput
+              style={styles.input}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
               secureTextEntry={true}
+              placeholder="Password"
+              textContentType="newPassword"
             />
           </View>
         )}
         name="password"
       />
       {errors.password && (
-        <Text style={styles.errorText}>Please enter password</Text>
+        <Text style={styles.errorText}>Please choose password</Text>
       )}
-      <TestButton title="Login" onPress={handleSubmit(onSubmit)} />
+      <TestButton title="Register" onPress={handleSubmit(onSubmit)} />
     </KeyboardAvoidingView>
   );
 };

@@ -1,10 +1,11 @@
+import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { TextH1 } from '../src/utils/styles/FontStyles';
 
-export const Messages = ({ navigation }) => {
+export const Messages = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <TextH1>This is my Messages screen</TextH1>
+      <TextH1 color="black">This is my Messages screen</TextH1>
     </SafeAreaView>
   );
 };

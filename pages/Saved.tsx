@@ -1,7 +1,7 @@
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { TextH1 } from '../src/utils/styles/FontStyles';
 
-export const Saved = ({ navigation }) => {
+export const Saved = () => {
   return (
     <SafeAreaView style={styles.container}>
       <TextH1>This is my Saved screen</TextH1>

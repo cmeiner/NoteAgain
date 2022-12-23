@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {
-  StyleSheet,
   Image,
   KeyboardAvoidingView,
   Platform,
+  StyleSheet,
 } from 'react-native';
-import { RegisterForm } from '../components/RegisterForm';
+import { RegisterForm } from '../src/components/RegisterForm';
 
 export default function RegisterPage() {
   return (
