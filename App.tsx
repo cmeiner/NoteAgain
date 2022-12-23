@@ -1,65 +1,31 @@
-import { useFonts } from 'expo-font';
+import {
+  Sora_100Thin,
+  Sora_400Regular,
+  Sora_700Bold,
+  useFonts,
+} from '@expo-google-fonts/sora';
+import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Button, StyleSheet, View } from 'react-native';
-import TodoListCard from './components/TodoListCard';
-import { auth } from './config/firebaseConfig';
-import { createReminder } from './hooks/firebase/ReminderHooks';
-import { TodoList } from './types/FirebaseTypes';
+import { NavBar } from './src/components/NavBar';
 
-export default function App() {
-  const TodoListData: TodoList = {
-    title: 'FelixTest',
-    items: [
-      {
-        title: 'test',
-        completed: false,
-      },
-      {
-        title: 'test',
-        completed: false,
-      },
-      {
-        title: 'test',
-        completed: false,
-      },
-      {
-        title: 'test',
-        completed: false,
-      },
-    ],
-  };
-
-  const data = {
-    title: 'testTitle',
-    description: 'testDesc',
-    remindAt: 'test',
-  };
-  useFonts({
-    SoraBold: require('./assets/fonts/Sora-Bold.ttf'),
-    SoraRegular: require('./assets/fonts/Sora-Regular.ttf'),
-    SoraThin: require('./assets/fonts/Sora-Thin.ttf'),
+const App = () => {
+  const fontsLoaded = useFonts({
+    Sora_700Bold,
+    Sora_400Regular,
+    Sora_100Thin,
   });
 
-  const test = () => {
-    createReminder(data);
-  };
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
-    <View style={styles.container}>
-      <Button title="test" onPress={() => alert('asd')} />
+    <NavigationContainer>
       <StatusBar style="auto" />
-      <TodoListCard title={TodoListData.title} items={TodoListData.items} />
-    </View>
+      <NavBar />
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 15,
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
