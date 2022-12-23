@@ -2,7 +2,7 @@ import {
   Sora_100Thin,
   Sora_400Regular,
   Sora_700Bold,
-  useFonts
+  useFonts,
 } from '@expo-google-fonts/sora';
 import React, { FC, ReactNode } from 'react';
 import { StyleSheet, Text } from 'react-native';
