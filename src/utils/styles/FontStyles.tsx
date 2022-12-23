@@ -2,69 +2,114 @@ import {
   Sora_100Thin,
   Sora_400Regular,
   Sora_700Bold,
-  useFonts,
+  useFonts
 } from '@expo-google-fonts/sora';
 import React, { FC, ReactNode } from 'react';
 import { StyleSheet, Text } from 'react-native';
 
 type Props = {
   children: ReactNode;
+  color: string;
 };
 
-export const TextH1: FC<Props> = ({ children }) => {
+export const TextH1: FC<Props> = ({ children, color }) => {
   useFonts({
     Sora_700Bold,
   });
-  return <Text style={fontStyles.h1}>{children}</Text>;
+  return (
+    <Text style={color === 'white' ? fontStyles.wh1 : fontStyles.bh1}>
+      {children}
+    </Text>
+  );
 };
 
-export const TextH2: FC<Props> = ({ children }) => {
+export const TextH2: FC<Props> = ({ children, color }) => {
   useFonts({
     Sora_700Bold,
   });
-  return <Text style={fontStyles.h2}>{children}</Text>;
+  return (
+    <Text style={color === 'white' ? fontStyles.wh2 : fontStyles.bh2}>
+      {children}
+    </Text>
+  );
 };
 
-export const TextH3: FC<Props> = ({ children }) => {
+export const TextH3: FC<Props> = ({ children, color }) => {
   useFonts({
     Sora_700Bold,
   });
-  return <Text style={fontStyles.h3}>{children}</Text>;
+  return (
+    <Text style={color === 'white' ? fontStyles.wh3 : fontStyles.bh3}>
+      {children}
+    </Text>
+  );
 };
 
-export const TextP: FC<Props> = ({ children }) => {
+export const TextP: FC<Props> = ({ children, color }) => {
   useFonts({
     Sora_400Regular,
   });
-  return <Text style={fontStyles.p}>{children}</Text>;
+  return (
+    <Text style={color === 'white' ? fontStyles.wp : fontStyles.bp}>
+      {children}
+    </Text>
+  );
 };
 
-export const TextThin: FC<Props> = ({ children }) => {
+export const TextThin: FC<Props> = ({ children, color }) => {
   useFonts({
     Sora_100Thin,
   });
-  return <Text style={fontStyles.thin}>{children}</Text>;
+  return (
+    <Text style={color === 'white' ? fontStyles.wthin : fontStyles.bthin}>
+      {children}
+    </Text>
+  );
 };
 
 const fontStyles = StyleSheet.create({
-  h1: {
+  wh1: {
     fontFamily: 'Sora_700Bold',
     fontSize: 60,
-    textAlign: 'center',
+    color: '#F5F5F5',
   },
-  h2: {
+  wh2: {
+    fontFamily: 'Sora_700Bold',
+    fontSize: 20,
+    color: '#F5F5F5',
+  },
+  wh3: {
+    fontFamily: 'Sora_700Bold',
+    fontSize: 30,
+    color: '#F5F5F5',
+  },
+  wp: {
+    fontFamily: 'Sora_400Regular',
+    fontSize: 24,
+    color: '#F5F5F5',
+  },
+  wthin: {
+    fontFamily: 'Sora_100Thin',
+    fontSize: 15,
+    color: '#F5F5F5',
+  },
+  bh1: {
+    fontFamily: 'Sora_700Bold',
+    fontSize: 60,
+  },
+  bh2: {
     fontFamily: 'Sora_700Bold',
     fontSize: 48,
   },
-  h3: {
+  bh3: {
     fontFamily: 'Sora_700Bold',
     fontSize: 30,
   },
-  p: {
+  bp: {
     fontFamily: 'Sora_400Regular',
     fontSize: 24,
   },
-  thin: {
+  bthin: {
     fontFamily: 'Sora_100Thin',
     fontSize: 24,
   },
