@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { auth } from '../../config/firebaseConfig';
 import { Home } from '../../pages/Home';
-import Login from '../../pages/Login';
+import { Login } from '../../pages/Login';
 import { Messages } from '../../pages/Messages';
 import { New } from '../../pages/New';
 import { Profile } from '../../pages/Profile';
@@ -15,7 +15,7 @@ export const NavBar = () => {
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}
-      initialRouteName="Home"
+      initialRouteName="Login"
     >
       <Tab.Screen
         name="Home"
@@ -84,6 +84,7 @@ export const NavBar = () => {
           name="Login"
           component={Login}
           options={{
+            tabBarStyle: { display: 'none' },
             tabBarIcon: ({ focused }) => (
               <Ionicons
                 name={focused ? 'person-circle' : 'person-circle-outline'}

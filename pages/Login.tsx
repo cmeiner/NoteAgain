@@ -10,7 +10,7 @@ import {
 import { LoginForm } from '../src/components/LoginForm';
 import { RegisterForm } from '../src/components/RegisterForm';
 
-export const LoginPage = () => {
+export const Login = () => {
   const [register, setRegister] = useState(false);
 
   return (
