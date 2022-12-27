@@ -84,6 +84,7 @@ export const NavBar = () => {
           name="Login"
           component={Login}
           options={{
+            tabBarStyle: { display: 'none' },
             tabBarIcon: ({ focused }) => (
               <Ionicons
                 name={focused ? 'person-circle' : 'person-circle-outline'}
