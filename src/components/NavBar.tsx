@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { auth } from '../../config/firebaseConfig';
 import { Home } from '../../pages/Home';
-import Login from '../../pages/Login';
+import { Login } from '../../pages/Login';
 import { Messages } from '../../pages/Messages';
 import { New } from '../../pages/New';
 import { Profile } from '../../pages/Profile';

@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { RegisterForm } from '../src/components/RegisterForm';
 
-export default function RegisterPage() {
+export const Register = () => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -20,7 +20,7 @@ export default function RegisterPage() {
       <RegisterForm />
     </KeyboardAvoidingView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

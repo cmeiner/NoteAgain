@@ -10,7 +10,7 @@ import {
 import { LoginForm } from '../src/components/LoginForm';
 import { RegisterForm } from '../src/components/RegisterForm';
 
-export const LoginPage = () => {
+export const Login = () => {
   const [register, setRegister] = useState(false);
 
   return (
@@ -22,21 +22,23 @@ export const LoginPage = () => {
         source={require('../assets/logo.png')}
         style={{ width: 350, height: 200 }}
       />
-      {register ? (
-        <View>
-          <RegisterForm />
-          <Text style={styles.linkText} onPress={() => setRegister(false)}>
-            Already have an account?
-          </Text>
-        </View>
-      ) : (
-        <View>
-          <LoginForm />
-          <Text style={styles.linkText} onPress={() => setRegister(true)}>
-            Don&apos;t have an acount yet?
-          </Text>
-        </View>
-      )}
+      <View>
+        {register ? (
+          <>
+            <RegisterForm />
+            <Text style={styles.linkText} onPress={() => setRegister(false)}>
+              Already have an account?
+            </Text>
+          </>
+        ) : (
+          <>
+            <LoginForm />
+            <Text style={styles.linkText} onPress={() => setRegister(true)}>
+              Don&apos;t have an acount yet?
+            </Text>
+          </>
+        )}
+      </View>
     </KeyboardAvoidingView>
   );
 };
