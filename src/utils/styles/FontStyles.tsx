@@ -99,7 +99,7 @@ const fontStyles = StyleSheet.create({
   },
   bh2: {
     fontFamily: 'Sora_700Bold',
-    fontSize: 48,
+    fontSize: 20,
   },
   bh3: {
     fontFamily: 'Sora_700Bold',
