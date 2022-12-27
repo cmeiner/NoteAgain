@@ -1,16 +1,10 @@
+// import Checkbox from 'expo-checkbox';
 import React, { useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Pressable,
-} from 'react-native';
-import { Todo } from '../types/FirebaseTypes';
-import { TextP, TextThin } from '../src/utils/styles/FontStyles';
-import Checkbox from 'expo-checkbox';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { TextP } from '../../src/utils/styles/FontStyles';
+import { Todo } from '../../types/FirebaseTypes';
 
-const TodoCard = ({ title, completed }: Todo) => {
+export const TodoCard = ({ title, completed }: Todo) => {
   const [isChecked, setChecked] = useState(false);
   return (
     <View>
@@ -18,12 +12,12 @@ const TodoCard = ({ title, completed }: Todo) => {
         onPress={() => (isChecked ? setChecked(false) : setChecked(true))}
         style={TodoStyles.section}
       >
-        <Checkbox
+        {/* <Checkbox
           style={TodoStyles.checkbox}
           value={isChecked}
           onValueChange={setChecked}
           color={isChecked ? '#D77451' : undefined}
-        />
+        /> */}
         <TextP color="white">{title}</TextP>
       </Pressable>
     </View>
@@ -49,5 +43,3 @@ const TodoStyles = StyleSheet.create({
     marginTop: 8,
   },
 });
-
-export default TodoCard;

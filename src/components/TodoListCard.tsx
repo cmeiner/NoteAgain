@@ -1,11 +1,11 @@
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
-import { TodoList, Todo } from '../types/FirebaseTypes';
-import TodoCard from './TodoCard';
+import { StyleSheet, View } from 'react-native';
+import { TextH2 } from '../../src/utils/styles/FontStyles';
+import { Todo, TodoList } from '../../types/FirebaseTypes';
+import { TodoCard } from './TodoCard';
 
-const TodoListCard = ({ items, title }: TodoList) => {
+export const TodoListCard = ({ items, title }: TodoList) => {
   return (
     <View style={TodoListStyles.paddingBox}>
       <View style={TodoListStyles.Box}>
@@ -67,5 +67,3 @@ const TodoListStyles = StyleSheet.create({
     borderRadius: 10,
   },
 });
-
-export default TodoListCard;

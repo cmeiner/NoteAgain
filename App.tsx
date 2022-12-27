@@ -10,7 +10,7 @@ import React from 'react';
 import { NavBar } from './src/components/NavBar';
 
 const App = () => {
-  const fontsLoaded = useFonts({
+  const [fontsLoaded] = useFonts({
     Sora_700Bold,
     Sora_400Regular,
     Sora_100Thin,
