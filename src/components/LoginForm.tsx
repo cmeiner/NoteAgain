@@ -20,10 +20,6 @@ type StackParamList = {
 
 type NavigationProps = NativeStackNavigationProp<StackParamList>;
 
-interface loginForm {
-  navigation: any;
-}
-
 export const LoginForm = () => {
   const navigation = useNavigation<NavigationProps>();
   const {
@@ -40,12 +36,6 @@ export const LoginForm = () => {
     const signInMessage = await loginUser(data);
     if (signInMessage !== 'Success') return console.log(signInMessage);
     navigation.navigate('NavBar');
-    // try {
-    //   loginUser(data);
-    //   navigation.navigate('NavBar');
-    // } catch (error) {
-    //   console.log('error');
-    // }
   };
 
   return (
