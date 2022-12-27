@@ -1,14 +1,15 @@
 import { useAssets } from 'expo-asset';
 import { View, StyleSheet, Image } from 'react-native';
-import { Logo, ProfilePic } from '../components/SvgLibary';
 import { TextH2, TextP, TextThin } from '../src/utils/styles/FontStyles';
 import { AntDesign } from '@expo/vector-icons';
+import React from 'react';
+import { ProfilePic, Logo } from '../src/components/SvgLibary';
 
-const StartPage = () => {
+const StartPage = ({ navigation }: any) => {
   // const [assets, error] = useAssets([require('./assets/images/Wave.png')]);
   // console.log(assets);
   return (
-    <View>
+    <View style={styles.marginTop}>
       {/* // * Start Page Navbar */}
       <View style={styles.flexRow}>
         <View style={styles.flexRow}>
@@ -49,7 +50,12 @@ const StartPage = () => {
               borderRadius: 10,
             }}
           >
-            <AntDesign name="plus" size={24} color="black" />
+            <AntDesign
+              onPress={() => navigation.navigate('Messages')}
+              name="plus"
+              size={24}
+              color="black"
+            />
           </View>
         </View>
       </View>
@@ -80,5 +86,9 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     marginTop: 170,
+  },
+  marginTop: {
+    marginTop: 40,
+    marginHorizontal: 10,
   },
 });

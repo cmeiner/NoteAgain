@@ -8,6 +8,7 @@ import { Messages } from '../../pages/Messages';
 import { New } from '../../pages/New';
 import { Profile } from '../../pages/Profile';
 import { Saved } from '../../pages/Saved';
+import StartPage from '../../pages/StartPage';
 
 export const NavBar = () => {
   const Tab = createBottomTabNavigator();
@@ -19,7 +20,7 @@ export const NavBar = () => {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={StartPage}
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons
@@ -68,7 +69,7 @@ export const NavBar = () => {
       {auth.currentUser ? (
         <Tab.Screen
           name="Profile"
-          component={Profile}
+          component={Profile} // todo check if the user is signed in :)
           options={{
             tabBarIcon: ({ focused }) => (
               <Ionicons
