@@ -15,7 +15,7 @@ export const NavBar = () => {
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}
-      initialRouteName="Login"
+      initialRouteName="Home"
     >
       <Tab.Screen
         name="Home"

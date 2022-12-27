@@ -48,10 +48,15 @@ export const loginUser = async ({ email, password }: UserProps) => {
     );
     // TODO Create a nice toast message alerting that the user is signed in.
     // TODO Send the user to their profile page.
-    console.log(userCredentials);
+    return 'Success';
   } catch (error) {
     // TODO Create a nice toast message alerting the error.
-    console.log(error);
+    //console.log(error.code);
+    const errorMessage =
+      error.code === 'auth/invalid-email' ||
+      error.code === 'auth/wrong-password'
+        ? 'Wrong Email or Password'
+        : 'No account found';
+    return errorMessage;
   }
-  console.log('Succesful login');
 };

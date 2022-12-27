@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
@@ -11,7 +12,20 @@ import {
 import { loginUser } from '../../hooks/firebase/UserHooks';
 import { FormButton } from './small/FormButton';
 
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+type StackParamList = {
+  NavBar: undefined;
+};
+
+type NavigationProps = NativeStackNavigationProp<StackParamList>;
+
+interface loginForm {
+  navigation: any;
+}
+
 export const LoginForm = () => {
+  const navigation = useNavigation<NavigationProps>();
   const {
     control,
     handleSubmit,
@@ -22,7 +36,17 @@ export const LoginForm = () => {
       password: '',
     },
   });
-  const onSubmit = (data) => loginUser(data);
+  const onSubmit = async (data) => {
+    const signInMessage = await loginUser(data);
+    if (signInMessage !== 'Success') return console.log(signInMessage);
+    navigation.navigate('NavBar');
+    // try {
+    //   loginUser(data);
+    //   navigation.navigate('NavBar');
+    // } catch (error) {
+    //   console.log('error');
+    // }
+  };
 
   return (
     <KeyboardAvoidingView
