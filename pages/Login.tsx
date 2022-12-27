@@ -34,7 +34,7 @@ export const Login = () => {
           <>
             <LoginForm />
             <Text style={styles.linkText} onPress={() => setRegister(true)}>
-              Don't have an acount yet?
+              Don&apos;t have an acount yet?
             </Text>
           </>
         )}
