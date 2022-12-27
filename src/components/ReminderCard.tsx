@@ -1,14 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
-import {
-  MaterialCommunityIcons,
-  MaterialIcons,
-  Ionicons,
-} from '@expo/vector-icons';
-import { Reminder } from '../types/FirebaseTypes';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Reminder } from '../../types/FirebaseTypes';
+import { TextH2, TextThin } from '../utils/styles/FontStyles';
 
 // ? Think of "RemindAt" attribute
-const ReminderCard = ({ title, description }: Reminder) => {
+export const ReminderCard = ({ title, description }: Reminder) => {
   console.log(title, description);
   return (
     <View style={ReminderStyles.Box}>
@@ -59,5 +56,3 @@ const ReminderStyles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
-
-export default ReminderCard;

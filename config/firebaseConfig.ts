@@ -1,14 +1,14 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 import {
   FB_API_KEY,
+  FB_APP_ID,
   FB_AUTH_DOMAIN,
+  FB_MESSAGING_SENDER_ID,
   FB_PROJECT_ID,
   FB_STORAGE_BUCKET,
-  FB_MESSAGING_SENDER_ID,
-  FB_APP_ID,
-} from "@env";
+} from '@env';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 // Initialize Firebase
 export const firebaseConfig = {
