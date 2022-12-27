@@ -1,4 +1,3 @@
-import { useAssets } from 'expo-asset';
 import { View, StyleSheet, Image } from 'react-native';
 import { TextH2, TextP, TextThin } from '../src/utils/styles/FontStyles';
 import { AntDesign } from '@expo/vector-icons';
