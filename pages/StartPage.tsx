@@ -1,10 +1,11 @@
+import { AntDesign } from '@expo/vector-icons';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { auth, db } from '../config/firebaseConfig';
 import { ReminderCard } from '../src/components/ReminderCard';
 import { TopBar } from '../src/components/TopBar';
-import { TextH2 } from '../src/utils/styles/FontStyles';
+import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 
 export const StartPage = ({ navigation }: any) => {
   const [response, setResponse] = useState([]);
@@ -33,7 +34,7 @@ export const StartPage = ({ navigation }: any) => {
       <Image
         style={{
           position: 'absolute',
-          top: 150,
+          top: response.length ? 500 : 150,
         }}
         source={require('../assets/images/Wave.png')}
       />
@@ -44,7 +45,48 @@ export const StartPage = ({ navigation }: any) => {
         }}
       >
         <TopBar />
-        <View style={{ marginTop: 60 }}>
+        {response.length ? (
+          <View style={{ marginTop: 60 }}>
+            <TextH2 color="black">Your reminders:</TextH2>
+            {response.map((test, key) => {
+              return (
+                <ReminderCard
+                  description="asdsd"
+                  key={key}
+                  creator={auth.currentUser.displayName}
+                  title={test.title}
+                />
+              );
+            })}
+          </View>
+        ) : (
+          <View style={styles.Box}>
+            <View>
+              <View style={{ paddingBottom: 10 }}>
+                <TextH2 color="white">You don't have any notes</TextH2>
+              </View>
+              <TextThin color="white">Create one today</TextThin>
+            </View>
+            <View
+              style={{
+                width: 30,
+                height: 30,
+                backgroundColor: '#F5F5F5',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 10,
+              }}
+            >
+              <AntDesign
+                onPress={() => navigation.navigate('Messages')}
+                name="plus"
+                size={24}
+                color="black"
+              />
+            </View>
+          </View>
+        )}
+        {/* <View style={{ marginTop: 60 }}>
           <TextH2 color="black">Your reminders:</TextH2>
           {response.map((test, key) => {
             return (
@@ -56,7 +98,7 @@ export const StartPage = ({ navigation }: any) => {
               />
             );
           })}
-        </View>
+        </View> */}
 
         {/* <View style={styles.Box}>
           <View>
