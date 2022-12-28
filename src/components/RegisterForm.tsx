@@ -50,6 +50,7 @@ export const RegisterForm = () => {
               value={value}
               placeholder="Email"
               textContentType="emailAddress"
+              keyboardType="email-address"
             />
           </View>
         )}

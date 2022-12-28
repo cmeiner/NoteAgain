@@ -15,7 +15,7 @@ export const ModalContent = () => {
   const [newReminder, setNewReminder] = useState(false);
   const toggleSwitch = () => {
     setNewReminder((previousState) => !previousState);
-    console.log('New reminder is', '+', newReminder);
+    console.log('New reminder is', newReminder);
   };
   return (
     <KeyboardAvoidingView
@@ -46,10 +46,5 @@ const styles = StyleSheet.create({
   switchBox: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  linkText: {
-    textAlign: 'center',
-    color: 'blue',
-    marginTop: 10,
   },
 });

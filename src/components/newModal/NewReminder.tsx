@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { auth } from '../../../config/firebaseConfig';
 import { createReminder } from '../../../hooks/firebase/ReminderHooks';
+import { TextH3 } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const NewReminder = () => {
@@ -36,21 +37,25 @@ export const NewReminder = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <Text>New reminder</Text>
+      <View>
+        <TextH3 color="black">New reminder</TextH3>
+      </View>
       <Controller
         control={control}
         rules={{
           required: true,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <View>
-            <Text>Title</Text>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputTitle}>Title</Text>
             <TextInput
               style={styles.input}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              // placeholder="Title"
+              placeholder='"Pizzatime"'
+              placeholderTextColor="#808080"
+              // clearButtonMode="while-editing"
             />
           </View>
         )}
@@ -71,15 +76,16 @@ export const NewReminder = () => {
           required: true,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
-          <View>
-            <Text>Description</Text>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputTitle}>Description</Text>
             <TextInput
               style={styles.inputDesc}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              // placeholder="Description"
-              secureTextEntry={true}
+              multiline={true}
+              placeholder='"Pick up pizza"'
+              enablesReturnKeyAutomatically={true}
             />
           </View>
         )}
@@ -88,7 +94,7 @@ export const NewReminder = () => {
       {errors.description && (
         <Text style={styles.errorText}>Please enter a description</Text>
       )}
-      <FormButton title="Save" onPress={handleSubmit(onSubmit)} />
+      <FormButton width="240px" title="Add" onPress={handleSubmit(onSubmit)} />
     </KeyboardAvoidingView>
   );
 };
@@ -96,12 +102,10 @@ export const NewReminder = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
   },
-  linkText: {
-    textAlign: 'center',
-    color: 'blue',
-    marginTop: 10,
+  inputContainer: {
+    marginBottom: 10,
   },
   formContainer: {
     flex: 1,
@@ -109,12 +113,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputTitle: {
-    margin: 12,
+    marginTop: 20,
+    marginBottom: 10,
+    fontSize: 14,
   },
   input: {
     height: 40,
     width: 280,
-    marginTop: 24,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
@@ -123,7 +128,6 @@ const styles = StyleSheet.create({
   inputDesc: {
     height: 200,
     width: 280,
-    marginTop: 24,
     padding: 10,
     borderRadius: 10,
     backgroundColor: '#F0F0F0',
