@@ -1,4 +1,12 @@
-import { View, StyleSheet, Image, Alert, Modal, Pressable } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Alert,
+  Modal,
+  Pressable,
+  Text,
+} from 'react-native';
 import { TextH2, TextP, TextThin } from '../src/utils/styles/FontStyles';
 import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from 'react';
@@ -72,13 +80,13 @@ const StartPage = ({ navigation }: any) => {
           >
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
-                <ModalContent />
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
                   onPress={() => setModalVisible(!modalVisible)}
                 >
-                  <TextThin color="black">Hide Modal</TextThin>
+                  <Text style={{ fontSize: 20 }}>X</Text>
                 </Pressable>
+                <ModalContent />
               </View>
             </View>
           </Modal>
@@ -123,6 +131,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   modalView: {
+    width: 340,
+    height: 600,
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
@@ -130,8 +140,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
-      width: 0,
-      height: 2,
+      width: 10,
+      height: 10,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,

@@ -40,7 +40,6 @@ export const ModalContent = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F5F5F5',
     alignItems: 'center',
     justifyContent: 'center',
   },

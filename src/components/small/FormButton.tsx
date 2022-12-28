@@ -3,18 +3,16 @@ import { Text, StyleSheet, Pressable } from 'react-native';
 
 type Props = {
   onPress: () => void;
-  title: string
-}
+  title: string;
+};
 
-export const FormButton: FC<Props> = ({
-  onPress, title
-}) => {
+export const FormButton: FC<Props> = ({ onPress, title }) => {
   return (
     <Pressable style={styles.button} onPress={onPress}>
       <Text style={styles.text}>{title}</Text>
     </Pressable>
   );
-}
+};
 
 const styles = StyleSheet.create({
   button: {
