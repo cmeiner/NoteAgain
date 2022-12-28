@@ -2,13 +2,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { auth } from '../../config/firebaseConfig';
-import { Home } from '../../pages/Home';
 import { Login } from '../../pages/Login';
 import { Messages } from '../../pages/Messages';
 import { New } from '../../pages/New';
 import { Profile } from '../../pages/Profile';
 import { Saved } from '../../pages/Saved';
-import StartPage from '../../pages/StartPage';
+import { StartPage } from '../../pages/StartPage';
 
 export const NavBar = () => {
   const Tab = createBottomTabNavigator();

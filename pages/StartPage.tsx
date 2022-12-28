@@ -1,38 +1,64 @@
-import { View, StyleSheet, Image } from 'react-native';
-import { TextH2, TextP, TextThin } from '../src/utils/styles/FontStyles';
-import { AntDesign } from '@expo/vector-icons';
-import React from 'react';
-import { ProfilePic, Logo } from '../src/components/SvgLibary';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
+import { auth, db } from '../config/firebaseConfig';
+import { ReminderCard } from '../src/components/ReminderCard';
+import { TopBar } from '../src/components/TopBar';
+import { TextH2 } from '../src/utils/styles/FontStyles';
 
-const StartPage = ({ navigation }: any) => {
-  // const [assets, error] = useAssets([require('./assets/images/Wave.png')]);
-  // console.log(assets);
+export const StartPage = ({ navigation }: any) => {
+  const [response, setResponse] = useState([]);
+  const test = async () => {
+    const q = query(
+      collection(db, 'reminders'),
+      where('createdBy', '==', auth.currentUser.uid)
+    );
+    getDocs(q).then((data) => {
+      setResponse(
+        data.docs.map((item) => {
+          return item.data();
+        }) as any
+      );
+    });
+  };
+
+  useEffect(() => {
+    test();
+    console.log(response);
+  }, []);
+
   return (
-    <View style={styles.marginTop}>
-      {/* // * Start Page Navbar */}
-      <View style={styles.flexRow}>
-        <View style={styles.flexRow}>
-          <ProfilePic />
-          <View style={styles.imageMargin}>
-            <TextP color="black">Welcome back</TextP>
-            <TextH2 color="black">Meiner, Christian</TextH2>
-          </View>
-        </View>
-        <Logo />
-      </View>
-      {/* // * Start Page Navbar */}
+    <SafeAreaView>
       {/* // TODO Check if they have reminders or todo, if not show this, else show the reminders. */}
-      <View style={{ position: 'relative', height: '70%', marginTop: 60 }}>
-        <Image
-          style={{
-            position: 'absolute',
-            height: '100%',
-            width: '120%',
-            left: -20,
-          }}
-          source={require('../assets/images/Wave.png')}
-        />
-        <View style={styles.Box}>
+      <Image
+        style={{
+          position: 'absolute',
+          top: 150,
+        }}
+        source={require('../assets/images/Wave.png')}
+      />
+      <View
+        style={{
+          position: 'relative',
+          marginHorizontal: 10,
+        }}
+      >
+        <TopBar />
+        <View style={{ marginTop: 60 }}>
+          <TextH2 color="black">Your reminders:</TextH2>
+          {response.map((test, key) => {
+            return (
+              <ReminderCard
+                description="asdsd"
+                key={key}
+                creator={auth.currentUser.displayName}
+                title={test.title}
+              />
+            );
+          })}
+        </View>
+
+        {/* <View style={styles.Box}>
           <View>
             <View style={{ paddingBottom: 10 }}>
               <TextH2 color="white">You don't have any notes</TextH2>
@@ -56,13 +82,11 @@ const StartPage = ({ navigation }: any) => {
               color="black"
             />
           </View>
-        </View>
+        </View> */}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
-
-export default StartPage;
 
 const styles = StyleSheet.create({
   flexRow: {
@@ -80,14 +104,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#1B1D29',
     width: '100%',
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginTop: 170,
+    padding: 20,
+    marginVertical: 5,
   },
-  marginTop: {
-    marginTop: 40,
-    marginHorizontal: 10,
+  image: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });

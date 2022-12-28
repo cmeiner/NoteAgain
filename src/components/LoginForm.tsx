@@ -56,6 +56,7 @@ export const LoginForm = () => {
               onChangeText={onChange}
               value={value}
               placeholder="Email"
+              keyboardType="email-address"
             />
           </View>
         )}

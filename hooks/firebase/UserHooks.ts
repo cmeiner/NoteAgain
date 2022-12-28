@@ -3,12 +3,14 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
+import { useContext } from 'react';
 import { auth, db } from '../../config/firebaseConfig';
+import { AuthContext } from '../../src/auth/AuthContext';
 
 type UserProps = {
   email: string;
-  displayName?: string;
+  displayName: string;
   password: string;
 };
 
@@ -16,6 +18,12 @@ type UserProps = {
 //   await setDoc(doc(collection(db, api)), data);
 //   console.log(data, "added to the database");
 // };
+
+export const GetUser = () => {
+  const { currentUser } = useContext(AuthContext);
+  const user = { ...(currentUser as UserProps) };
+  return { user };
+};
 
 export const registerUser = async ({
   email,
