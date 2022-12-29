@@ -15,10 +15,10 @@ export const NavBar = () => {
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}
-      initialRouteName="StartPage"
+      initialRouteName="Home"
     >
       <Tab.Screen
-        name="StartPage "
+        name="Home"
         component={Home}
         options={{
           tabBarIcon: ({ focused }) => (
