@@ -5,23 +5,25 @@ export const storeUserData = async (email: string, password: string) => {
     await AsyncStorage.setItem('email', email);
     await AsyncStorage.setItem('password', password);
   } catch (e) {
-    // saving error
+    console.log(e);
   }
 };
 
 export const checkUserData = async () => {
   try {
-    let email = await AsyncStorage.getItem('email');
-    let password = await AsyncStorage.getItem('password');
+    const email = await AsyncStorage.getItem('email');
+    const password = await AsyncStorage.getItem('password');
     if (email !== null && password !== null) return true;
     return false;
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const getUserData = async () => {
-  let email = await AsyncStorage.getItem('email');
-  let password = await AsyncStorage.getItem('password');
-  let data = { email: email, password: password };
+  const email = await AsyncStorage.getItem('email');
+  const password = await AsyncStorage.getItem('password');
+  const data = { email: email, password: password };
   return data;
 };
 
