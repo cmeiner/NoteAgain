@@ -1,12 +1,24 @@
-import { View, StyleSheet, Image } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Alert,
+  Modal,
+  Pressable,
+  Text,
+} from 'react-native';
 import { TextH2, TextP, TextThin } from '../src/utils/styles/FontStyles';
 import { AntDesign } from '@expo/vector-icons';
-import React from 'react';
+import React, { useState } from 'react';
 import { ProfilePic, Logo } from '../src/components/SvgLibary';
+import { NewReminder } from '../src/components/newModal/NewReminder';
+import { ModalContent } from '../src/components/newModal/ModalContent';
 
 const StartPage = ({ navigation }: any) => {
   // const [assets, error] = useAssets([require('./assets/images/Wave.png')]);
   // console.log(assets);
+
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.marginTop}>
       {/* // * Start Page Navbar */}
@@ -54,8 +66,29 @@ const StartPage = ({ navigation }: any) => {
               name="plus"
               size={24}
               color="black"
+              onPressIn={() => setModalVisible(true)}
             />
           </View>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={{ fontSize: 20 }}>X</Text>
+                </Pressable>
+                <ModalContent />
+              </View>
+            </View>
+          </Modal>
         </View>
       </View>
     </View>
@@ -86,8 +119,46 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     marginTop: 170,
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
   marginTop: {
     marginTop: 40,
     marginHorizontal: 10,
+  },
+  modalView: {
+    width: 340,
+    height: 600,
+    margin: 20,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 2,
+    //   height: 2,
+    // },
+    shadowOpacity: 1,
+    shadowRadius: 100,
+    elevation: 5,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
   },
 });
