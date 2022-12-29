@@ -15,7 +15,7 @@ import { FormButton } from './small/FormButton';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type StackParamList = {
-  HomeScreen: undefined;
+  NavBar: undefined;
 };
 
 type NavigationProps = NativeStackNavigationProp<StackParamList>;
@@ -35,7 +35,7 @@ export const LoginForm = () => {
   const onSubmit = async (data) => {
     const signInMessage = await loginUser(data);
     if (signInMessage !== 'Success') return console.log(signInMessage);
-    navigation.navigate('HomeScreen');
+    navigation.navigate('NavBar');
   };
 
   return (

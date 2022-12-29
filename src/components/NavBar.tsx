@@ -7,7 +7,7 @@ import { Messages } from '../../pages/Messages';
 import { New } from '../../pages/New';
 import { Profile } from '../../pages/Profile';
 import { Saved } from '../../pages/Saved';
-import { StartPage } from '../../pages/StartPage';
+import { Home } from '../../pages/Home';
 
 export const NavBar = () => {
   const Tab = createBottomTabNavigator();
@@ -15,11 +15,11 @@ export const NavBar = () => {
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false, tabBarShowLabel: false }}
-      initialRouteName="Home"
+      initialRouteName="StartPage"
     >
       <Tab.Screen
-        name="Home"
-        component={StartPage}
+        name="StartPage "
+        component={Home}
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons
