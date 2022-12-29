@@ -10,17 +10,11 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { auth } from './config/firebaseConfig';
 import { loginUser } from './hooks/firebase/UserHooks';
-import {
-  checkUserData,
-  getUserData,
-  resetUserData,
-} from './hooks/StorageHooks';
+import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
-import { AuthContext } from './src/auth/AuthContext';
 import { NavBar } from './src/components/NavBar';
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
     checkUserData().then((boolean) => {
@@ -46,25 +40,21 @@ const App = () => {
 
   const Stack = createNativeStackNavigator();
   return (
-    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName={auth.currentUser ? 'NavBar' : 'Login'}
-        >
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="NavBar"
-            component={NavBar}
-          />
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="Login"
-            component={Login}
-          />
-        </Stack.Navigator>
-        <StatusBar />
-      </NavigationContainer>
-    </AuthContext.Provider>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={auth.currentUser ? 'NavBar' : 'Login'}>
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="NavBar"
+          component={NavBar}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Login"
+          component={Login}
+        />
+      </Stack.Navigator>
+      <StatusBar />
+    </NavigationContainer>
   );
 };
 
