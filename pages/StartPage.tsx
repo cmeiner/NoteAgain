@@ -1,28 +1,22 @@
-
 import { AntDesign } from '@expo/vector-icons';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { auth, db } from '../config/firebaseConfig';
-import { ReminderCard } from '../src/components/ReminderCard';
-import { TopBar } from '../src/components/TopBar';
 import {
-  View,
-  StyleSheet,
   Image,
-  Alert,
   Modal,
   Pressable,
+  SafeAreaView,
+  StyleSheet,
   Text,
-  SafeAreaView
+  View,
 } from 'react-native';
-import { TextH2, TextP, TextThin } from '../src/utils/styles/FontStyles';
-import { ProfilePic, Logo } from '../src/components/SvgLibary';
-import { NewReminder } from '../src/components/newModal/NewReminder';
+import { auth, db } from '../config/firebaseConfig';
 import { ModalContent } from '../src/components/newModal/ModalContent';
+import { ReminderCard } from '../src/components/ReminderCard';
+import { TopBar } from '../src/components/TopBar';
+import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 
 const StartPage = ({ navigation }: any) => {
-  // const [assets, error] = useAssets([require('./assets/images/Wave.png')]);
-  // console.log(assets);
   const [response, setResponse] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const getReminders = async () => {
@@ -46,7 +40,6 @@ const StartPage = ({ navigation }: any) => {
 
   return (
     <SafeAreaView>
-      {/* // TODO Check if they have reminders or todo, if not show this, else show the reminders. */}
       <Image
         style={{
           position: 'absolute',
@@ -102,29 +95,26 @@ const StartPage = ({ navigation }: any) => {
             </View>
           </View>
         )}
-
-       
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
-                  <Text style={{ fontSize: 20 }}>X</Text>
-                </Pressable>
-                <ModalContent />
-              </View>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={{ fontSize: 20 }}>X</Text>
+              </Pressable>
+              <ModalContent />
             </View>
-          </Modal>
-        </View>
+          </View>
+        </Modal>
       </View>
     </SafeAreaView>
   );
@@ -152,6 +142,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     justifyContent: 'center',
+  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
