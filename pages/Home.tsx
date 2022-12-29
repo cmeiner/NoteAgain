@@ -1,24 +1,14 @@
 import { AntDesign } from '@expo/vector-icons';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import {
-  Image,
-  Modal,
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { auth, db } from '../config/firebaseConfig';
-import { ModalContent } from '../src/components/newModal/ModalContent';
 import { ReminderCard } from '../src/components/ReminderCard';
 import { TopBar } from '../src/components/TopBar';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 
 export const Home = ({ navigation }: any) => {
   const [response, setResponse] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
   const getReminders = async () => {
     const q = query(
       collection(db, 'reminders'),
@@ -95,26 +85,6 @@ export const Home = ({ navigation }: any) => {
             </View>
           </View>
         )}
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={{ fontSize: 20 }}>X</Text>
-              </Pressable>
-              <ModalContent />
-            </View>
-          </View>
-        </Modal>
       </View>
     </SafeAreaView>
   );

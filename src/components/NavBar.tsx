@@ -4,10 +4,10 @@ import React from 'react';
 import { auth } from '../../config/firebaseConfig';
 import { Login } from '../../pages/Login';
 import { Messages } from '../../pages/Messages';
-import { New } from '../../pages/New';
 import { Profile } from '../../pages/Profile';
 import { Saved } from '../../pages/Saved';
 import { Home } from '../../pages/Home';
+import { AddButton } from './small/AddButton';
 
 export const NavBar = () => {
   const Tab = createBottomTabNavigator();
@@ -45,11 +45,9 @@ export const NavBar = () => {
       />
       <Tab.Screen
         name="New"
-        component={New}
+        component={AddMoreScreen}
         options={{
-          tabBarIcon: () => (
-            <Ionicons name="md-add-circle" size={45} color="black" />
-          ),
+          tabBarButton: () => <AddButton />,
         }}
       />
       <Tab.Screen
@@ -97,4 +95,8 @@ export const NavBar = () => {
       )}
     </Tab.Navigator>
   );
+};
+
+const AddMoreScreen = () => {
+  return null;
 };

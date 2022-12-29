@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
-  Button,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
