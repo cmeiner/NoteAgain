@@ -14,7 +14,7 @@ export const TopBar = () => {
           <TextH2 color="black">{auth.currentUser.displayName}</TextH2>
         </View>
       </View>
-      <Logo />
+      <Logo width="70px" height="40px" />
     </View>
   );
 };
@@ -24,5 +24,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    height: 47,
+  },
+  logoView: {
+    justifyContent: 'center',
   },
 });

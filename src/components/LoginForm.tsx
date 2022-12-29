@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     width: 350,
-    marginTop: 24,
+    marginBottom: 24,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
