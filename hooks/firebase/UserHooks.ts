@@ -7,6 +7,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { useContext } from 'react';
 import { auth, db } from '../../config/firebaseConfig';
 import { AuthContext } from '../../src/auth/AuthContext';
+import { storeUserData } from '../StorageHooks';
 
 type UserProps = {
   email: string;
@@ -54,6 +55,8 @@ export const loginUser = async ({ email, password }: UserProps) => {
       email,
       password
     );
+    storeUserData(email, password);
+
     // TODO Create a nice toast message alerting that the user is signed in.
     // TODO Send the user to their profile page.
     return 'Success';

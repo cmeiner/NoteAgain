@@ -7,14 +7,33 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { auth } from './config/firebaseConfig';
+import { loginUser } from './hooks/firebase/UserHooks';
+import {
+  checkUserData,
+  getUserData,
+  resetUserData,
+} from './hooks/StorageHooks';
 import { Login } from './pages/Login';
 import { AuthContext } from './src/auth/AuthContext';
 import { NavBar } from './src/components/NavBar';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    checkUserData().then((boolean) => {
+      if (boolean) {
+        //console.log('Inloggad');
+        getUserData().then((data) => {
+          //console.log(data);
+          loginUser(data);
+          setLoggedIn(true);
+        });
+      }
+    });
+  }, [loggedIn]);
   const [fontsLoaded] = useFonts({
     Sora_700Bold,
     Sora_400Regular,
@@ -26,7 +45,6 @@ const App = () => {
   }
 
   const Stack = createNativeStackNavigator();
-
   return (
     <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
       <NavigationContainer>

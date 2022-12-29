@@ -1,3 +1,4 @@
+
 import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../../config/firebaseConfig';
 import { Reminder } from '../../types/FirebaseTypes';
@@ -7,7 +8,7 @@ export const remindersRef = collection(db, 'reminders'); // * Gets the collectio
 export const createReminder = async ({
   title,
   description,
-  remindAt,
+  // remindAt,
 }: Reminder) => {
   try {
     const user = await auth.currentUser;
@@ -16,7 +17,7 @@ export const createReminder = async ({
       title: title,
       description: description,
       creator: user.uid,
-      remindAt: remindAt,
+      // remindAt: remindAt
     });
     // TODO Create a nice toast message that a reminder is created.
   } catch (Error) {
