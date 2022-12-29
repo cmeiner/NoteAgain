@@ -6,14 +6,11 @@ import {
 } from '@expo-google-fonts/sora';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { auth } from './config/firebaseConfig';
 import { loginUser } from './hooks/firebase/UserHooks';
-import {
-  checkUserData,
-  getUserData,
-  resetUserData,
-} from './hooks/StorageHooks';
+import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
 
@@ -41,32 +38,22 @@ const App = () => {
     return null;
   }
 
-  // resetUserData();
-
   const Stack = createNativeStackNavigator();
-  //console.log(auth.currentUser);
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        {loggedIn ? (
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="NavBar"
-            component={NavBar}
-          />
-        ) : (
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="Login"
-            component={Login}
-          />
-        )}
+      <Stack.Navigator initialRouteName={auth.currentUser ? 'NavBar' : 'Login'}>
         <Stack.Screen
           options={{ headerShown: false }}
-          name="HomeScreen"
+          name="NavBar"
           component={NavBar}
         />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Login"
+          component={Login}
+        />
       </Stack.Navigator>
+      <StatusBar />
     </NavigationContainer>
   );
 };

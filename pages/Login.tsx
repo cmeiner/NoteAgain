@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Image,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -9,6 +8,7 @@ import {
 } from 'react-native';
 import { LoginForm } from '../src/components/LoginForm';
 import { RegisterForm } from '../src/components/RegisterForm';
+import { Logo } from '../src/components/SvgLibary';
 
 export const Login = () => {
   const [register, setRegister] = useState(false);
@@ -18,11 +18,8 @@ export const Login = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <Image
-        source={require('../assets/logo.png')}
-        style={{ width: 350, height: 200 }}
-      />
-      <View>
+      <Logo width="300px" height="196px" />
+      <View style={{ marginTop: 24 }}>
         {register ? (
           <>
             <RegisterForm />
@@ -52,7 +49,7 @@ const styles = StyleSheet.create({
   },
   linkText: {
     textAlign: 'center',
-    color: 'blue',
+    color: 'black',
     marginTop: 10,
   },
 });

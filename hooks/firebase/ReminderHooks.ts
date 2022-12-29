@@ -1,14 +1,15 @@
-import { collection, addDoc } from 'firebase/firestore';
+
+import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../../config/firebaseConfig';
 import { Reminder } from '../../types/FirebaseTypes';
 
-const remindersRef = collection(db, 'reminders'); // * Gets the collection of reminders.
+export const remindersRef = collection(db, 'reminders'); // * Gets the collection of reminders.
 
 export const createReminder = async ({
   title,
   description,
-}: //   remindAt,
-Reminder) => {
+  // remindAt,
+}: Reminder) => {
   try {
     const user = await auth.currentUser;
     if (!user) return console.log('No user'); // TODO Do something more useful here, maybe send user to login page?

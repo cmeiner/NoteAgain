@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Text, StyleSheet, Pressable } from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
 
 type Props = {
   onPress: () => void;
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 350,
-    marginTop: 24,
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,

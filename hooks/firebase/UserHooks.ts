@@ -3,7 +3,7 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../config/firebaseConfig';
 import { storeUserData } from '../StorageHooks';
 
@@ -16,6 +16,12 @@ type UserProps = {
 // export const usePost = async (api: string, data: object) => {
 //   await setDoc(doc(collection(db, api)), data);
 //   console.log(data, "added to the database");
+// };
+
+// export const GetUser = () => {
+//   const { currentUser } = useContext(AuthContext);
+//   const user = { ...(currentUser as UserProps) };
+//   return { user };
 // };
 
 export const registerUser = async ({

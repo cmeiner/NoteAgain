@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native';
 import { registerUser } from '../../hooks/firebase/UserHooks';
-import { TextH3 } from '../utils/styles/FontStyles';
 import { FormButton } from './small/FormButton';
 
 export const RegisterForm = () => {
@@ -33,9 +32,6 @@ export const RegisterForm = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <View style={{ marginTop: 20 }}>
-        <TextH3 color="black">Register new user</TextH3>
-      </View>
       <Controller
         control={control}
         rules={{
@@ -128,7 +124,7 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     width: 350,
-    marginTop: 24,
+    marginBottom: 24,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
