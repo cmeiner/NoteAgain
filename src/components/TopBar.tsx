@@ -11,7 +11,7 @@ export const TopBar = () => {
         <ProfilePic />
         <View style={{ marginLeft: 10 }}>
           <TextP color="black">Welcome back</TextP>
-          <TextH2 color="black">{auth.currentUser.displayName}</TextH2>
+          <TextH2 color="black">{auth.currentUser?.displayName}</TextH2>
         </View>
       </View>
       <Logo width="70px" height="40px" />

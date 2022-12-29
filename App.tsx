@@ -41,16 +41,24 @@ const App = () => {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={auth.currentUser ? 'NavBar' : 'Login'}>
+      <Stack.Navigator>
+        {loggedIn ? (
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="NavBar"
+            component={NavBar}
+          />
+        ) : (
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Login"
+            component={Login}
+          />
+        )}
         <Stack.Screen
           options={{ headerShown: false }}
-          name="NavBar"
+          name="HomeScreen"
           component={NavBar}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Login"
-          component={Login}
         />
       </Stack.Navigator>
       <StatusBar />

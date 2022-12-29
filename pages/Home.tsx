@@ -22,7 +22,7 @@ export const Home = ({ navigation }: any) => {
   const getReminders = async () => {
     const q = query(
       collection(db, 'reminders'),
-      where('createdBy', '==', auth.currentUser.uid)
+      where('createdBy', '==', auth.currentUser?.uid)
     );
     getDocs(q).then((data) => {
       setResponse(
