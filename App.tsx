@@ -22,8 +22,10 @@ const App = () => {
         //console.log('Inloggad');
         getUserData().then((data) => {
           //console.log(data);
-          loginUser(data);
-          setLoggedIn(true);
+          loginUser(data).then(() => {
+            setLoggedIn(true);
+          });
+          console.log(auth);
         });
       }
     });
@@ -33,6 +35,7 @@ const App = () => {
     Sora_400Regular,
     Sora_100Thin,
   });
+  console.log(auth.currentUser);
 
   if (!fontsLoaded) {
     return null;
