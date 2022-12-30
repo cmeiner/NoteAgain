@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  Switch,
-  Text,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import SwitchWithIcons from 'react-native-switch-with-icons';
+import { reminder, todo } from '../../../assets';
+import { TextH3 } from '../../utils/styles/FontStyles';
 
 import { NewReminder } from './NewReminder';
 import { NewTodo } from './NewTodo';
@@ -22,17 +18,19 @@ export const ModalContent = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <View style={styles.switchBox}>
-        <Text>Reminder</Text>
-        <Switch
-          trackColor={{ false: '#767577', true: '#767577' }}
-          thumbColor={newReminder ? '#f4f3f4' : '#f4f3f4'}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleSwitch}
-          value={newReminder}
-        />
-        <Text>Todo</Text>
+      <View style={styles.modalTitle}>
+        <TextH3 color="black">
+          {!newReminder ? 'New reminder' : 'New todo'}
+        </TextH3>
       </View>
+      <SwitchWithIcons
+        icon={{ true: todo, false: reminder }}
+        value={newReminder}
+        onValueChange={toggleSwitch}
+        style={styles.switch}
+        trackColor={{ true: '#1B1D29', false: '#D77451' }}
+        thumbColor={{ true: '#D77451', false: '#1B1D29' }}
+      />
       {!newReminder ? <NewReminder /> : <NewTodo />}
     </KeyboardAvoidingView>
   );
@@ -41,10 +39,13 @@ export const ModalContent = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    justifyContent: 'center',
+    height: '100%',
   },
-  switchBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  switch: {
+    marginRight: 'auto',
+    transform: [{ scale: 0.8 }],
+  },
+  modalTitle: {
+    marginRight: 'auto',
   },
 });

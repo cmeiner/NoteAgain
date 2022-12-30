@@ -1,13 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import {
-  View,
-  TouchableOpacity,
-  Modal,
-  Pressable,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { ModalContent } from '../newModal/ModalContent';
 
 export const AddButton = () => {
@@ -24,16 +17,16 @@ export const AddButton = () => {
           <Ionicons name="md-add-circle" size={45} color="black" />
         </View>
       </TouchableOpacity>
-
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
+            <Ionicons
+              name="close-outline"
+              size={40}
+              color="black"
               onPress={() => setModalVisible(false)}
-            >
-              <Text style={{ fontSize: 20 }}>X</Text>
-            </Pressable>
+              style={styles.buttonClose}
+            />
             <ModalContent />
           </View>
         </View>
@@ -72,6 +65,8 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    position: 'absolute',
+    right: 5,
+    top: 5,
   },
 });

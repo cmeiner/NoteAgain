@@ -8,7 +8,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { auth } from './config/firebaseConfig';
 import { loginUser } from './hooks/firebase/UserHooks';
 import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
@@ -25,7 +24,6 @@ const App = () => {
           loginUser(data).then(() => {
             setLoggedIn(true);
           });
-          console.log(auth);
         });
       }
     });
@@ -35,7 +33,7 @@ const App = () => {
     Sora_400Regular,
     Sora_100Thin,
   });
-  console.log(auth.currentUser);
+  //console.log(auth.currentUser);
 
   if (!fontsLoaded) {
     return null;

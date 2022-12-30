@@ -5,14 +5,15 @@ import {
   useFonts,
 } from '@expo-google-fonts/sora';
 import React, { FC, ReactNode } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, ViewStyle } from 'react-native';
 
 type Props = {
   children: ReactNode;
   color: string;
+  style?: ViewStyle;
 };
 
-export const TextH1: FC<Props> = ({ children, color }) => {
+export const TextH1: FC<Props> = ({ children, color, style }) => {
   useFonts({
     Sora_700Bold,
   });
@@ -23,7 +24,7 @@ export const TextH1: FC<Props> = ({ children, color }) => {
   );
 };
 
-export const TextH2: FC<Props> = ({ children, color }) => {
+export const TextH2: FC<Props> = ({ children, color, style }) => {
   useFonts({
     Sora_700Bold,
   });
@@ -34,7 +35,7 @@ export const TextH2: FC<Props> = ({ children, color }) => {
   );
 };
 
-export const TextH3: FC<Props> = ({ children, color }) => {
+export const TextH3: FC<Props> = ({ children, color, style }) => {
   useFonts({
     Sora_700Bold,
   });
@@ -45,7 +46,7 @@ export const TextH3: FC<Props> = ({ children, color }) => {
   );
 };
 
-export const TextP: FC<Props> = ({ children, color }) => {
+export const TextP: FC<Props> = ({ children, color, style }) => {
   useFonts({
     Sora_400Regular,
   });
@@ -56,7 +57,7 @@ export const TextP: FC<Props> = ({ children, color }) => {
   );
 };
 
-export const TextThin: FC<Props> = ({ children, color }) => {
+export const TextThin: FC<Props> = ({ children, color, style }) => {
   useFonts({
     Sora_100Thin,
   });

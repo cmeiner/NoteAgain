@@ -1,5 +1,5 @@
-import React, { useState, FC } from 'react';
-import { Modal, Pressable, StyleSheet, View, Text } from 'react-native';
+import React, { FC, useState } from 'react';
+import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { ModalContent } from '../src/components/newModal/ModalContent';
 
 type Props = {

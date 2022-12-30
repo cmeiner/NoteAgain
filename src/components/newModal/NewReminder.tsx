@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { auth } from '../../../config/firebaseConfig';
 import { createReminder } from '../../../hooks/firebase/ReminderHooks';
-import { TextH3 } from '../../utils/styles/FontStyles';
+import { TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const NewReminder = () => {
@@ -36,9 +36,6 @@ export const NewReminder = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <View>
-        <TextH3 color="black">New reminder</TextH3>
-      </View>
       <Controller
         control={control}
         rules={{
@@ -46,7 +43,7 @@ export const NewReminder = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View style={styles.inputContainer}>
-            <Text style={styles.inputTitle}>Title</Text>
+            <TextThin color="black">Title</TextThin>
             <TextInput
               style={styles.input}
               onBlur={onBlur}
@@ -76,7 +73,7 @@ export const NewReminder = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View style={styles.inputContainer}>
-            <Text style={styles.inputTitle}>Description</Text>
+            <TextThin color="black">Description</TextThin>
             <TextInput
               style={styles.inputDesc}
               onBlur={onBlur}
@@ -93,7 +90,11 @@ export const NewReminder = () => {
       {errors.description && (
         <Text style={styles.errorText}>Please enter a description</Text>
       )}
-      <FormButton width="240px" title="Add" onPress={handleSubmit(onSubmit)} />
+      <FormButton
+        width="240px"
+        title="Remind me"
+        onPress={handleSubmit(onSubmit)}
+      />
     </KeyboardAvoidingView>
   );
 };
@@ -102,6 +103,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'space-between',
+    height: 472,
   },
   inputContainer: {
     marginBottom: 10,
@@ -111,11 +113,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  inputTitle: {
-    marginTop: 20,
-    marginBottom: 10,
-    fontSize: 14,
-  },
   input: {
     height: 40,
     width: 280,
@@ -123,13 +120,16 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     borderColor: '#808080',
+    marginTop: 5,
   },
   inputDesc: {
     height: 200,
     width: 280,
     padding: 10,
+    borderWidth: 1,
     borderRadius: 10,
-    backgroundColor: '#F0F0F0',
+    borderColor: '#808080',
+    marginTop: 5,
   },
   errorText: {
     color: 'red',
