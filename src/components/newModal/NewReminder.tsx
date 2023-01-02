@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   KeyboardAvoidingView,
@@ -13,8 +13,18 @@ import { createReminder } from '../../../hooks/firebase/ReminderHooks';
 import { useModalContext } from '../../contexts/ModalContext';
 import { TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 export const NewReminder = () => {
+  const [date, setDate] = useState('')
+  const updateDate = (event: DateTimePickerEvent, date: Date) => {
+    const {
+      type,
+      nativeEvent: {timestamp},
+    } = event;
+    console.log(date.toDateString())
+    setDate(date.toDateString())
+  };
   const { toggleModal } = useModalContext();
   const {
     control,
@@ -92,6 +102,7 @@ export const NewReminder = () => {
       {errors.description && (
         <Text style={styles.errorText}>Please enter a description</Text>
       )}
+      <DateTimePicker onChange={updateDate} style={{backgroundColor: "white", borderRadius: 10}} accentColor="#D77451" value={new Date()} display='calendar' />
       <FormButton
         width="240px"
         title="Remind me"
