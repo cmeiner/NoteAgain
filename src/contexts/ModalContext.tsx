@@ -13,7 +13,7 @@ type ModalContextType = {
 
 export const ModalContext = createContext<ModalContextType>({
   modalVisible: false,
-  toggleModal: () => {},
+  toggleModal: () => undefined,
 });
 
 type Props = {
