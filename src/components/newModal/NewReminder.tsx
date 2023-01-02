@@ -10,10 +10,12 @@ import {
 } from 'react-native';
 import { auth } from '../../../config/firebaseConfig';
 import { createReminder } from '../../../hooks/firebase/ReminderHooks';
+import { useModalContext } from '../../contexts/ModalContext';
 import { TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const NewReminder = () => {
+  const { toggleModal } = useModalContext();
   const {
     control,
     handleSubmit,
@@ -28,6 +30,7 @@ export const NewReminder = () => {
   });
   const onSubmit = async (data) => {
     createReminder(data);
+    toggleModal(false);
     console.log(data);
   };
 
@@ -51,7 +54,6 @@ export const NewReminder = () => {
               value={value}
               placeholder='"Pizzatime"'
               placeholderTextColor="#808080"
-              // clearButtonMode="while-editing"
             />
           </View>
         )}

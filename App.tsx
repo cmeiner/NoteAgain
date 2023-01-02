@@ -12,15 +12,15 @@ import { loginUser } from './hooks/firebase/UserHooks';
 import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
+import { ModalProvider } from './src/contexts/ModalContext';
 
 const App = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
     checkUserData().then((boolean) => {
       if (boolean) {
-        //console.log('Inloggad');
         getUserData().then((data) => {
-          //console.log(data);
           loginUser(data).then(() => {
             setLoggedIn(true);
           });
@@ -33,7 +33,6 @@ const App = () => {
     Sora_400Regular,
     Sora_100Thin,
   });
-  //console.log(auth.currentUser);
 
   if (!fontsLoaded) {
     return null;
@@ -42,27 +41,29 @@ const App = () => {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        {loggedIn ? (
+      <ModalProvider>
+        <Stack.Navigator>
+          {loggedIn ? (
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="NavBar"
+              component={NavBar}
+            />
+          ) : (
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="Login"
+              component={Login}
+            />
+          )}
           <Stack.Screen
             options={{ headerShown: false }}
-            name="NavBar"
+            name="HomeScreen"
             component={NavBar}
           />
-        ) : (
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="Login"
-            component={Login}
-          />
-        )}
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="HomeScreen"
-          component={NavBar}
-        />
-      </Stack.Navigator>
-      <StatusBar />
+        </Stack.Navigator>
+        <StatusBar />
+      </ModalProvider>
     </NavigationContainer>
   );
 };

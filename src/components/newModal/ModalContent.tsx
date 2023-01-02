@@ -3,7 +3,6 @@ import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import SwitchWithIcons from 'react-native-switch-with-icons';
 import { reminder, todo } from '../../../assets';
 import { TextH3 } from '../../utils/styles/FontStyles';
-
 import { NewReminder } from './NewReminder';
 import { NewTodo } from './NewTodo';
 
@@ -11,7 +10,6 @@ export const ModalContent = () => {
   const [newReminder, setNewReminder] = useState(false);
   const toggleSwitch = () => {
     setNewReminder((previousState) => !previousState);
-    console.log('New reminder is', newReminder);
   };
   return (
     <KeyboardAvoidingView

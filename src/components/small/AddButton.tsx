@@ -1,16 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { useModalContext } from '../../contexts/ModalContext';
 import { ModalContent } from '../newModal/ModalContent';
 
 export const AddButton = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const { modalVisible, toggleModal } = useModalContext();
 
   return (
     <View style={{ marginLeft: 10, marginRight: 10 }}>
       <TouchableOpacity
         onPress={() => {
-          setModalVisible(true);
+          toggleModal(true);
         }}
       >
         <View>
@@ -24,7 +25,7 @@ export const AddButton = () => {
               name="close-outline"
               size={40}
               color="black"
-              onPress={() => setModalVisible(false)}
+              onPress={() => toggleModal(false)}
               style={styles.buttonClose}
             />
             <ModalContent />

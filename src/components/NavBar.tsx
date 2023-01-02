@@ -2,11 +2,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { auth } from '../../config/firebaseConfig';
+import { Home } from '../../pages/Home';
 import { Login } from '../../pages/Login';
 import { Messages } from '../../pages/Messages';
 import { Profile } from '../../pages/Profile';
 import { Saved } from '../../pages/Saved';
-import { Home } from '../../pages/Home';
 import { AddButton } from './small/AddButton';
 
 export const NavBar = () => {
@@ -44,7 +44,7 @@ export const NavBar = () => {
         }}
       />
       <Tab.Screen
-        name="New"
+        name="AddButton"
         component={AddMoreScreen}
         options={{
           tabBarButton: () => <AddButton />,

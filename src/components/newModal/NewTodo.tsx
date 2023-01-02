@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   KeyboardAvoidingView,
@@ -10,8 +10,9 @@ import {
   View,
 } from 'react-native';
 import { auth } from '../../../config/firebaseConfig';
-import { createReminder } from '../../../hooks/firebase/ReminderHooks';
-import { TextThin } from '../../utils/styles/FontStyles';
+import { createTodo } from '../../../hooks/firebase/TodoHooks';
+import { ModalContext } from '../../contexts/ModalContext';
+import { TextP, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const NewTodo = () => {
@@ -19,38 +20,39 @@ export const NewTodo = () => {
     desc: string;
     completed: boolean;
   };
-
+  const { toggleModal } = useContext(ModalContext);
   const [todos, setTodos] = useState<Todo[]>([]);
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     defaultValues: {
       title: '',
-      description: '',
-      creator: auth.currentUser.uid,
-      remindAt: '',
+      items: todos,
+      createdBy: auth.currentUser.uid,
+      inputPlaceholder: '',
     },
   });
+
   const onSubmit = async (data) => {
-    createReminder(data);
-    console.log(data);
+    data.items = todos;
+    let dataObject = {
+      title: data.title,
+      items: data.items,
+      createdBy: data.createdBy,
+    };
+    createTodo(dataObject);
+    console.log('New todo added to DB');
+    toggleModal(false);
   };
 
-  const dummyData = {
-    desc: 'hej',
-    completed: false,
-  };
   const addTodo = (data: Todo) => {
-    setTodos([...todos, data]);
-    console.log(todos);
-  };
-
-  const renderTodos = () => {
-    useEffect(() => {
-      console.log('tillagd');
-    }, [todos]);
+    let array = todos;
+    array.push(data);
+    setTodos(array);
+    setValue('inputPlaceholder', '');
   };
 
   return (
@@ -83,23 +85,23 @@ export const NewTodo = () => {
         <Text style={styles.errorText}> Please enter a title</Text>
       )}
 
-      {errors.remindAt && (
+      {/* {errors.remindAt && (
         <Text style={styles.errorText}> Please choose a time</Text>
-      )}
+      )} */}
 
       <Controller
         control={control}
         rules={{
           maxLength: 100,
-          required: true,
+          required: false,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View style={styles.inputContainer}>
-            <TextThin color="black">Todos</TextThin>
+            <TextThin color="black">Todos ({todos.length})</TextThin>
             {todos.map((todooo, key) => (
-              <TextThin color="black" key={key}>
-                {todooo.desc}
-              </TextThin>
+              <TextP color="black" key={key}>
+                - {todooo.desc}
+              </TextP>
             ))}
             <View
               style={{
@@ -121,14 +123,16 @@ export const NewTodo = () => {
                 name="add-outline"
                 size={40}
                 color="black"
-                onPress={() => addTodo({ desc: value, completed: false })}
+                onPress={() => {
+                  value ? addTodo({ desc: value, completed: false }) : null;
+                }}
               />
             </View>
           </View>
         )}
-        name="description"
+        name="inputPlaceholder"
       />
-      {errors.description && (
+      {errors.inputPlaceholder && (
         <Text style={styles.errorText}>Please enter a description</Text>
       )}
       <FormButton width="240px" title="Add" onPress={handleSubmit(onSubmit)} />

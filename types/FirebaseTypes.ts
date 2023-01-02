@@ -7,15 +7,6 @@
 type Status = 'pending' | 'accepted' | 'declined';
 
 /**
- * * Todo Data
- */
-export type Todo = {
-  id?: string;
-  title: string;
-  completed: boolean;
-};
-
-/**
  * * TodoList Data
  * ! Todo Data
  * TODO Share Data
@@ -24,8 +15,17 @@ export type TodoList = {
   id?: string;
   title: string;
   items: Todo[];
-  creator?: string;
+  createdBy: string;
   //   sharedWith: Share[];
+};
+
+/**
+ * * Todo Data
+ */
+export type Todo = {
+  id?: string;
+  title: string;
+  completed: boolean;
 };
 
 /**
