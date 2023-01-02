@@ -5,12 +5,12 @@ import { Reminder } from '../../types/FirebaseTypes';
 import { TextH2, TextThin } from '../utils/styles/FontStyles';
 
 // ? Think of "RemindAt" attribute
-export const ReminderCard = ({ title, creator }: Reminder) => {
+export const ReminderCard = ({ title, createdBy }: Reminder) => {
   return (
     <View style={ReminderStyles.Box}>
       <View>
         <TextH2 color="white">{title}</TextH2>
-        <TextThin color="white">{creator}</TextThin>
+        <TextThin color="white">{createdBy}</TextThin>
       </View>
       <View style={ReminderStyles.flexRow}>
         {/* // TODO Add press events to the icons. */}
