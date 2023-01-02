@@ -38,7 +38,7 @@ export const NewTodo = () => {
 
   const onSubmit = async (data) => {
     data.items = todos;
-    let dataObject = {
+    const dataObject = {
       title: data.title,
       items: data.items,
       createdBy: data.createdBy,
@@ -49,7 +49,7 @@ export const NewTodo = () => {
   };
 
   const addTodo = (data: Todo) => {
-    let array = todos;
+    const array = todos;
     array.push(data);
     setTodos(array);
     setValue('inputPlaceholder', '');
