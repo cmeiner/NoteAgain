@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
+import React, { useContext, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
-  Button,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -10,26 +10,49 @@ import {
   View,
 } from 'react-native';
 import { auth } from '../../../config/firebaseConfig';
-import { createReminder } from '../../../hooks/firebase/ReminderHooks';
-import { TextH3 } from '../../utils/styles/FontStyles';
+import { createTodo } from '../../../hooks/firebase/TodoHooks';
+import { ModalContext } from '../../contexts/ModalContext';
+import { TextP, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const NewTodo = () => {
+  type Todo = {
+    desc: string;
+    completed: boolean;
+  };
+  const { toggleModal } = useContext(ModalContext);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     defaultValues: {
       title: '',
-      description: '',
-      creator: auth.currentUser.uid,
-      remindAt: '',
+      items: todos,
+      createdBy: auth.currentUser.uid,
+      inputPlaceholder: '',
     },
   });
+
   const onSubmit = async (data) => {
-    createReminder(data);
-    console.log(data);
+    data.items = todos;
+    const dataObject = {
+      title: data.title,
+      items: data.items,
+      createdBy: data.createdBy,
+    };
+    createTodo(dataObject);
+    console.log('New todo added to DB');
+    toggleModal(false);
+  };
+
+  const addTodo = (data: Todo) => {
+    const array = todos;
+    array.push(data);
+    setTodos(array);
+    setValue('inputPlaceholder', '');
   };
 
   return (
@@ -37,9 +60,6 @@ export const NewTodo = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <View>
-        <TextH3 color="black">New Todo</TextH3>
-      </View>
       <Controller
         control={control}
         rules={{
@@ -47,13 +67,13 @@ export const NewTodo = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View style={styles.inputContainer}>
-            <Text style={styles.inputTitle}>Title</Text>
+            <TextThin color="black">Title</TextThin>
             <TextInput
               style={styles.input}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder='"Walk with dog"'
+              placeholder='"Walk the dog"'
               placeholderTextColor="#808080"
               // clearButtonMode="while-editing"
             />
@@ -65,24 +85,54 @@ export const NewTodo = () => {
         <Text style={styles.errorText}> Please enter a title</Text>
       )}
 
-      {errors.remindAt && (
+      {/* {errors.remindAt && (
         <Text style={styles.errorText}> Please choose a time</Text>
-      )}
+      )} */}
 
       <Controller
         control={control}
         rules={{
           maxLength: 100,
-          required: true,
+          required: false,
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View style={styles.inputContainer}>
-            <Text style={styles.inputTitle}>Todos</Text>
+            <TextThin color="black">Todos ({todos.length})</TextThin>
+            {todos.map((todooo, key) => (
+              <TextP color="black" key={key}>
+                - {todooo.desc}
+              </TextP>
+            ))}
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <TextInput
+                style={styles.todoInput}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                placeholder='"Walk the dog"'
+                placeholderTextColor="#808080"
+                // clearButtonMode="while-editing"
+              />
+              <Ionicons
+                name="add-outline"
+                size={40}
+                color="black"
+                onPress={() => {
+                  value ? addTodo({ desc: value, completed: false }) : null;
+                }}
+              />
+            </View>
           </View>
         )}
-        name="description"
+        name="inputPlaceholder"
       />
-      {errors.description && (
+      {errors.inputPlaceholder && (
         <Text style={styles.errorText}>Please enter a description</Text>
       )}
       <FormButton width="240px" title="Add" onPress={handleSubmit(onSubmit)} />
@@ -94,9 +144,11 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'space-between',
+    height: 472,
   },
   inputContainer: {
     marginBottom: 10,
+    width: 280,
   },
   formContainer: {
     flex: 1,
@@ -115,6 +167,16 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     borderColor: '#808080',
+    marginTop: 5,
+  },
+  todoInput: {
+    height: 40,
+    width: 230,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: '#808080',
+    marginTop: 5,
   },
   inputDesc: {
     height: 200,

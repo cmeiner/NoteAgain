@@ -8,22 +8,22 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { auth } from './config/firebaseConfig';
 import { loginUser } from './hooks/firebase/UserHooks';
 import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
+import { ModalProvider } from './src/contexts/ModalContext';
 
 const App = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
     checkUserData().then((boolean) => {
       if (boolean) {
-        //console.log('Inloggad');
         getUserData().then((data) => {
-          //console.log(data);
-          loginUser(data);
-          setLoggedIn(true);
+          loginUser(data).then(() => {
+            setLoggedIn(true);
+          });
         });
       }
     });
@@ -41,19 +41,29 @@ const App = () => {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={auth.currentUser ? 'NavBar' : 'Login'}>
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="NavBar"
-          component={NavBar}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Login"
-          component={Login}
-        />
-      </Stack.Navigator>
-      <StatusBar />
+      <ModalProvider>
+        <Stack.Navigator>
+          {loggedIn ? (
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="NavBar"
+              component={NavBar}
+            />
+          ) : (
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name="Login"
+              component={Login}
+            />
+          )}
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="HomeScreen"
+            component={NavBar}
+          />
+        </Stack.Navigator>
+        <StatusBar />
+      </ModalProvider>
     </NavigationContainer>
   );
 };

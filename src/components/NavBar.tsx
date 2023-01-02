@@ -2,12 +2,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { auth } from '../../config/firebaseConfig';
+import { Home } from '../../pages/Home';
 import { Login } from '../../pages/Login';
 import { Messages } from '../../pages/Messages';
-import { New } from '../../pages/New';
 import { Profile } from '../../pages/Profile';
 import { Saved } from '../../pages/Saved';
-import { StartPage } from '../../pages/StartPage';
+import { AddButton } from './small/AddButton';
 
 export const NavBar = () => {
   const Tab = createBottomTabNavigator();
@@ -19,7 +19,7 @@ export const NavBar = () => {
     >
       <Tab.Screen
         name="Home"
-        component={StartPage}
+        component={Home}
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons
@@ -44,12 +44,10 @@ export const NavBar = () => {
         }}
       />
       <Tab.Screen
-        name="New"
-        component={New}
+        name="AddButton"
+        component={AddMoreScreen}
         options={{
-          tabBarIcon: () => (
-            <Ionicons name="md-add-circle" size={45} color="black" />
-          ),
+          tabBarButton: () => <AddButton />,
         }}
       />
       <Tab.Screen
@@ -97,4 +95,8 @@ export const NavBar = () => {
       )}
     </Tab.Navigator>
   );
+};
+
+const AddMoreScreen = () => {
+  return null;
 };

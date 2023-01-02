@@ -6,7 +6,6 @@ import { TextH2, TextThin } from '../utils/styles/FontStyles';
 
 // ? Think of "RemindAt" attribute
 export const ReminderCard = ({ title, creator }: Reminder) => {
-  console.log(title);
   return (
     <View style={ReminderStyles.Box}>
       <View>

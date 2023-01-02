@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { auth } from '../../config/firebaseConfig';
 import { TextH2, TextP } from '../utils/styles/FontStyles';
@@ -11,7 +11,7 @@ export const TopBar = () => {
         <ProfilePic />
         <View style={{ marginLeft: 10 }}>
           <TextP color="black">Welcome back</TextP>
-          <TextH2 color="black">{auth.currentUser.displayName}</TextH2>
+          <TextH2 color="black">{auth.currentUser?.displayName}</TextH2>
         </View>
       </View>
       <Logo width="70px" height="40px" />
