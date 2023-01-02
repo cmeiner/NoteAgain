@@ -15,7 +15,7 @@ export type TodoList = {
   id?: string;
   title: string;
   items: Todo[];
-  createdBy: string;
+  createdBy?: string;
   //   sharedWith: Share[];
 };
 
@@ -24,7 +24,7 @@ export type TodoList = {
  */
 export type Todo = {
   id?: string;
-  title: string;
+  desc: string;
   completed: boolean;
 };
 
@@ -47,7 +47,7 @@ export type Reminder = {
   id?: string;
   title: string;
   description: string;
-  creator?: string;
+  createdBy?: string;
   remindAt?: string;
   //sharedWith: Share[];
 };

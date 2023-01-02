@@ -1,24 +1,25 @@
-// import Checkbox from 'expo-checkbox';
+import Checkbox from 'expo-checkbox';
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { TextP } from '../../src/utils/styles/FontStyles';
 import { Todo } from '../../types/FirebaseTypes';
 
-export const TodoCard = ({ title, completed }: Todo) => {
-  const [isChecked, setChecked] = useState(false);
+export const TodoCard = ({ desc, completed, id }: Todo) => {
+  const [isChecked, setChecked] = useState(completed);
+  console.log(id);
   return (
     <View>
       <Pressable
         onPress={() => (isChecked ? setChecked(false) : setChecked(true))}
         style={TodoStyles.section}
       >
-        {/* <Checkbox
+        <Checkbox
           style={TodoStyles.checkbox}
           value={isChecked}
           onValueChange={setChecked}
           color={isChecked ? '#D77451' : undefined}
-        /> */}
-        <TextP color="white">{title}</TextP>
+        />
+        <TextP color="white">{desc}</TextP>
       </Pressable>
     </View>
   );

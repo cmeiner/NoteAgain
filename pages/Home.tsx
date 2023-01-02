@@ -1,23 +1,47 @@
 import { AntDesign } from '@expo/vector-icons';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { auth, db } from '../config/firebaseConfig';
 import { ReminderCard } from '../src/components/ReminderCard';
+import { TodoListCard } from '../src/components/TodoListCard';
 import { TopBar } from '../src/components/TopBar';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 
 export const Home = ({ navigation }: any) => {
-  const [response, setResponse] = useState([]);
+  const [todos, setTodos] = useState([]);
+  const [reminders, setReminders] = useState([]);
+
   const getReminders = async () => {
     const q = query(
       collection(db, 'reminders'),
       where('createdBy', '==', auth.currentUser?.uid)
     );
     getDocs(q).then((data) => {
-      setResponse(
+      setReminders(
         data.docs.map((item) => {
-          return item.data();
+          const object = { ...item.data(), id: item.id };
+          return object;
+        }) as any
+      );
+    });
+  };
+  const getTodos = async () => {
+    const q = query(
+      collection(db, 'todos'),
+      where('createdBy', '==', auth.currentUser?.uid)
+    );
+    getDocs(q).then((data) => {
+      setTodos(
+        data.docs.map((item) => {
+          const object = { ...item.data(), id: item.id };
+          return object;
         }) as any
       );
     });
@@ -25,7 +49,9 @@ export const Home = ({ navigation }: any) => {
 
   useEffect(() => {
     getReminders();
-    console.log(response);
+    getTodos();
+    console.log('todos:', todos);
+    console.log('remminders:', reminders);
   }, []);
 
   return (
@@ -33,30 +59,48 @@ export const Home = ({ navigation }: any) => {
       <Image
         style={{
           position: 'absolute',
-          top: response.length ? 500 : 150,
+          top: todos.length || reminders.length ? 500 : 150,
         }}
         source={require('../assets/images/Wave.png')}
       />
-      <View
+      <View style={{ marginHorizontal: 10, marginBottom: 10 }}>
+        <TopBar />
+      </View>
+      <ScrollView
         style={{
           position: 'relative',
           marginHorizontal: 10,
+          paddingBottom: 40,
+          height: '100%',
         }}
       >
-        <TopBar />
-        {response.length ? (
-          <View style={{ marginTop: 60 }}>
+        {reminders.length || todos.length ? (
+          <View style={{ marginBottom: 'auto' }}>
             <TextH2 color="black">Your reminders:</TextH2>
-            {response.map((reminder, key) => {
+            {reminders.map((reminder, key) => {
               return (
                 <ReminderCard
                   description="asdsd"
                   key={key}
-                  creator={auth.currentUser.displayName}
+                  createdBy={auth.currentUser.displayName}
                   title={reminder.title}
                 />
               );
             })}
+            <View style={{ marginTop: 15 }}>
+              <TextH2 color="black">Your Todos:</TextH2>
+              {todos.map((todo, key) => {
+                return (
+                  <TodoListCard
+                    key={key}
+                    items={todo.items}
+                    title={todo.title}
+                    createdBy={auth.currentUser.displayName}
+                    id={todo.id}
+                  />
+                );
+              })}
+            </View>
           </View>
         ) : (
           <View style={styles.Box}>
@@ -85,7 +129,7 @@ export const Home = ({ navigation }: any) => {
             </View>
           </View>
         )}
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

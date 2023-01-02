@@ -24,7 +24,7 @@ export const NewReminder = () => {
     defaultValues: {
       title: '',
       description: '',
-      creator: auth.currentUser.uid,
+      createdBy: auth.currentUser.uid,
       remindAt: '',
     },
   });

@@ -5,7 +5,7 @@ import { TextH2 } from '../../src/utils/styles/FontStyles';
 import { Todo, TodoList } from '../../types/FirebaseTypes';
 import { TodoCard } from './TodoCard';
 
-export const TodoListCard = ({ items, title }: TodoList) => {
+export const TodoListCard = ({ items, title, id }: TodoList) => {
   return (
     <View style={TodoListStyles.paddingBox}>
       <View style={TodoListStyles.Box}>
@@ -23,11 +23,12 @@ export const TodoListCard = ({ items, title }: TodoList) => {
         </View>
       </View>
       <View>
-        {items.map((item: Todo) => (
+        {items.map((item: Todo, key) => (
           <TodoCard
-            key={item.id}
+            id={id}
+            key={key}
             completed={item.completed}
-            title={item.title}
+            desc={item.desc}
           />
         ))}
       </View>
@@ -65,5 +66,6 @@ const TodoListStyles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderRadius: 10,
+    marginVertical: 5,
   },
 });
