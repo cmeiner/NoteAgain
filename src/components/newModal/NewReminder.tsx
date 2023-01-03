@@ -13,17 +13,23 @@ import { createReminder } from '../../../hooks/firebase/ReminderHooks';
 import { useModalContext } from '../../contexts/ModalContext';
 import { TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
-import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from '@react-native-community/datetimepicker';
 
 export const NewReminder = () => {
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState<Date>(new Date());
+  const [time, setTime] = useState('');
   const updateDate = (event: DateTimePickerEvent, date: Date) => {
     const {
       type,
-      nativeEvent: {timestamp},
+      nativeEvent: { timestamp },
     } = event;
-    console.log(date.toDateString())
-    setDate(date.toDateString())
+    //console.log(date.toTimeString());
+    let timeValue = date.toTimeString();
+    setTime(timeValue);
+    console.log(time);
+    setDate(date);
   };
   const { toggleModal } = useModalContext();
   const {
@@ -102,7 +108,15 @@ export const NewReminder = () => {
       {errors.description && (
         <Text style={styles.errorText}>Please enter a description</Text>
       )}
-      <DateTimePicker onChange={updateDate} style={{backgroundColor: "white", borderRadius: 10}} accentColor="#D77451" value={new Date()} display='calendar' />
+      <DateTimePicker
+        onChange={updateDate}
+        style={{ backgroundColor: 'white', borderRadius: 10 }}
+        accentColor="#D77451"
+        value={date}
+        display="clock"
+        mode="datetime"
+        themeVariant="light"
+      />
       <FormButton
         width="240px"
         title="Remind me"
