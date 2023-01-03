@@ -84,6 +84,8 @@ export const Home = ({ navigation }: any) => {
                   key={key}
                   createdBy={auth.currentUser.displayName}
                   title={reminder.title}
+                  remindAt={reminder.remindAt}
+                  id={reminder.id}
                 />
               );
             })}

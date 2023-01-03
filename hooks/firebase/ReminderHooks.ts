@@ -1,4 +1,4 @@
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
 import { auth, db } from '../../config/firebaseConfig';
 import { Reminder } from '../../types/FirebaseTypes';
 
@@ -21,5 +21,14 @@ export const createReminder = async ({
     // TODO Create a nice toast message that a reminder is created.
   } catch (Error) {
     console.log(Error);
+  }
+};
+
+export const removeReminder = async (id: string) => {
+  try {
+    await deleteDoc(doc(db, 'reminders', id));
+    console.log('Reminder Removed');
+  } catch (e) {
+    console.log(e);
   }
 };
