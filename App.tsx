@@ -13,6 +13,7 @@ import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
 import { ModalProvider } from './src/contexts/ModalContext';
+import Toast from 'react-native-toast-message';
 
 const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -64,6 +65,7 @@ const App = () => {
         </Stack.Navigator>
         <StatusBar />
       </ModalProvider>
+      <Toast />
     </NavigationContainer>
   );
 };
