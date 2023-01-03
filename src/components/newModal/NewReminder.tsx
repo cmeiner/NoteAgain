@@ -1,3 +1,7 @@
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from '@react-native-community/datetimepicker';
+import Checkbox from 'expo-checkbox';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
@@ -8,28 +12,22 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { auth } from '../../../config/firebaseConfig';
 import { createReminder } from '../../../hooks/firebase/ReminderHooks';
 import { useModalContext } from '../../contexts/ModalContext';
 import { TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
-import DateTimePicker, {
-  DateTimePickerEvent,
-} from '@react-native-community/datetimepicker';
-
 export const NewReminder = () => {
   const [date, setDate] = useState<Date>(new Date());
-  const [time, setTime] = useState('');
+  const [reminderTime, setReminderTime] = useState(false);
+  const [isChecked, setChecked] = useState(reminderTime);
+
   const updateDate = (event: DateTimePickerEvent, date: Date) => {
     const {
       type,
       nativeEvent: { timestamp },
     } = event;
-    //console.log(date.toTimeString());
-    let timeValue = date.toTimeString();
-    setTime(timeValue);
-    console.log(time);
     setDate(date);
+    console.log(date);
   };
   const { toggleModal } = useModalContext();
   const {
@@ -40,11 +38,12 @@ export const NewReminder = () => {
     defaultValues: {
       title: '',
       description: '',
-      createdBy: auth.currentUser.uid,
-      remindAt: '',
     },
   });
   const onSubmit = async (data) => {
+    data = isChecked
+      ? { ...data, remindAt: date }
+      : { ...data, remindAt: 'Dont remind' };
     createReminder(data);
     toggleModal(false);
     console.log(data);
@@ -79,10 +78,6 @@ export const NewReminder = () => {
         <Text style={styles.errorText}> Please enter a title</Text>
       )}
 
-      {errors.remindAt && (
-        <Text style={styles.errorText}> Please choose a time</Text>
-      )}
-
       <Controller
         control={control}
         rules={{
@@ -108,15 +103,33 @@ export const NewReminder = () => {
       {errors.description && (
         <Text style={styles.errorText}>Please enter a description</Text>
       )}
-      <DateTimePicker
-        onChange={updateDate}
-        style={{ backgroundColor: 'white', borderRadius: 10 }}
-        accentColor="#D77451"
-        value={date}
-        display="clock"
-        mode="datetime"
-        themeVariant="light"
-      />
+      <View>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <TextThin color="black">Notify me</TextThin>
+          <Checkbox
+            style={styles.checkbox}
+            value={isChecked}
+            onValueChange={setChecked}
+            color={isChecked ? '#D77451' : undefined}
+          />
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          {isChecked ? (
+            <DateTimePicker
+              onChange={updateDate}
+              style={{
+                backgroundColor: '#f5f5f5',
+                borderRadius: 10,
+              }}
+              accentColor="#D77451"
+              value={date}
+              display="clock"
+              mode="datetime"
+              themeVariant="light"
+            />
+          ) : null}
+        </View>
+      </View>
       <FormButton
         width="240px"
         title="Remind me"
@@ -161,5 +174,14 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     marginTop: 5,
+  },
+  checkbox: {
+    alignItems: 'center',
+    marginVertical: 5,
+    backgroundColor: '#ffff',
+    border: 'none !important',
+    appearance: 'none',
+    outline: 'none',
+    margin: 10,
   },
 });

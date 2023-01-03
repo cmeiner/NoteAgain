@@ -7,8 +7,8 @@ export const remindersRef = collection(db, 'reminders'); // * Gets the collectio
 export const createReminder = async ({
   title,
   description,
-}: // remindAt,
-Reminder) => {
+  remindAt,
+}: Reminder) => {
   try {
     const user = await auth.currentUser;
     if (!user) return console.log('No user'); // TODO Do something more useful here, maybe send user to login page?
@@ -16,7 +16,7 @@ Reminder) => {
       title: title,
       description: description,
       createdBy: user.uid,
-      // remindAt: remindAt
+      remindAt: remindAt,
     });
     // TODO Create a nice toast message that a reminder is created.
   } catch (Error) {

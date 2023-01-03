@@ -48,7 +48,7 @@ export type Reminder = {
   title: string;
   description: string;
   createdBy?: string;
-  remindAt?: string;
+  remindAt?: Date | string;
   //sharedWith: Share[];
 };
 
