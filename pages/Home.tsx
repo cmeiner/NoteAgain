@@ -64,7 +64,7 @@ export const Home = ({ navigation }: any) => {
         source={require('../assets/images/Wave.png')}
       />
       <View style={{ marginHorizontal: 10, marginBottom: 10 }}>
-        <TopBar />
+        <TopBar settings={false} />
       </View>
       <ScrollView
         style={{
