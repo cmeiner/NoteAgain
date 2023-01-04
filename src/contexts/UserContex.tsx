@@ -20,11 +20,11 @@ type UserContextType = {
 
 export const UserContext = createContext<UserContextType>({
   reminders: [],
-  removeReminder: () => {},
-  addReminder: () => {},
+  removeReminder: () => undefined,
+  addReminder: () => undefined,
   todos: [],
   addTodo: () => {},
-  fetchAllItems: () => {},
+  fetchAllItems: () => undefined,
 });
 
 type Props = {
@@ -48,9 +48,9 @@ export const UserProvider: FC<Props> = ({ children }) => {
     setReminders([reminder, ...reminders]);
   };
 
-  const addTodo = async ({ title, items, createdBy }: TodoList) => {
+  const addTodo = async ({ title, items }: TodoList) => {
     // * Adding a todo to state and Firebase
-    const data = { title, items, createdBy };
+    const data = { title, items };
     const todo = await createTodo_DB(data);
     setTodos([todo, ...todos]);
   };

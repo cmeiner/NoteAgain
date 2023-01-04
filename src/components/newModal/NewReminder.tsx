@@ -22,8 +22,7 @@ import Toast from 'react-native-toast-message';
 export const NewReminder = () => {
   const { addReminder } = useUserContext();
   const [date, setDate] = useState<Date>(new Date());
-  const [reminderTime, setReminderTime] = useState(false);
-  const [isChecked, setChecked] = useState(reminderTime);
+  const [isChecked, setChecked] = useState(false);
 
   const showToast = () => {
     Toast.show({

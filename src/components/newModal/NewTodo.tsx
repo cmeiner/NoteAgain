@@ -45,7 +45,6 @@ export const NewTodo = () => {
     defaultValues: {
       title: '',
       items: todos,
-      createdBy: auth.currentUser.uid,
       inputPlaceholder: '',
     },
   });
@@ -55,10 +54,8 @@ export const NewTodo = () => {
     const dataObject = {
       title: data.title,
       items: data.items,
-      createdBy: data.createdBy,
     };
     addTodo(dataObject);
-    console.log('New todo added to DB');
     toggleModal(false);
     showToast();
   };

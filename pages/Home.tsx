@@ -48,7 +48,6 @@ export const Home = ({ navigation }: any) => {
                 <ReminderCard
                   description="asdsd"
                   key={key}
-                  createdBy={auth.currentUser.displayName}
                   title={reminder.title}
                   remindAt={reminder.remindAt}
                   id={reminder.id}

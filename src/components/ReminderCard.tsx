@@ -8,7 +8,7 @@ import { useUserContext } from '../contexts/UserContex';
 import { TextH2, TextThin } from '../utils/styles/FontStyles';
 
 // ? Think of "RemindAt" attribute
-export const ReminderCard = ({ title, createdBy, remindAt, id }: Reminder) => {
+export const ReminderCard = ({ title, remindAt, id }: Reminder) => {
   const { removeReminder } = useUserContext();
   return (
     <View style={ReminderStyles.Box}>

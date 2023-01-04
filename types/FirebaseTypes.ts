@@ -4,7 +4,7 @@
  * ? accepted
  * ? declined
  */
-type Status = 'pending' | 'accepted' | 'declined';
+// type Status = 'pending' | 'accepted' | 'declined';
 
 /**
  * * TodoList Data
@@ -59,18 +59,18 @@ export type Reminder = {
  * TODO Reminder Data
  * ? Should we TYPO ID ?
  */
-type User = {
-  //   id?: string;
-  email: string;
-  displayName: string;
-  //   reminders: Reminder[];
-  //   todos: TodoList[];
-  //   receivedItems: {
-  //     todos: TodoList[];
-  //     reminders: Reminder[];
-  //   };
-  //   sharedItems: {
-  //     todos: TodoList[];
-  //     reminders: Reminder[];
-  //   };
-};
+// type User = {
+//   //   id?: string;
+//   email: string;
+//   displayName: string;
+//   //   reminders: Reminder[];
+//   //   todos: TodoList[];
+//   //   receivedItems: {
+//   //     todos: TodoList[];
+//   //     reminders: Reminder[];
+//   //   };
+//   //   sharedItems: {
+//   //     todos: TodoList[];
+//   //     reminders: Reminder[];
+//   //   };
+// };
