@@ -2,11 +2,14 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Timestamp } from 'firebase/firestore';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+//import { removeReminder } from '../../hooks/firebase/ReminderHooks';
 import { Reminder } from '../../types/FirebaseTypes';
+import { useUserContext } from '../contexts/UserContex';
 import { TextH2, TextThin } from '../utils/styles/FontStyles';
 
 // ? Think of "RemindAt" attribute
-export const ReminderCard = ({ title, createdBy, remindAt, id }: Reminder) => {
+export const ReminderCard = ({ title, remindAt, id }: Reminder) => {
+  const { removeReminder } = useUserContext();
   return (
     <View style={ReminderStyles.Box}>
       <View>
@@ -23,7 +26,12 @@ export const ReminderCard = ({ title, createdBy, remindAt, id }: Reminder) => {
       </View>
       <View style={ReminderStyles.flexRow}>
         {/* // TODO Add press events to the icons. */}
-        <Ionicons name="trash-outline" size={24} color="#F5F5F5" />
+        <Ionicons
+          onPress={() => removeReminder(id)}
+          name="trash-outline"
+          size={24}
+          color="#F5F5F5"
+        />
         <MaterialCommunityIcons
           name="dots-vertical"
           size={30}

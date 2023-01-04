@@ -12,16 +12,17 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { createReminder } from '../../../hooks/firebase/ReminderHooks';
+//import { createReminder } from '../../../hooks/firebase/ReminderHooks';
 import { useModalContext } from '../../contexts/ModalContext';
+import { useUserContext } from '../../contexts/UserContex';
 import { TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 import Toast from 'react-native-toast-message';
 
 export const NewReminder = () => {
+  const { addReminder } = useUserContext();
   const [date, setDate] = useState<Date>(new Date());
-  const [reminderTime, setReminderTime] = useState(false);
-  const [isChecked, setChecked] = useState(reminderTime);
+  const [isChecked, setChecked] = useState(false);
 
   const showToast = () => {
     Toast.show({
@@ -56,9 +57,8 @@ export const NewReminder = () => {
     data = isChecked
       ? { ...data, remindAt: date }
       : { ...data, remindAt: 'Dont remind' };
-    createReminder(data);
+    addReminder(data);
     toggleModal(false);
-    console.log(data);
     showToast();
   };
 

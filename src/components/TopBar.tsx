@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { auth } from '../../config/firebaseConfig';
 import { TextH2, TextP } from '../utils/styles/FontStyles';

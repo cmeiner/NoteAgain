@@ -48,11 +48,7 @@ export const registerUser = async ({
 
 export const loginUser = async ({ email, password }: UserProps) => {
   try {
-    const userCredentials = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    await signInWithEmailAndPassword(auth, email, password);
     storeUserData(email, password);
 
     // TODO Create a nice toast message alerting that the user is signed in.
