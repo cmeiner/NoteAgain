@@ -18,17 +18,17 @@ import Toast from 'react-native-toast-message';
 const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  useEffect(() => {
-    checkUserData().then((boolean) => {
-      if (boolean) {
-        getUserData().then((data) => {
-          loginUser(data).then(() => {
-            setLoggedIn(true);
-          });
-        });
-      }
-    });
-  }, [loggedIn]);
+  // useEffect(() => {
+  //   checkUserData().then((boolean) => {
+  //     if (boolean) {
+  //       getUserData().then((data) => {
+  //         loginUser(data).then(() => {
+  //           setLoggedIn(true);
+  //         });
+  //       });
+  //     }
+  //   });
+  // }, [loggedIn]);
   const [fontsLoaded] = useFonts({
     Sora_700Bold,
     Sora_400Regular,
