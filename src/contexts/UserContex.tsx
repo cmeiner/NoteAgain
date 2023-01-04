@@ -36,23 +36,27 @@ export const UserProvider: FC<Props> = ({ children }) => {
   const [todos, setTodos] = useState<TodoList[] | any>([]);
 
   const fetchAllItems = async () => {
+    // * Fetching all reminders & todos for a user.
     getTodos();
     getReminders();
   };
 
   const addReminder = async ({ title, remindAt, description }: Reminder) => {
+    // * Adding a reminder to state and Firebase
     const data = { title, description, remindAt };
     const reminder = await createReminder_DB(data);
     setReminders([reminder, ...reminders]);
   };
 
   const addTodo = async ({ title, items, createdBy }: TodoList) => {
+    // * Adding a todo to state and Firebase
     const data = { title, items, createdBy };
     const todo = await createTodo_DB(data);
     setTodos([todo, ...todos]);
   };
 
   const removeReminder = (id: string) => {
+    // * Removing a reminder from state and Firebase
     removeReminder_DB(id);
     const updatedArray = reminders.filter((item) => item.id !== id);
     setReminders(updatedArray);

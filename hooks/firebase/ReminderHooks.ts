@@ -12,7 +12,7 @@ export const createReminder_DB = async ({
   try {
     const user = await auth.currentUser;
     if (!user) return console.log('No user'); // TODO Do something more useful here, maybe send user to login page?
-    let reminder = await addDoc(remindersRef, {
+    const reminder = await addDoc(remindersRef, {
       title: title,
       description: description,
       createdBy: user.uid,
