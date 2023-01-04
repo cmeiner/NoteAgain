@@ -6,7 +6,6 @@ import { Todo } from '../../types/FirebaseTypes';
 
 export const TodoCard = ({ desc, completed, id }: Todo) => {
   const [isChecked, setChecked] = useState(completed);
-  console.log(id);
   return (
     <View>
       <Pressable

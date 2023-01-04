@@ -1,6 +1,5 @@
 import { AntDesign } from '@expo/vector-icons';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -8,50 +7,17 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { auth, db } from '../config/firebaseConfig';
+import { auth } from '../config/firebaseConfig';
 import { ReminderCard } from '../src/components/ReminderCard';
 import { TodoListCard } from '../src/components/TodoListCard';
 import { TopBar } from '../src/components/TopBar';
+import { useUserContext } from '../src/contexts/UserContex';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 
 export const Home = ({ navigation }: any) => {
-  const [todos, setTodos] = useState([]);
-  const [reminders, setReminders] = useState([]);
-
-  const getReminders = async () => {
-    const q = query(
-      collection(db, 'reminders'),
-      where('createdBy', '==', auth.currentUser?.uid)
-    );
-    getDocs(q).then((data) => {
-      setReminders(
-        data.docs.map((item) => {
-          const object = { ...item.data(), id: item.id };
-          return object;
-        }) as any
-      );
-    });
-  };
-  const getTodos = async () => {
-    const q = query(
-      collection(db, 'todos'),
-      where('createdBy', '==', auth.currentUser?.uid)
-    );
-    getDocs(q).then((data) => {
-      setTodos(
-        data.docs.map((item) => {
-          const object = { ...item.data(), id: item.id };
-          return object;
-        }) as any
-      );
-    });
-  };
-
+  const { reminders, todos, fetchAllItems } = useUserContext();
   useEffect(() => {
-    getReminders();
-    getTodos();
-    console.log('todos:', todos);
-    console.log('remminders:', reminders);
+    fetchAllItems();
   }, []);
 
   return (
@@ -82,7 +48,6 @@ export const Home = ({ navigation }: any) => {
                 <ReminderCard
                   description="asdsd"
                   key={key}
-                  createdBy={auth.currentUser.displayName}
                   title={reminder.title}
                   remindAt={reminder.remindAt}
                   id={reminder.id}
