@@ -1,7 +1,7 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { loginUser } from '../../hooks/firebase/UserHooks';
 import { FormButton } from './small/FormButton';
-
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type StackParamList = {
@@ -21,6 +21,8 @@ type StackParamList = {
 type NavigationProps = NativeStackNavigationProp<StackParamList>;
 
 export const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigation = useNavigation<NavigationProps>();
   const {
     control,
@@ -35,7 +37,11 @@ export const LoginForm = () => {
   const onSubmit = async (data) => {
     const signInMessage = await loginUser(data);
     if (signInMessage !== 'Success') return console.log(signInMessage);
-    navigation.navigate('HomeScreen');
+    setIsLoading(true);
+    setTimeout(() => {
+      navigation.navigate('HomeScreen');
+      setIsLoading(false);
+    }, 1000);
   };
 
   return (
@@ -43,53 +49,59 @@ export const LoginForm = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <View>
-            <TextInput
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              placeholder="Email"
-              keyboardType="email-address"
-            />
-          </View>
-        )}
-        name="email"
-      />
-      {errors.email && (
-        <Text style={styles.errorText}> Please enter email</Text>
-      )}
+      {isLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <View>
+                <TextInput
+                  style={styles.input}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  placeholder="Email"
+                  keyboardType="email-address"
+                />
+              </View>
+            )}
+            name="email"
+          />
+          {errors.email && (
+            <Text style={styles.errorText}> Please enter email</Text>
+          )}
 
-      <Controller
-        control={control}
-        rules={{
-          maxLength: 100,
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <View>
-            <TextInput
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              placeholder="Password"
-              secureTextEntry={true}
-            />
-          </View>
-        )}
-        name="password"
-      />
-      {errors.password && (
-        <Text style={styles.errorText}>Please enter password</Text>
+          <Controller
+            control={control}
+            rules={{
+              maxLength: 100,
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <View>
+                <TextInput
+                  style={styles.input}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  placeholder="Password"
+                  secureTextEntry={true}
+                />
+              </View>
+            )}
+            name="password"
+          />
+          {errors.password && (
+            <Text style={styles.errorText}>Please enter password</Text>
+          )}
+          <FormButton title="Login" onPress={handleSubmit(onSubmit)} />
+        </>
       )}
-      <FormButton title="Login" onPress={handleSubmit(onSubmit)} />
     </KeyboardAvoidingView>
   );
 };

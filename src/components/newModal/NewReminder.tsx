@@ -16,10 +16,22 @@ import { createReminder } from '../../../hooks/firebase/ReminderHooks';
 import { useModalContext } from '../../contexts/ModalContext';
 import { TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
+import Toast from 'react-native-toast-message';
+
 export const NewReminder = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [reminderTime, setReminderTime] = useState(false);
   const [isChecked, setChecked] = useState(reminderTime);
+
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'New reminder added 🙂',
+      position: 'bottom',
+      autoHide: true,
+      visibilityTime: 2000,
+    });
+  };
 
   const updateDate = (event: DateTimePickerEvent, date: Date) => {
     const {
@@ -47,6 +59,7 @@ export const NewReminder = () => {
     createReminder(data);
     toggleModal(false);
     console.log(data);
+    showToast();
   };
 
   return (

@@ -13,21 +13,21 @@ import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
 import { ModalProvider } from './src/contexts/ModalContext';
+import Toast, { BaseToast } from 'react-native-toast-message';
 
 const App = () => {
-  const [modalVisible, setModalVisible] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  useEffect(() => {
-    checkUserData().then((boolean) => {
-      if (boolean) {
-        getUserData().then((data) => {
-          loginUser(data).then(() => {
-            setLoggedIn(true);
-          });
-        });
-      }
-    });
-  }, [loggedIn]);
+  // useEffect(() => {
+  //   checkUserData().then((boolean) => {
+  //     if (boolean) {
+  //       getUserData().then((data) => {
+  //         loginUser(data).then(() => {
+  //           setLoggedIn(true);
+  //         });
+  //       });
+  //     }
+  //   });
+  // }, [loggedIn]);
   const [fontsLoaded] = useFonts({
     Sora_700Bold,
     Sora_400Regular,
@@ -37,6 +37,23 @@ const App = () => {
   if (!fontsLoaded) {
     return null;
   }
+
+  const toastConfig = {
+    success: (props) => (
+      <BaseToast
+        {...props}
+        style={{ borderLeftColor: 'green' }}
+        contentContainerStyle={{
+          justifyContent: 'center',
+          paddingHorizontal: 15,
+        }}
+        text1Style={{
+          fontSize: 24,
+          fontWeight: '600',
+        }}
+      />
+    ),
+  };
 
   const Stack = createNativeStackNavigator();
   return (
@@ -64,6 +81,7 @@ const App = () => {
         </Stack.Navigator>
         <StatusBar />
       </ModalProvider>
+      <Toast config={toastConfig} />
     </NavigationContainer>
   );
 };

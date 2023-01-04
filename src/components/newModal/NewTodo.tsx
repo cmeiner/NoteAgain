@@ -9,6 +9,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { auth } from '../../../config/firebaseConfig';
 import { createTodo } from '../../../hooks/firebase/TodoHooks';
 import { ModalContext } from '../../contexts/ModalContext';
@@ -22,6 +23,17 @@ export const NewTodo = () => {
   };
   const { toggleModal } = useContext(ModalContext);
   const [todos, setTodos] = useState<Todo[]>([]);
+
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'New reminder added 🙂',
+      position: 'bottom',
+      autoHide: true,
+      visibilityTime: 2000,
+    });
+  };
+
   const {
     control,
     handleSubmit,
@@ -46,6 +58,7 @@ export const NewTodo = () => {
     createTodo(dataObject);
     console.log('New todo added to DB');
     toggleModal(false);
+    showToast();
   };
 
   const addTodo = (data: Todo) => {
