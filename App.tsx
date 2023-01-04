@@ -13,6 +13,7 @@ import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
 import { ModalProvider } from './src/contexts/ModalContext';
+import { UserProvider } from './src/contexts/UserContex';
 
 const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -41,29 +42,31 @@ const App = () => {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <ModalProvider>
-        <Stack.Navigator>
-          {loggedIn ? (
+      <UserProvider>
+        <ModalProvider>
+          <Stack.Navigator>
+            {loggedIn ? (
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="NavBar"
+                component={NavBar}
+              />
+            ) : (
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="Login"
+                component={Login}
+              />
+            )}
             <Stack.Screen
               options={{ headerShown: false }}
-              name="NavBar"
+              name="HomeScreen"
               component={NavBar}
             />
-          ) : (
-            <Stack.Screen
-              options={{ headerShown: false }}
-              name="Login"
-              component={Login}
-            />
-          )}
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="HomeScreen"
-            component={NavBar}
-          />
-        </Stack.Navigator>
-        <StatusBar />
-      </ModalProvider>
+          </Stack.Navigator>
+          <StatusBar />
+        </ModalProvider>
+      </UserProvider>
     </NavigationContainer>
   );
 };

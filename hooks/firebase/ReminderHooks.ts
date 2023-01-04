@@ -18,7 +18,13 @@ export const createReminder_DB = async ({
       createdBy: user.uid,
       remindAt: remindAt,
     });
-    return {...reminder, id: reminder.id}
+    return {
+      title: title,
+      description: description,
+      createdBy: user.uid,
+      remindAt: remindAt,
+      id: reminder.id,
+    };
     // TODO Create a nice toast message that a reminder is created.
   } catch (Error) {
     console.log(Error);

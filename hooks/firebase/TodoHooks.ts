@@ -13,7 +13,7 @@ export const createTodo_DB = async ({ title, items, createdBy }: TodoList) => {
       items: items,
       createdBy: user.uid,
     });
-    return {...todo, id: todo.id}
+    return { title: title, items: items, createdBy: user.uid, id: todo.id };
     // TODO Create a nice toast message that a reminder is created.
   } catch (Error) {
     console.log(Error);

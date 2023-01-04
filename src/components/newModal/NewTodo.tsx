@@ -10,12 +10,14 @@ import {
   View,
 } from 'react-native';
 import { auth } from '../../../config/firebaseConfig';
-import { createTodo } from '../../../hooks/firebase/TodoHooks';
+//import { createTodo } from '../../../hooks/firebase/TodoHooks';
 import { ModalContext } from '../../contexts/ModalContext';
+import { useUserContext } from '../../contexts/UserContex';
 import { TextP, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const NewTodo = () => {
+  const { addTodo } = useUserContext();
   type Todo = {
     desc: string;
     completed: boolean;
@@ -43,12 +45,12 @@ export const NewTodo = () => {
       items: data.items,
       createdBy: data.createdBy,
     };
-    createTodo(dataObject);
+    addTodo(dataObject);
     console.log('New todo added to DB');
     toggleModal(false);
   };
 
-  const addTodo = (data: Todo) => {
+  const addTodoList = (data: Todo) => {
     const array = todos;
     array.push(data);
     setTodos(array);
@@ -124,7 +126,7 @@ export const NewTodo = () => {
                 size={40}
                 color="black"
                 onPress={() => {
-                  value ? addTodo({ desc: value, completed: false }) : null;
+                  value ? addTodoList({ desc: value, completed: false }) : null;
                 }}
               />
             </View>

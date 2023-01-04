@@ -12,11 +12,13 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { createReminder } from '../../../hooks/firebase/ReminderHooks';
+//import { createReminder } from '../../../hooks/firebase/ReminderHooks';
 import { useModalContext } from '../../contexts/ModalContext';
+import { useUserContext } from '../../contexts/UserContex';
 import { TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 export const NewReminder = () => {
+  const { addReminder } = useUserContext();
   const [date, setDate] = useState<Date>(new Date());
   const [reminderTime, setReminderTime] = useState(false);
   const [isChecked, setChecked] = useState(reminderTime);
@@ -44,9 +46,8 @@ export const NewReminder = () => {
     data = isChecked
       ? { ...data, remindAt: date }
       : { ...data, remindAt: 'Dont remind' };
-    createReminder(data);
+    addReminder(data);
     toggleModal(false);
-    console.log(data);
   };
 
   return (

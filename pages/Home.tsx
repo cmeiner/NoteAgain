@@ -1,5 +1,11 @@
 import { AntDesign } from '@expo/vector-icons';
-import { collection, getDocs, query, where, onSnapshot } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  onSnapshot,
+} from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import {
   Image,
@@ -13,41 +19,13 @@ import { remindersRef } from '../hooks/firebase/ReminderHooks';
 import { ReminderCard } from '../src/components/ReminderCard';
 import { TodoListCard } from '../src/components/TodoListCard';
 import { TopBar } from '../src/components/TopBar';
+import { useUserContext } from '../src/contexts/UserContex';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 
-
 export const Home = ({ navigation }: any) => {
-  const [todos, setTodos] = useState([]);
-  const [reminders, setReminders] = useState([]);
-
-  const getReminders = async () => {
-    const q = query(
-      collection(db, 'reminders'),
-      where('createdBy', '==', auth.currentUser?.uid)
-    );
-    getDocs(q).then((data) => {
-      setReminders(
-        data.docs.map((item) => {
-          const object = { ...item.data(), id: item.id };
-          return object;
-        }) as any
-      );
-    });
-  };
-  const getTodos = async () => {
-    const q = query(
-      collection(db, 'todos'),
-      where('createdBy', '==', auth.currentUser?.uid)
-    );
-    getDocs(q).then((data) => {
-      setTodos(
-        data.docs.map((item) => {
-          const object = { ...item.data(), id: item.id };
-          return object;
-        }) as any
-      );
-    });
-  };
+  const { reminders, todos, fetchAllItems } = useUserContext();
+  //const [todos, setTodos] = useState([]);
+  //const [reminders, setReminders] = useState([]);
 
   // onSnapshot(remindersRef, (snapshot) => {
   //   snapshot.docChanges().forEach(function (change) {
@@ -67,10 +45,7 @@ export const Home = ({ navigation }: any) => {
   // });
 
   useEffect(() => {
-    getReminders();
-    getTodos();
-    console.log('todos:', todos);
-    console.log('remminders:', reminders);
+    fetchAllItems();
   }, []);
 
   return (
