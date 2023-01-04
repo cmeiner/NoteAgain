@@ -1,5 +1,5 @@
 import { AntDesign } from '@expo/vector-icons';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import {
   Image,
@@ -9,10 +9,12 @@ import {
   View,
 } from 'react-native';
 import { auth, db } from '../config/firebaseConfig';
+import { remindersRef } from '../hooks/firebase/ReminderHooks';
 import { ReminderCard } from '../src/components/ReminderCard';
 import { TodoListCard } from '../src/components/TodoListCard';
 import { TopBar } from '../src/components/TopBar';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
+
 
 export const Home = ({ navigation }: any) => {
   const [todos, setTodos] = useState([]);
@@ -46,6 +48,23 @@ export const Home = ({ navigation }: any) => {
       );
     });
   };
+
+  // onSnapshot(remindersRef, (snapshot) => {
+  //   snapshot.docChanges().forEach(function (change) {
+  //     if (change.type === "added") {
+  //       let array = reminders
+  //       array.push(change.doc.data())
+  //       setReminders(array)
+  //       console.log("Add heard: ", change.doc.data());
+  //     }
+  //     if (change.type === "modified") {
+  //       console.log("Modified heard: ", change.doc.data());
+  //     }
+  //     if (change.type === "removed") {
+  //       console.log("Removed heard: ", change.doc.data());
+  //     }
+  //   });
+  // });
 
   useEffect(() => {
     getReminders();
