@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native';
 
 type Props = {
   onPress: () => void;
-  title: string;
+  title: string | any;
   width?: string;
 };
 

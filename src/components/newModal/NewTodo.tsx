@@ -27,7 +27,7 @@ export const NewTodo = () => {
   const showToast = () => {
     Toast.show({
       type: 'success',
-      text1: 'New Todo added',
+      text1: 'New reminder added 🙂',
       position: 'bottom',
       autoHide: true,
       visibilityTime: 2000,
