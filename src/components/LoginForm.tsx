@@ -40,6 +40,7 @@ export const LoginForm = () => {
     setIsLoading(true);
     setTimeout(() => {
       navigation.navigate('HomeScreen');
+      setIsLoading(false);
     }, 1000);
   };
 

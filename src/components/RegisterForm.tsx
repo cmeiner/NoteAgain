@@ -1,7 +1,6 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
-  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -9,14 +8,13 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { registerUser } from '../../hooks/firebase/UserHooks';
+import { loginUser, registerUser } from '../../hooks/firebase/UserHooks';
 import { FormButton } from './small/FormButton';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import Toast from 'react-native-toast-message';
 
 type StackParamList = {
-  Login: undefined;
+  HomeScreen: undefined;
 };
 
 type NavigationProps = NativeStackNavigationProp<StackParamList>;
@@ -37,16 +35,11 @@ export const RegisterForm = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    // registerUser(data);
-    navigation.navigate('Login');
-    // Toast.show({
-    //   type: 'success',
-    //   text1: 'REGISTERD!',
-    //   position: 'bottom',
-    //   autoHide: true,
-    //   visibilityTime: 2000,
-    // });
+  const onSubmit = async (data) => {
+    await registerUser(data);
+    const signInMessage = await loginUser(data);
+    if (signInMessage !== 'Success') return console.log(signInMessage);
+    navigation.navigate('HomeScreen');
   };
 
   return (

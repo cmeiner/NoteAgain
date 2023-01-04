@@ -16,7 +16,6 @@ import { ModalProvider } from './src/contexts/ModalContext';
 import Toast from 'react-native-toast-message';
 
 const App = () => {
-  const [modalVisible, setModalVisible] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   // useEffect(() => {
   //   checkUserData().then((boolean) => {
