@@ -23,7 +23,7 @@ export const UserContext = createContext<UserContextType>({
   removeReminder: () => undefined,
   addReminder: () => undefined,
   todos: [],
-  addTodo: () => {},
+  addTodo: () => undefined,
   fetchAllItems: () => undefined,
 });
 
