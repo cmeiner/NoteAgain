@@ -42,7 +42,7 @@ export const NewReminder = () => {
     setDate(date);
     console.log(date);
   };
-  const { toggleModal } = useModalContext();
+  const { toggleAddNewModal: toggleAddNewModal } = useModalContext();
   const {
     control,
     handleSubmit,
@@ -58,7 +58,7 @@ export const NewReminder = () => {
       ? { ...data, remindAt: date }
       : { ...data, remindAt: 'Dont remind' };
     addReminder(data);
-    toggleModal(false);
+    toggleAddNewModal(false);
     showToast();
   };
 

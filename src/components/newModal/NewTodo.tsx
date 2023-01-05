@@ -23,13 +23,13 @@ export const NewTodo = () => {
     desc: string;
     completed: boolean;
   };
-  const { toggleModal } = useContext(ModalContext);
+  const { toggleAddNewModal: toggleAddNewModal } = useContext(ModalContext);
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const showToast = () => {
     Toast.show({
       type: 'success',
-      text1: 'New reminder added 🙂',
+      text1: 'New todo added 🙂',
       position: 'bottom',
       autoHide: true,
       visibilityTime: 2000,
@@ -56,7 +56,7 @@ export const NewTodo = () => {
       items: data.items,
     };
     addTodo(dataObject);
-    toggleModal(false);
+    toggleAddNewModal(false);
     showToast();
   };
 

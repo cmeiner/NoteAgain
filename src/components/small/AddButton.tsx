@@ -5,13 +5,16 @@ import { useModalContext } from '../../contexts/ModalContext';
 import { ModalContent } from '../newModal/ModalContent';
 
 export const AddButton = () => {
-  const { modalVisible, toggleModal } = useModalContext();
+  const {
+    AddNewModalVisible: modalVisible,
+    toggleAddNewModal: toggleAddNewModal,
+  } = useModalContext();
 
   return (
     <View style={{ marginLeft: 10, marginRight: 10 }}>
       <TouchableOpacity
         onPress={() => {
-          toggleModal(true);
+          toggleAddNewModal(true);
         }}
       >
         <View>
@@ -25,7 +28,7 @@ export const AddButton = () => {
               name="close-outline"
               size={40}
               color="black"
-              onPress={() => toggleModal(false)}
+              onPress={() => toggleAddNewModal(false)}
               style={styles.buttonClose}
             />
             <ModalContent />

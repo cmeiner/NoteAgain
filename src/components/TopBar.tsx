@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { auth } from '../../config/firebaseConfig';
 import { TextH2, TextP } from '../utils/styles/FontStyles';
+import { SettingsButton } from './small/SettingsButton';
 import { Logo, ProfilePic } from './SvgLibary';
 
 type Props = {
@@ -21,7 +22,7 @@ export const TopBar = ({ settings }: Props) => {
           </View>
         ) : (
           <View style={{ marginLeft: 0 }}>
-            <Ionicons name="settings-sharp" size={35} color="#D77451" />
+            <SettingsButton onPress={() => console.log('Hej Hej')} />
           </View>
         )}
       </View>
