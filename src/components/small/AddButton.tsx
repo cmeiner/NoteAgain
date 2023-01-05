@@ -8,7 +8,7 @@ export const AddButton = () => {
   const { modalVisible, toggleModal } = useModalContext();
 
   return (
-    <View style={{ marginLeft: 10, marginRight: 10 }}>
+    <View style={{ marginHorizontal: 10 }}>
       <TouchableOpacity
         onPress={() => {
           toggleModal(true);
