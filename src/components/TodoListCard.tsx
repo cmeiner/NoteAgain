@@ -1,8 +1,9 @@
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TextH2 } from '../../src/utils/styles/FontStyles';
 import { Todo, TodoList } from '../../types/FirebaseTypes';
+import { DotsMenu } from './DotsMenu';
+import { DeleteMenu } from './small/DeleteMenu';
 import { TodoCard } from './TodoCard';
 
 export const TodoListCard = ({ items, title, id }: TodoList) => {
@@ -14,12 +15,8 @@ export const TodoListCard = ({ items, title, id }: TodoList) => {
         </View>
         <View style={TodoListStyles.flexRow}>
           {/* // TODO Add press events to the icons. */}
-          <Ionicons name="trash-outline" size={24} color="#F5F5F5" />
-          <MaterialCommunityIcons
-            name="dots-vertical"
-            size={30}
-            color="#F5F5F5"
-          />
+          <DotsMenu />
+          <DeleteMenu />
         </View>
       </View>
       <View>
