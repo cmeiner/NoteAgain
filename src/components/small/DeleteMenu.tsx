@@ -28,7 +28,7 @@ export const DeleteMenu = () => {
           />
         }
         onRequestClose={hideMenu}
-        animationDuration={200}
+        animationDuration={100}
         style={{ backgroundColor: '#f5f5f5' }}
       >
         <View style={{ maxWidth: 70 }}>

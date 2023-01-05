@@ -10,12 +10,10 @@ import {
   View,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { auth } from '../../../config/firebaseConfig';
-//import { createTodo } from '../../../hooks/firebase/TodoHooks';
-import { ModalContext } from '../../contexts/ModalContext';
-import { useUserContext } from '../../contexts/UserContex';
-import { TextP, TextThin } from '../../utils/styles/FontStyles';
-import { FormButton } from '../small/FormButton';
+import { ModalContext } from '../../../contexts/ModalContext';
+import { useUserContext } from '../../../contexts/UserContex';
+import { TextP, TextThin } from '../../../utils/styles/FontStyles';
+import { FormButton } from '../../small/FormButton';
 
 export const NewTodo = () => {
   const { addTodo } = useUserContext();
@@ -23,7 +21,7 @@ export const NewTodo = () => {
     desc: string;
     completed: boolean;
   };
-  const { toggleModal } = useContext(ModalContext);
+  const { toggleNew } = useContext(ModalContext);
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const showToast = () => {
@@ -56,7 +54,7 @@ export const NewTodo = () => {
       items: data.items,
     };
     addTodo(dataObject);
-    toggleModal(false);
+    toggleNew(false);
     showToast();
   };
 

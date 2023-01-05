@@ -6,13 +6,21 @@ import { Reminder } from '../../types/FirebaseTypes';
 import { useUserContext } from '../contexts/UserContex';
 import { TextH2, TextThin } from '../utils/styles/FontStyles';
 import { DotsMenu } from './DotsMenu';
+import { EditModal } from './modals/EditModal';
 import { DeleteMenu } from './small/DeleteMenu';
 
 // ? Think of "RemindAt" attribute
-export const ReminderCard = ({ title, remindAt, id }: Reminder) => {
+export const ReminderCard = ({
+  title,
+  remindAt,
+  description,
+  id,
+}: Reminder) => {
   const { removeReminder } = useUserContext();
+
   return (
     <View style={ReminderStyles.Box}>
+      <EditModal defaultValuesReminder={{ title, description, remindAt, id }} />
       <View>
         <TextH2 color="white">{title}</TextH2>
         <TextThin color="white">

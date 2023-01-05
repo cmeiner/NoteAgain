@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import SwitchWithIcons from 'react-native-switch-with-icons';
-import { reminder, todo } from '../../../assets';
-import { TextH3 } from '../../utils/styles/FontStyles';
+import { reminder, todo } from '../../../../assets';
+import { TextH3 } from '../../../utils/styles/FontStyles';
 import { NewReminder } from './NewReminder';
 import { NewTodo } from './NewTodo';
 
