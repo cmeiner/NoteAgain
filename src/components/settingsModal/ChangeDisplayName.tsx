@@ -53,7 +53,7 @@ export const ChangeDisplayName = () => {
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
-                placeholder={auth.currentUser.displayName}
+                placeholder={`"${auth.currentUser.displayName}"`}
                 placeholderTextColor="#808080"
               />
             </View>
@@ -76,10 +76,13 @@ export const ChangeDisplayName = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 200,
+    height: 260,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   formContainer: {
     alignItems: 'center',
+    height: 250,
   },
   inputContainer: {
     marginTop: 20,

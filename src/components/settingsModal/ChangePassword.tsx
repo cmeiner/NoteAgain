@@ -70,18 +70,17 @@ export const ChangePassword = () => {
 
 const styles = StyleSheet.create({
   container: {
+    height: 260,
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 472,
+  },
+  formContainer: {
+    alignItems: 'center',
+    height: 250,
   },
   inputContainer: {
     marginTop: 20,
-    marginBottom: 10,
-  },
-  formContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginBottom: 30,
   },
   input: {
     height: 40,
@@ -94,6 +93,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    marginTop: 5,
+    marginTop: -30,
+    marginBottom: 13,
   },
 });

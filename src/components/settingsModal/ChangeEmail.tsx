@@ -53,7 +53,7 @@ export const ChangeEmail = () => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              // placeholder={auth.currentUser.email}
+              placeholder={`"${auth.currentUser.email}"`}
               placeholderTextColor="#808080"
               keyboardType="email-address"
               autoCapitalize="none"
@@ -98,8 +98,7 @@ export const ChangeEmail = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    // justifyContent: 'space-between',
-    height: '100%',
+    height: 260,
   },
   inputContainer: {
     marginTop: 20,
@@ -117,10 +116,9 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     borderColor: '#808080',
-    marginTop: 5,
   },
   errorText: {
     color: 'red',
-    marginTop: 5,
+    marginBottom: -10,
   },
 });
