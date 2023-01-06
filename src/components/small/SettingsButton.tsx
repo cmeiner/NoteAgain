@@ -1,16 +1,56 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { FC } from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import {
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { useModalContext } from '../../contexts/ModalContext';
+import { AddNewModalContent } from '../newModal/AddNewModalContent';
+import { SettingsModalContent } from '../settingsModal/settingsModalContent';
 
 type Props = {
   onPress: () => void;
 };
 
 export const SettingsButton: FC<Props> = ({ onPress }) => {
+  const {
+    SettingsModalVisible: SettingsModalVisible,
+    toggleSettingsModal: toggleSettingsModal,
+  } = useModalContext();
   return (
-    <Pressable style={styles.button} onPress={onPress}>
-      <Ionicons name="settings-sharp" size={35} color="#D77451" />
-    </Pressable>
+    <View style={{ marginLeft: 10, marginRight: 10 }}>
+      <TouchableOpacity
+        onPress={() => {
+          toggleSettingsModal(true);
+        }}
+      >
+        <View>
+          <Ionicons name="settings-sharp" size={35} color="#D77451" />
+        </View>
+      </TouchableOpacity>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={SettingsModalVisible}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Ionicons
+              name="close-outline"
+              size={40}
+              color="black"
+              onPress={() => toggleSettingsModal(false)}
+              style={styles.buttonClose}
+            />
+            <SettingsModalContent />
+          </View>
+        </View>
+      </Modal>
+    </View>
   );
 };
 
@@ -20,5 +60,38 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 3,
     marginTop: 'auto',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    width: 340,
+    height: 600,
+    margin: 20,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 1,
+    shadowRadius: 100,
+    elevation: 5,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonClose: {
+    position: 'absolute',
+    right: 5,
+    top: 5,
   },
 });

@@ -13,22 +13,22 @@ import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
 import { ModalProvider } from './src/contexts/ModalContext';
-import { UserProvider } from './src/contexts/UserContex';
+import { ReminderProvider } from './src/contexts/ReminderContex';
 import Toast, { BaseToast } from 'react-native-toast-message';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  //  useEffect(() => {
-  //    checkUserData().then((boolean) => {
-  //      if (boolean) {
-  //        getUserData().then((data) => {
-  //          loginUser(data).then(() => {
-  //            setLoggedIn(true);
-  //          });
-  //        });
-  //      }
-  //    });
-  // }, [loggedIn]);
+  useEffect(() => {
+    checkUserData().then((boolean) => {
+      if (boolean) {
+        getUserData().then((data) => {
+          loginUser(data).then(() => {
+            setLoggedIn(true);
+          });
+        });
+      }
+    });
+  }, [loggedIn]);
   const [fontsLoaded] = useFonts({
     Sora_700Bold,
     Sora_400Regular,
@@ -59,7 +59,7 @@ const App = () => {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <UserProvider>
+      <ReminderProvider>
         <ModalProvider>
           <Stack.Navigator>
             {loggedIn ? (
@@ -83,7 +83,7 @@ const App = () => {
           </Stack.Navigator>
           <StatusBar />
         </ModalProvider>
-      </UserProvider>
+      </ReminderProvider>
       <Toast config={toastConfig} />
     </NavigationContainer>
   );
