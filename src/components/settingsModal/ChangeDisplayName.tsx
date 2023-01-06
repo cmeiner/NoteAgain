@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   View,
@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { auth } from '../../../config/firebaseConfig';
 import { userContext } from '../../contexts/UserContext';
-import { TextH3, TextThin } from '../../utils/styles/FontStyles';
+import { TextH3, TextP, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const ChangeDisplayName = () => {
@@ -35,49 +35,55 @@ export const ChangeDisplayName = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <TextH3 color="black">Change your display name</TextH3>
+      <View style={{ alignItems: 'center' }}>
+        <TextP color="black">Change your display name</TextP>
+      </View>
 
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <View style={styles.inputContainer}>
-            <TextThin color="black">New display name</TextThin>
-            <TextInput
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              placeholder={auth.currentUser.displayName}
-              placeholderTextColor="#808080"
-            />
-          </View>
+      <View style={styles.formContainer}>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={styles.inputContainer}>
+              <TextP color="black">New display name</TextP>
+              <TextInput
+                style={styles.input}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                placeholder={auth.currentUser.displayName}
+                placeholderTextColor="#808080"
+              />
+            </View>
+          )}
+          name="newDisplayName"
+        />
+        {errors.newDisplayName && (
+          <Text style={styles.errorText}>Please choose a new display name</Text>
         )}
-        name="newDisplayName"
-      />
-      {errors.newDisplayName && (
-        <Text style={styles.errorText}> Please choose a new display name</Text>
-      )}
-      <FormButton width="240px" title="Save" onPress={handleSubmit(onSubmit)} />
+        <FormButton
+          width="240px"
+          title="Save"
+          onPress={handleSubmit(onSubmit)}
+          disabled={false}
+        />
+      </View>
     </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 472,
-  },
-  inputContainer: {
-    marginBottom: 10,
+    height: 200,
   },
   formContainer: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+  },
+  inputContainer: {
+    marginTop: 20,
+    marginBottom: 30,
   },
   input: {
     height: 40,
@@ -90,6 +96,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    marginTop: 5,
+    marginTop: -30,
+    marginBottom: 13,
   },
 });

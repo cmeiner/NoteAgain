@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { userContext } from '../../contexts/UserContext';
-import { TextH3, TextThin } from '../../utils/styles/FontStyles';
+import { TextH3, TextP, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const ChangePassword = () => {
@@ -34,7 +34,9 @@ export const ChangePassword = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <TextH3 color="black">Change your password</TextH3>
+      <View style={{ alignItems: 'center' }}>
+        <TextP color="black">Change your Password</TextP>
+      </View>
 
       <Controller
         control={control}
@@ -43,7 +45,7 @@ export const ChangePassword = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View style={styles.inputContainer}>
-            <TextThin color="black">New password</TextThin>
+            <TextP color="black">New password</TextP>
             <TextInput
               style={styles.input}
               onBlur={onBlur}
@@ -73,6 +75,7 @@ const styles = StyleSheet.create({
     height: 472,
   },
   inputContainer: {
+    marginTop: 20,
     marginBottom: 10,
   },
   formContainer: {

@@ -21,7 +21,7 @@ export const TopBar = ({ settings }: Props) => {
           </View>
         ) : (
           <View style={{ marginLeft: 0 }}>
-            <SettingsButton onPress={() => console.log('Hej Hej')} />
+            <SettingsButton />
           </View>
         )}
       </View>

@@ -18,9 +18,10 @@ export const SettingsModalContent = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <View style={styles.modalTitle}>
+      <View>
         <TextH3 color="black">Settings</TextH3>
       </View>
+
       {settings && (
         <View style={styles.buttonContainer}>
           <ChangeButton
@@ -54,18 +55,20 @@ export const SettingsModalContent = () => {
         {changeEmail && <ChangeEmail />}
         {changePassword && <ChangePassword />}
       </View>
-      <View>
-        <FormButton
-          width="240px"
-          title="Go back"
-          onPress={() => {
-            setSettings(true);
-            setChangeDisplayName(false);
-            setChangeEmail(false);
-            setChangePassword(false);
-          }}
-        />
-      </View>
+      {!settings && (
+        <View style={{ position: 'absolute', bottom: 10 }}>
+          <FormButton
+            width="240px"
+            title="Go back"
+            onPress={() => {
+              setSettings(true);
+              setChangeDisplayName(false);
+              setChangeEmail(false);
+              setChangePassword(false);
+            }}
+          />
+        </View>
+      )}
     </KeyboardAvoidingView>
   );
 };
@@ -75,16 +78,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
   },
-  modalTitle: {
-    marginRight: 'auto',
-    alignItems: 'center',
-  },
   buttonContainer: {
     marginTop: 20,
-  },
-  changeDisplayName: {
-    alignItems: 'center',
-    textAlign: 'center',
-    width: '100%',
   },
 });

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { auth } from '../../../config/firebaseConfig';
 import { userContext } from '../../contexts/UserContext';
-import { TextH3, TextThin } from '../../utils/styles/FontStyles';
+import { TextH3, TextP, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const ChangeEmail = () => {
@@ -36,7 +36,9 @@ export const ChangeEmail = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <TextH3 color="black">Change your email</TextH3>
+      <View style={{ alignItems: 'center' }}>
+        <TextP color="black">Change your Email</TextP>
+      </View>
 
       <Controller
         control={control}
@@ -45,13 +47,13 @@ export const ChangeEmail = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View style={styles.inputContainer}>
-            <TextThin color="black">New email</TextThin>
+            <TextP color="black">New email</TextP>
             <TextInput
               style={styles.input}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder={auth.currentUser.email}
+              // placeholder={auth.currentUser.email}
               placeholderTextColor="#808080"
               keyboardType="email-address"
               autoCapitalize="none"
@@ -70,7 +72,7 @@ export const ChangeEmail = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View style={styles.inputContainer}>
-            <TextThin color="black">Password</TextThin>
+            <TextP color="black">Confirm with password</TextP>
             <TextInput
               style={styles.input}
               onBlur={onBlur}
@@ -96,11 +98,12 @@ export const ChangeEmail = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 472,
+    // justifyContent: 'space-between',
+    height: '100%',
   },
   inputContainer: {
-    marginBottom: 10,
+    marginTop: 20,
+    // marginBottom: 10,
   },
   formContainer: {
     flex: 1,

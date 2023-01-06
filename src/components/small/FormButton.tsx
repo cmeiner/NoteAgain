@@ -5,13 +5,15 @@ type Props = {
   onPress: () => void;
   title: string | any;
   width?: string;
+  disabled?: boolean;
 };
 
-export const FormButton: FC<Props> = ({ onPress, title, width }) => {
+export const FormButton: FC<Props> = ({ onPress, title, width, disabled }) => {
   return (
     <Pressable
       style={width === '240px' ? styles.button240W : styles.button}
       onPress={onPress}
+      disabled={disabled}
     >
       <Text style={styles.text}>{title}</Text>
     </Pressable>
