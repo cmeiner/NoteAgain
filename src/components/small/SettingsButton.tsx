@@ -1,30 +1,41 @@
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { FC } from 'react';
+import {
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useModalContext } from '../../contexts/ModalContext';
 import { AddNewModalContent } from '../newModal/AddNewModalContent';
+import { SettingsModalContent } from '../settingsModal/settingsModalContent';
 
-export const AddButton = () => {
+type Props = {
+  onPress: () => void;
+};
+
+export const SettingsButton: FC<Props> = ({ onPress }) => {
   const {
-    AddNewModalVisible: AddNewModalVisible,
-    toggleAddNewModal: toggleAddNewModal,
+    SettingsModalVisible: SettingsModalVisible,
+    toggleSettingsModal: toggleSettingsModal,
   } = useModalContext();
-
   return (
-    <View style={{ marginHorizontal: 10 }}>
+    <View style={{ marginLeft: 10, marginRight: 10 }}>
       <TouchableOpacity
         onPress={() => {
-          toggleAddNewModal(true);
+          toggleSettingsModal(true);
         }}
       >
         <View>
-          <Ionicons name="md-add-circle" size={45} color="black" />
+          <Ionicons name="settings-sharp" size={35} color="#D77451" />
         </View>
       </TouchableOpacity>
       <Modal
         animationType="slide"
         transparent={true}
-        visible={AddNewModalVisible}
+        visible={SettingsModalVisible}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
@@ -32,10 +43,10 @@ export const AddButton = () => {
               name="close-outline"
               size={40}
               color="black"
-              onPress={() => toggleAddNewModal(false)}
+              onPress={() => toggleSettingsModal(false)}
               style={styles.buttonClose}
             />
-            <AddNewModalContent />
+            <SettingsModalContent />
           </View>
         </View>
       </Modal>
@@ -44,6 +55,12 @@ export const AddButton = () => {
 };
 
 const styles = StyleSheet.create({
+  button: {
+    width: 40,
+    borderRadius: 10,
+    elevation: 3,
+    marginTop: 'auto',
+  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',

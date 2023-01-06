@@ -14,13 +14,13 @@ import {
 } from 'react-native';
 //import { createReminder } from '../../../hooks/firebase/ReminderHooks';
 import { useModalContext } from '../../contexts/ModalContext';
-import { useUserContext } from '../../contexts/UserContex';
+import { useItemContext } from '../../contexts/ItemContex';
 import { TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 import Toast from 'react-native-toast-message';
 
 export const NewReminder = () => {
-  const { addReminder } = useUserContext();
+  const { addReminder } = useItemContext();
   const [date, setDate] = useState<Date>(new Date());
   const [isChecked, setChecked] = useState(false);
 
@@ -42,7 +42,7 @@ export const NewReminder = () => {
     setDate(date);
     console.log(date);
   };
-  const { toggleModal } = useModalContext();
+  const { toggleAddNewModal: toggleAddNewModal } = useModalContext();
   const {
     control,
     handleSubmit,
@@ -58,7 +58,7 @@ export const NewReminder = () => {
       ? { ...data, remindAt: date }
       : { ...data, remindAt: 'Dont remind' };
     addReminder(data);
-    toggleModal(false);
+    toggleAddNewModal(false);
     showToast();
   };
 

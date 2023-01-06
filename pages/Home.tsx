@@ -11,11 +11,11 @@ import { auth } from '../config/firebaseConfig';
 import { ReminderCard } from '../src/components/ReminderCard';
 import { TodoListCard } from '../src/components/TodoListCard';
 import { TopBar } from '../src/components/TopBar';
-import { useUserContext } from '../src/contexts/UserContex';
+import { useItemContext } from '../src/contexts/ItemContex';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 
 export const Home = ({ navigation }: any) => {
-  const { reminders, todos, fetchAllItems } = useUserContext();
+  const { reminders, todos, fetchAllItems } = useItemContext();
   useEffect(() => {
     fetchAllItems();
   }, []);
@@ -30,7 +30,7 @@ export const Home = ({ navigation }: any) => {
         source={require('../assets/images/Wave.png')}
       />
       <View style={{ marginHorizontal: 10, marginBottom: 10 }}>
-        <TopBar />
+        <TopBar settings={false} />
       </View>
       <ScrollView
         style={{

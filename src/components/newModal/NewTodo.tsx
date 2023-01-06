@@ -13,23 +13,23 @@ import Toast from 'react-native-toast-message';
 import { auth } from '../../../config/firebaseConfig';
 //import { createTodo } from '../../../hooks/firebase/TodoHooks';
 import { ModalContext } from '../../contexts/ModalContext';
-import { useUserContext } from '../../contexts/UserContex';
+import { useItemContext } from '../../contexts/ItemContex';
 import { TextP, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const NewTodo = () => {
-  const { addTodo } = useUserContext();
+  const { addTodo } = useItemContext();
   type Todo = {
     desc: string;
     completed: boolean;
   };
-  const { toggleModal } = useContext(ModalContext);
+  const { toggleAddNewModal: toggleAddNewModal } = useContext(ModalContext);
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const showToast = () => {
     Toast.show({
       type: 'success',
-      text1: 'New reminder added 🙂',
+      text1: 'New todo added 🙂',
       position: 'bottom',
       autoHide: true,
       visibilityTime: 2000,
@@ -56,7 +56,7 @@ export const NewTodo = () => {
       items: data.items,
     };
     addTodo(dataObject);
-    toggleModal(false);
+    toggleAddNewModal(false);
     showToast();
   };
 

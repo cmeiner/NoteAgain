@@ -7,13 +7,17 @@ import React, {
 } from 'react';
 
 type ModalContextType = {
-  modalVisible: boolean;
-  toggleModal: (visible: boolean) => void;
+  AddNewModalVisible: boolean;
+  toggleAddNewModal: (visible: boolean) => void;
+  SettingsModalVisible: boolean;
+  toggleSettingsModal: (visible: boolean) => void;
 };
 
 export const ModalContext = createContext<ModalContextType>({
-  modalVisible: false,
-  toggleModal: () => undefined,
+  AddNewModalVisible: false,
+  toggleAddNewModal: () => undefined,
+  SettingsModalVisible: false,
+  toggleSettingsModal: () => undefined,
 });
 
 type Props = {
@@ -21,13 +25,25 @@ type Props = {
 };
 
 export const ModalProvider: FC<Props> = ({ children }) => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const toggleModal = (visible: boolean) => {
-    setModalVisible(visible);
+  const [AddNewModalVisible, setAddNewModalVisible] = useState(false);
+  const [SettingsModalVisible, setSettingsModalVisible] = useState(false);
+
+  const toggleAddNewModal = (visible: boolean) => {
+    setAddNewModalVisible(visible);
+  };
+  const toggleSettingsModal = (visible: boolean) => {
+    setSettingsModalVisible(visible);
   };
 
   return (
-    <ModalContext.Provider value={{ toggleModal, modalVisible }}>
+    <ModalContext.Provider
+      value={{
+        toggleAddNewModal: toggleAddNewModal,
+        AddNewModalVisible: AddNewModalVisible,
+        toggleSettingsModal: toggleSettingsModal,
+        SettingsModalVisible: SettingsModalVisible,
+      }}
+    >
       {children}
     </ModalContext.Provider>
   );

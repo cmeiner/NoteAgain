@@ -6,7 +6,7 @@ import { TextH3 } from '../../utils/styles/FontStyles';
 import { NewReminder } from './NewReminder';
 import { NewTodo } from './NewTodo';
 
-export const ModalContent = () => {
+export const AddNewModalContent = () => {
   const [newReminder, setNewReminder] = useState(false);
   const toggleSwitch = () => {
     setNewReminder((previousState) => !previousState);

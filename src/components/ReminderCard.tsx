@@ -3,14 +3,14 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 //import { removeReminder } from '../../hooks/firebase/ReminderHooks';
 import { Reminder } from '../../types/FirebaseTypes';
-import { useUserContext } from '../contexts/UserContex';
+import { useItemContext } from '../contexts/ItemContex';
 import { TextH2, TextThin } from '../utils/styles/FontStyles';
 import { DotsMenu } from './DotsMenu';
 import { DeleteMenu } from './small/DeleteMenu';
 
 // ? Think of "RemindAt" attribute
 export const ReminderCard = ({ title, remindAt, id }: Reminder) => {
-  const { removeReminder } = useUserContext();
+  const { removeReminder } = useItemContext();
   return (
     <View style={ReminderStyles.Box}>
       <View>
