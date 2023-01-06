@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { userContext } from '../../contexts/UserContext';
-import { TextH3, TextP, TextThin } from '../../utils/styles/FontStyles';
+import { TextP } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const ChangePassword = () => {

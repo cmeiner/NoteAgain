@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
-  View,
-  Text,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
+  Text,
   TextInput,
+  View,
 } from 'react-native';
 import { auth } from '../../../config/firebaseConfig';
 import { userContext } from '../../contexts/UserContext';
-import { TextH3, TextP, TextThin } from '../../utils/styles/FontStyles';
+import { TextP } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const ChangeDisplayName = () => {
