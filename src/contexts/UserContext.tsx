@@ -2,7 +2,7 @@ import React, { createContext, FC, ReactNode, useContext } from 'react';
 import { getAuth, updateProfile } from 'firebase/auth';
 
 type UserContextType = {
-  updateDisplayName: (NewDisplayName: string) => void;
+  updateDisplayName: (newDisplayName: string) => void;
 };
 
 export const UserContext = createContext<UserContextType>({
@@ -16,9 +16,9 @@ type Props = {
 export const UserProvider: FC<Props> = ({ children }) => {
   const auth = getAuth();
 
-  const updateDisplayName = (NewDisplayName: string) => {
+  const updateDisplayName = (newDisplayName: string) => {
     updateProfile(auth.currentUser, {
-      displayName: NewDisplayName,
+      displayName: newDisplayName,
     })
       .then(() => {
         console.log('Display Name Changed');

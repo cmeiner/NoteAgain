@@ -14,13 +14,13 @@ import {
 } from 'react-native';
 //import { createReminder } from '../../../hooks/firebase/ReminderHooks';
 import { useModalContext } from '../../contexts/ModalContext';
-import { useReminderContext } from '../../contexts/ReminderContex';
+import { useItemContext } from '../../contexts/ItemContex';
 import { TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 import Toast from 'react-native-toast-message';
 
 export const NewReminder = () => {
-  const { addReminder } = useReminderContext();
+  const { addReminder } = useItemContext();
   const [date, setDate] = useState<Date>(new Date());
   const [isChecked, setChecked] = useState(false);
 

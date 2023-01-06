@@ -13,12 +13,12 @@ import Toast from 'react-native-toast-message';
 import { auth } from '../../../config/firebaseConfig';
 //import { createTodo } from '../../../hooks/firebase/TodoHooks';
 import { ModalContext } from '../../contexts/ModalContext';
-import { useReminderContext } from '../../contexts/ReminderContex';
+import { useItemContext } from '../../contexts/ItemContex';
 import { TextP, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const NewTodo = () => {
-  const { addTodo } = useReminderContext();
+  const { addTodo } = useItemContext();
   type Todo = {
     desc: string;
     completed: boolean;

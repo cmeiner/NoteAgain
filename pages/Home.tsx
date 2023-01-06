@@ -11,11 +11,11 @@ import { auth } from '../config/firebaseConfig';
 import { ReminderCard } from '../src/components/ReminderCard';
 import { TodoListCard } from '../src/components/TodoListCard';
 import { TopBar } from '../src/components/TopBar';
-import { useReminderContext } from '../src/contexts/ReminderContex';
+import { useItemContext } from '../src/contexts/ItemContex';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 
 export const Home = ({ navigation }: any) => {
-  const { reminders, todos, fetchAllItems } = useReminderContext();
+  const { reminders, todos, fetchAllItems } = useItemContext();
   useEffect(() => {
     fetchAllItems();
   }, []);

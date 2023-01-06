@@ -9,7 +9,7 @@ import {
 } from '../../hooks/firebase/ReminderHooks';
 import { createTodo_DB } from '../../hooks/firebase/TodoHooks';
 
-type ReminderContextType = {
+type ItemContextType = {
   reminders: Reminder[];
   removeReminder: (id: string) => void;
   addReminder: ({ title, remindAt, description }: Reminder) => void;
@@ -18,7 +18,7 @@ type ReminderContextType = {
   fetchAllItems: () => void;
 };
 
-export const ReminderContext = createContext<ReminderContextType>({
+export const ItemContext = createContext<ItemContextType>({
   reminders: [],
   removeReminder: () => undefined,
   addReminder: () => undefined,
@@ -31,7 +31,7 @@ type Props = {
   children: ReactNode;
 };
 
-export const ReminderProvider: FC<Props> = ({ children }) => {
+export const ItemProvider: FC<Props> = ({ children }) => {
   const [reminders, setReminders] = useState<Reminder[] | any>([]);
   const [todos, setTodos] = useState<TodoList[] | any>([]);
 
@@ -92,7 +92,7 @@ export const ReminderProvider: FC<Props> = ({ children }) => {
   };
 
   return (
-    <ReminderContext.Provider
+    <ItemContext.Provider
       value={{
         fetchAllItems,
         reminders,
@@ -103,8 +103,8 @@ export const ReminderProvider: FC<Props> = ({ children }) => {
       }}
     >
       {children}
-    </ReminderContext.Provider>
+    </ItemContext.Provider>
   );
 };
 
-export const useReminderContext = () => useContext(ReminderContext);
+export const useItemContext = () => useContext(ItemContext);

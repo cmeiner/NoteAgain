@@ -22,14 +22,12 @@ export const ChangeDisplayName = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      displayName: '',
+      newDisplayName: '',
     },
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
-
-    updateDisplayName(data);
+    updateDisplayName(data.newDisplayName);
   };
 
   return (
@@ -57,9 +55,9 @@ export const ChangeDisplayName = () => {
             />
           </View>
         )}
-        name="displayName"
+        name="newDisplayName"
       />
-      {errors.displayName && (
+      {errors.newDisplayName && (
         <Text style={styles.errorText}> Please choose a new display name</Text>
       )}
       <FormButton width="240px" title="Save" onPress={handleSubmit(onSubmit)} />

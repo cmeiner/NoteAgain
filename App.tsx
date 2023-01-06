@@ -13,22 +13,23 @@ import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
 import { ModalProvider } from './src/contexts/ModalContext';
-import { ReminderProvider } from './src/contexts/ReminderContex';
+import { ItemProvider } from './src/contexts/ItemContex';
 import Toast, { BaseToast } from 'react-native-toast-message';
+import { UserProvider } from './src/contexts/UserContext';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  useEffect(() => {
-    checkUserData().then((boolean) => {
-      if (boolean) {
-        getUserData().then((data) => {
-          loginUser(data).then(() => {
-            setLoggedIn(true);
-          });
-        });
-      }
-    });
-  }, [loggedIn]);
+  // useEffect(() => {
+  //   checkUserData().then((boolean) => {
+  //     if (boolean) {
+  //       getUserData().then((data) => {
+  //         loginUser(data).then(() => {
+  //           setLoggedIn(true);
+  //         });
+  //       });
+  //     }
+  //   });
+  // }, [loggedIn]);
   const [fontsLoaded] = useFonts({
     Sora_700Bold,
     Sora_400Regular,
@@ -59,31 +60,33 @@ const App = () => {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <ReminderProvider>
-        <ModalProvider>
-          <Stack.Navigator>
-            {loggedIn ? (
+      <UserProvider>
+        <ItemProvider>
+          <ModalProvider>
+            <Stack.Navigator>
+              {loggedIn ? (
+                <Stack.Screen
+                  options={{ headerShown: false }}
+                  name="NavBar"
+                  component={NavBar}
+                />
+              ) : (
+                <Stack.Screen
+                  options={{ headerShown: false }}
+                  name="Login"
+                  component={Login}
+                />
+              )}
               <Stack.Screen
                 options={{ headerShown: false }}
-                name="NavBar"
+                name="HomeScreen"
                 component={NavBar}
               />
-            ) : (
-              <Stack.Screen
-                options={{ headerShown: false }}
-                name="Login"
-                component={Login}
-              />
-            )}
-            <Stack.Screen
-              options={{ headerShown: false }}
-              name="HomeScreen"
-              component={NavBar}
-            />
-          </Stack.Navigator>
-          <StatusBar />
-        </ModalProvider>
-      </ReminderProvider>
+            </Stack.Navigator>
+            <StatusBar />
+          </ModalProvider>
+        </ItemProvider>
+      </UserProvider>
       <Toast config={toastConfig} />
     </NavigationContainer>
   );
