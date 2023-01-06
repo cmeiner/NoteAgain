@@ -32,6 +32,7 @@ export const Profile = () => {
         />
         <View style={{ height: 20 }} />
         <TextH2 color="black">{auth.currentUser.displayName}</TextH2>
+        <TextH2 color="black">{auth.currentUser.email}</TextH2>
       </View>
     </SafeAreaView>
   );

@@ -12,6 +12,7 @@ import { userContext } from '../../contexts/UserContext';
 import { TextH3, TextP } from '../../utils/styles/FontStyles';
 import { ChangeButton } from '../small/ChangeButton';
 import { ChangeDisplayName } from './ChangeDisplayName';
+import { ChangeEmail } from './ChangeEmail';
 
 export const SettingsModalContent = () => {
   const [settings, setSettings] = useState(true);
@@ -63,7 +64,7 @@ export const SettingsModalContent = () => {
       )}
       <View>
         {changeDisplayName && <ChangeDisplayName />}
-        {changeEmail && <Text>Change email</Text>}
+        {changeEmail && <ChangeEmail />}
         {changePassword && <Text>Change Password</Text>}
       </View>
       <View>
