@@ -72,6 +72,7 @@ export const RegisterForm = () => {
                   placeholder="Email"
                   textContentType="emailAddress"
                   keyboardType="email-address"
+                  autoCapitalize="none"
                 />
               </View>
             )}
@@ -120,6 +121,7 @@ export const RegisterForm = () => {
                   secureTextEntry={true}
                   placeholder="Password"
                   textContentType="newPassword"
+                  autoCapitalize="none"
                 />
               </View>
             )}

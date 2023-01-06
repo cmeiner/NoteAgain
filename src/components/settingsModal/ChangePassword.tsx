@@ -13,8 +13,8 @@ import { userContext } from '../../contexts/UserContext';
 import { TextH3, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
-export const ChangeDisplayName = () => {
-  const { updateUserDisplayName } = userContext();
+export const ChangePassword = () => {
+  const { updateUserPassword } = userContext();
 
   const {
     control,
@@ -22,12 +22,12 @@ export const ChangeDisplayName = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      newDisplayName: '',
+      newPassword: '',
     },
   });
 
   const onSubmit = async (data) => {
-    updateUserDisplayName(data.newDisplayName);
+    updateUserPassword(data.newPassword);
   };
 
   return (
@@ -35,7 +35,7 @@ export const ChangeDisplayName = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <TextH3 color="black">Change your display name</TextH3>
+      <TextH3 color="black">Change your password</TextH3>
 
       <Controller
         control={control}
@@ -44,21 +44,23 @@ export const ChangeDisplayName = () => {
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <View style={styles.inputContainer}>
-            <TextThin color="black">New display name</TextThin>
+            <TextThin color="black">New password</TextThin>
             <TextInput
               style={styles.input}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder={auth.currentUser.displayName}
               placeholderTextColor="#808080"
+              autoCapitalize="none"
             />
           </View>
         )}
-        name="newDisplayName"
+        name="newPassword"
       />
-      {errors.newDisplayName && (
-        <Text style={styles.errorText}> Please choose a new display name</Text>
+      {errors.newPassword && (
+        <Text style={styles.errorText}>
+          Please please choose a new password
+        </Text>
       )}
       <FormButton width="240px" title="Save" onPress={handleSubmit(onSubmit)} />
     </KeyboardAvoidingView>

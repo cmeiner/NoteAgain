@@ -13,6 +13,7 @@ import { TextH3, TextP } from '../../utils/styles/FontStyles';
 import { ChangeButton } from '../small/ChangeButton';
 import { ChangeDisplayName } from './ChangeDisplayName';
 import { ChangeEmail } from './ChangeEmail';
+import { ChangePassword } from './ChangePassword';
 
 export const SettingsModalContent = () => {
   const [settings, setSettings] = useState(true);
@@ -33,30 +34,24 @@ export const SettingsModalContent = () => {
           <ChangeButton
             title="Change display name"
             onPress={() => {
-              setChangeDisplayName((previousState) => !previousState);
-              setChangeEmail(false);
-              setChangePassword(false);
               setSettings(false);
+              setChangeDisplayName((previousState) => !previousState);
             }}
             width="250px"
           />
           <ChangeButton
             title="Change email"
             onPress={() => {
-              setChangeEmail((previousState) => !previousState);
               setSettings(false);
-              setChangeDisplayName(false);
-              setChangePassword(false);
+              setChangeEmail((previousState) => !previousState);
             }}
             width="250px"
           />
           <ChangeButton
             title="Change password"
             onPress={() => {
-              setChangePassword((previousState) => !previousState);
               setSettings(false);
-              setChangeDisplayName(false);
-              setChangeEmail(false);
+              setChangePassword((previousState) => !previousState);
             }}
             width="250px"
           />
@@ -65,7 +60,7 @@ export const SettingsModalContent = () => {
       <View>
         {changeDisplayName && <ChangeDisplayName />}
         {changeEmail && <ChangeEmail />}
-        {changePassword && <Text>Change Password</Text>}
+        {changePassword && <ChangePassword />}
       </View>
       <View>
         <Pressable

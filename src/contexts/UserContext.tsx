@@ -1,17 +1,24 @@
 import React, { createContext, FC, ReactNode, useContext } from 'react';
-import { getAuth, updateProfile, updateEmail } from 'firebase/auth';
+import {
+  getAuth,
+  updateProfile,
+  updateEmail,
+  updatePassword,
+} from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../config/firebaseConfig';
 import { loginUser } from '../../hooks/firebase/UserHooks';
 
 type UserContextType = {
-  updateDisplayName: (newDisplayName: string) => void;
+  updateUserDisplayName: (newDisplayName: string) => void;
   updateUserEmail: (newEmail: string, password: string) => void;
+  updateUserPassword: (newPassword: string) => void;
 };
 
 export const UserContext = createContext<UserContextType>({
-  updateDisplayName: () => undefined,
+  updateUserDisplayName: () => undefined,
   updateUserEmail: () => undefined,
+  updateUserPassword: () => undefined,
 });
 
 type Props = {
@@ -21,7 +28,7 @@ type Props = {
 export const UserProvider: FC<Props> = ({ children }) => {
   const auth = getAuth();
 
-  const updateDisplayName = (newDisplayName: string) => {
+  const updateUserDisplayName = (newDisplayName: string) => {
     updateProfile(auth.currentUser, {
       displayName: newDisplayName,
     })
@@ -49,11 +56,22 @@ export const UserProvider: FC<Props> = ({ children }) => {
       });
   };
 
+  const updateUserPassword = (newPassword: string) => {
+    updatePassword(auth.currentUser, newPassword)
+      .then(() => {
+        console.log('password updated');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <UserContext.Provider
       value={{
-        updateDisplayName,
+        updateUserDisplayName,
         updateUserEmail,
+        updateUserPassword,
       }}
     >
       {children}
