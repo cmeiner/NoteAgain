@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import { auth } from '../../../config/firebaseConfig';
-import { userContext } from '../../contexts/UserContext';
-import { TextH3, TextP } from '../../utils/styles/FontStyles';
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import { TextH3 } from '../../utils/styles/FontStyles';
 import { ChangeButton } from '../small/ChangeButton';
 import { FormButton } from '../small/FormButton';
 import { ChangeDisplayName } from './ChangeDisplayName';

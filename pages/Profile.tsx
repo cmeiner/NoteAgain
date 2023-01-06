@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View, Image, Pressable } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { auth } from '../config/firebaseConfig';
 import { TopBar } from '../src/components/TopBar';
 import { TextH2 } from '../src/utils/styles/FontStyles';

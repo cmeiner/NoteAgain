@@ -1,14 +1,13 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
-  View,
-  Text,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
+  Text,
   TextInput,
+  View,
 } from 'react-native';
-import { auth } from '../../../config/firebaseConfig';
 import { userContext } from '../../contexts/UserContext';
 import { TextH3, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
