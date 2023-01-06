@@ -4,16 +4,22 @@ import { View } from 'react-native';
 import { Menu, MenuItem } from 'react-native-material-menu';
 import { useModalContext } from '../contexts/ModalContext';
 import { TextP } from '../utils/styles/FontStyles';
+import { EditModal } from './modals/EditModal';
 
-export const DotsMenu = () => {
+export const DotsMenu = ({ data }: any) => {
   const [visible, setVisible] = useState(false);
-  const { toggleEdit } = useModalContext();
+  const { toggleEdit, updateData } = useModalContext();
 
-  const hideMenu = () => setVisible(false);
-  const showMenu = () => setVisible(true);
+  const hideMenu = () => {
+    setVisible(false);
+  };
+  const showMenu = () => {
+    setVisible(true);
+  };
 
   const edit = () => {
     hideMenu();
+    updateData(data);
     setTimeout(() => toggleEdit(true), 120);
   };
 
@@ -50,6 +56,7 @@ export const DotsMenu = () => {
           </MenuItem>
         </View>
       </Menu>
+      <EditModal />
     </View>
   );
 };

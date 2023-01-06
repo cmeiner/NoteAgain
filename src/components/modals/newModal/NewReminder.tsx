@@ -2,7 +2,7 @@ import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
 import Checkbox from 'expo-checkbox';
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   KeyboardAvoidingView,
@@ -14,18 +14,14 @@ import {
 } from 'react-native';
 //import { createReminder } from '../../../hooks/firebase/ReminderHooks';
 import Toast from 'react-native-toast-message';
-import { Reminder } from '../../../../types/FirebaseTypes';
 import { useModalContext } from '../../../contexts/ModalContext';
 import { useUserContext } from '../../../contexts/UserContex';
 import { TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
 
-type Props = {
-  defaultValues?: Reminder;
-};
-
-export const NewReminder: FC<Props> = ({ defaultValues }) => {
+export const NewReminder = () => {
   const { addReminder } = useUserContext();
+  const { data } = useModalContext();
   const [date, setDate] = useState<Date>(new Date());
   const [isChecked, setChecked] = useState(false);
 
@@ -53,7 +49,7 @@ export const NewReminder: FC<Props> = ({ defaultValues }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: defaultValues,
+    defaultValues: data,
   });
   const onSubmit = async (data) => {
     data = isChecked

@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { TextH2 } from '../../src/utils/styles/FontStyles';
 import { Todo, TodoList } from '../../types/FirebaseTypes';
-import { DotsMenu } from './DotsMenu';
 import { DeleteMenu } from './small/DeleteMenu';
 import { TodoCard } from './TodoCard';
 
@@ -15,7 +14,6 @@ export const TodoListCard = ({ items, title, id }: TodoList) => {
         </View>
         <View style={TodoListStyles.flexRow}>
           {/* // TODO Add press events to the icons. */}
-          <DotsMenu />
           <DeleteMenu />
         </View>
       </View>

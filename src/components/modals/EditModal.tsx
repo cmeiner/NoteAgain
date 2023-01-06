@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   KeyboardAvoidingView,
   Modal,
@@ -21,17 +21,7 @@ export const EditModal = ({
   defaultValuesReminder,
   defaultValuesTodo,
 }: Props) => {
-  const { editVisible, toggleEdit } = useModalContext();
-  console.log(defaultValuesReminder);
-  const [defValues, setDefValues] = useState(
-    defaultValuesReminder ? defaultValuesReminder : defaultValuesTodo
-  );
-
-  const clearDef = () => {
-    for (const key in defaultValuesReminder) {
-      delete defaultValuesReminder[key];
-    }
-  };
+  const { editVisible, toggleEdit, data } = useModalContext();
   return (
     <Modal animationType="slide" transparent={true} visible={editVisible}>
       <View style={styles.centeredView}>
@@ -41,7 +31,7 @@ export const EditModal = ({
             size={40}
             color="black"
             onPress={() => {
-              toggleEdit(false), clearDef();
+              toggleEdit(false);
             }}
             style={styles.buttonClose}
           />
@@ -53,10 +43,7 @@ export const EditModal = ({
             <View style={styles.modalTitle}>
               <TextH3 color="black">Edit reminder</TextH3>
             </View>
-            {defaultValuesReminder && (
-              <NewReminder defaultValues={defaultValuesReminder} />
-            )}
-            {/*TODO {defaultValuesReminder && <NewReminder defaultValues={defaultValuesReminder} />} */}
+            <NewReminder />
           </KeyboardAvoidingView>
         </View>
       </View>
