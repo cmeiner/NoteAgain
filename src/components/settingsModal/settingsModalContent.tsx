@@ -11,6 +11,7 @@ import { auth } from '../../../config/firebaseConfig';
 import { userContext } from '../../contexts/UserContext';
 import { TextH3, TextP } from '../../utils/styles/FontStyles';
 import { ChangeButton } from '../small/ChangeButton';
+import { FormButton } from '../small/FormButton';
 import { ChangeDisplayName } from './ChangeDisplayName';
 import { ChangeEmail } from './ChangeEmail';
 import { ChangePassword } from './ChangePassword';
@@ -63,22 +64,16 @@ export const SettingsModalContent = () => {
         {changePassword && <ChangePassword />}
       </View>
       <View>
-        <Pressable
-          style={{
-            marginTop: 100,
-            backgroundColor: 'blue',
-            height: 150,
-            width: 150,
-          }}
+        <FormButton
+          width="240px"
+          title="Go back"
           onPress={() => {
             setSettings(true);
             setChangeDisplayName(false);
             setChangeEmail(false);
             setChangePassword(false);
           }}
-        >
-          <Text>Go back</Text>
-        </Pressable>
+        />
       </View>
     </KeyboardAvoidingView>
   );
