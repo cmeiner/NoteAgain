@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { auth } from '../../../config/firebaseConfig';
+import { useModalContext } from '../../contexts/ModalContext';
 import { settingsContext } from '../../contexts/SettingsContext';
 import { userContext } from '../../contexts/UserContext';
 import { TextP } from '../../utils/styles/FontStyles';
@@ -18,6 +19,7 @@ import { FormButton } from '../small/FormButton';
 export const ChangeEmail = () => {
   const { updateUserEmail } = userContext();
   const { setCurrentlyShowing } = settingsContext();
+  const { toggleSettingsModal } = useModalContext();
 
   const {
     control,
@@ -44,6 +46,7 @@ export const ChangeEmail = () => {
     updateUserEmail(data.newEmail, data.password);
     showToast();
     setCurrentlyShowing('settings');
+    toggleSettingsModal(false);
   };
 
   return (

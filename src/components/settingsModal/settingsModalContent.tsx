@@ -1,25 +1,17 @@
 import React from 'react';
-import {
-  Button,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import {
   CurrentlyShowing,
   settingsContext,
 } from '../../contexts/SettingsContext';
 import { TextH3 } from '../../utils/styles/FontStyles';
 import { SettingsPage } from '../settingsModal/Settings';
-import { FormButton } from '../small/FormButton';
 import { ChangeDisplayName } from './ChangeDisplayName';
 import { ChangeEmail } from './ChangeEmail';
 import { ChangePassword } from './ChangePassword';
 
 export const SettingsModalContent = () => {
-  const { showing, setCurrentlyShowing } = settingsContext();
+  const { showing } = settingsContext();
 
   const getCurrentlyShowing = (showing: CurrentlyShowing) => {
     switch (showing) {

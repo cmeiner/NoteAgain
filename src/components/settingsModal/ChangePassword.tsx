@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
+import { useModalContext } from '../../contexts/ModalContext';
 import { settingsContext } from '../../contexts/SettingsContext';
 import { userContext } from '../../contexts/UserContext';
 import { TextP } from '../../utils/styles/FontStyles';
@@ -17,6 +18,7 @@ import { FormButton } from '../small/FormButton';
 export const ChangePassword = () => {
   const { updateUserPassword } = userContext();
   const { setCurrentlyShowing } = settingsContext();
+  const { toggleSettingsModal } = useModalContext();
 
   const {
     control,
@@ -42,6 +44,7 @@ export const ChangePassword = () => {
     updateUserPassword(data.newPassword);
     showToast();
     setCurrentlyShowing('settings');
+    toggleSettingsModal(false);
   };
 
   return (
