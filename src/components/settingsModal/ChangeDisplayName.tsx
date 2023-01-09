@@ -8,13 +8,16 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { auth } from '../../../config/firebaseConfig';
+import { settingsContext } from '../../contexts/SettingsContext';
 import { userContext } from '../../contexts/UserContext';
 import { TextP } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const ChangeDisplayName = () => {
   const { updateUserDisplayName } = userContext();
+  const { setCurrentlyShowing } = settingsContext();
 
   const {
     control,
@@ -25,9 +28,20 @@ export const ChangeDisplayName = () => {
       newDisplayName: '',
     },
   });
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Display Name updated! 😊',
+      position: 'bottom',
+      autoHide: true,
+      visibilityTime: 3000,
+    });
+  };
 
   const onSubmit = async (data) => {
     updateUserDisplayName(data.newDisplayName);
+    showToast();
+    setCurrentlyShowing('settings');
   };
 
   return (
@@ -53,7 +67,7 @@ export const ChangeDisplayName = () => {
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
-                placeholder={`"${auth.currentUser.displayName}"`}
+                placeholder={auth.currentUser.displayName}
                 placeholderTextColor="#808080"
               />
             </View>
@@ -63,11 +77,20 @@ export const ChangeDisplayName = () => {
         {errors.newDisplayName && (
           <Text style={styles.errorText}>Please choose a new display name</Text>
         )}
+      </View>
+      <View style={{ position: 'absolute', bottom: 10 }}>
         <FormButton
           width="240px"
           title="Save"
           onPress={handleSubmit(onSubmit)}
           disabled={false}
+        />
+        <FormButton
+          width="240px"
+          title="Go back"
+          onPress={() => {
+            setCurrentlyShowing('settings');
+          }}
         />
       </View>
     </KeyboardAvoidingView>
@@ -76,13 +99,11 @@ export const ChangeDisplayName = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 260,
-    justifyContent: 'center',
+    height: 350,
     alignItems: 'center',
   },
   formContainer: {
     alignItems: 'center',
-    height: 250,
   },
   inputContainer: {
     marginTop: 20,

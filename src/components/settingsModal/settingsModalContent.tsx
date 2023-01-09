@@ -44,16 +44,6 @@ export const SettingsModalContent = () => {
         <TextH3 color="black">Settings</TextH3>
       </View>
       {getCurrentlyShowing(showing)}
-
-      <View style={{ position: 'absolute', bottom: 10 }}>
-        <FormButton
-          width="240px"
-          title="Go back"
-          onPress={() => {
-            setCurrentlyShowing('settings');
-          }}
-        />
-      </View>
     </KeyboardAvoidingView>
   );
 };

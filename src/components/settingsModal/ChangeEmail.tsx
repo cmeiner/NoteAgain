@@ -8,13 +8,16 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { auth } from '../../../config/firebaseConfig';
+import { settingsContext } from '../../contexts/SettingsContext';
 import { userContext } from '../../contexts/UserContext';
 import { TextP } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const ChangeEmail = () => {
   const { updateUserEmail } = userContext();
+  const { setCurrentlyShowing } = settingsContext();
 
   const {
     control,
@@ -27,8 +30,20 @@ export const ChangeEmail = () => {
     },
   });
 
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Email updated! 😊',
+      position: 'bottom',
+      autoHide: true,
+      visibilityTime: 3000,
+    });
+  };
+
   const onSubmit = async (data) => {
     updateUserEmail(data.newEmail, data.password);
+    showToast();
+    setCurrentlyShowing('settings');
   };
 
   return (
@@ -39,58 +54,73 @@ export const ChangeEmail = () => {
       <View style={{ alignItems: 'center' }}>
         <TextP color="black">Change your Email</TextP>
       </View>
-
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <View style={styles.inputContainer}>
-            <TextP color="black">New email</TextP>
-            <TextInput
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              placeholder={`"${auth.currentUser.email}"`}
-              placeholderTextColor="#808080"
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-          </View>
+      <View style={styles.formContainer}>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={styles.inputContainer}>
+              <TextP color="black">New email</TextP>
+              <TextInput
+                style={styles.input}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                placeholder={auth.currentUser.email}
+                placeholderTextColor="#808080"
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            </View>
+          )}
+          name="newEmail"
+        />
+        {errors.newEmail && (
+          <Text style={styles.errorText}> Please choose a new email</Text>
         )}
-        name="newEmail"
-      />
-      {errors.newEmail && (
-        <Text style={styles.errorText}> Please choose a new email</Text>
-      )}
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <View style={styles.inputContainer}>
-            <TextP color="black">Confirm with password</TextP>
-            <TextInput
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              placeholder="Password"
-              placeholderTextColor="#808080"
-              secureTextEntry={true}
-              autoCapitalize="none"
-            />
-          </View>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={styles.inputContainer}>
+              <TextP color="black">Confirm with password</TextP>
+              <TextInput
+                style={styles.input}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                placeholder="Password"
+                placeholderTextColor="#808080"
+                secureTextEntry={true}
+                autoCapitalize="none"
+              />
+            </View>
+          )}
+          name="password"
+        />
+        {errors.newEmail && (
+          <Text style={styles.errorText}> Please enter password</Text>
         )}
-        name="password"
-      />
-      {errors.newEmail && (
-        <Text style={styles.errorText}> Please enter password</Text>
-      )}
-      <FormButton width="240px" title="Save" onPress={handleSubmit(onSubmit)} />
+      </View>
+      <View style={{ position: 'absolute', bottom: 10 }}>
+        <FormButton
+          width="240px"
+          title="Save"
+          onPress={handleSubmit(onSubmit)}
+          disabled={false}
+        />
+        <FormButton
+          width="240px"
+          title="Go back"
+          onPress={() => {
+            setCurrentlyShowing('settings');
+          }}
+        />
+      </View>
     </KeyboardAvoidingView>
   );
 };
@@ -98,15 +128,13 @@ export const ChangeEmail = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    height: 260,
+    height: 350,
+  },
+  formContainer: {
+    alignItems: 'center',
   },
   inputContainer: {
     marginTop: 20,
-  },
-  formContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   input: {
     height: 40,
