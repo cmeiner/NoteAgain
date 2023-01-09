@@ -10,10 +10,8 @@ import {
   View,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { auth } from '../../../config/firebaseConfig';
-//import { createTodo } from '../../../hooks/firebase/TodoHooks';
-import { ModalContext } from '../../contexts/ModalContext';
 import { useItemContext } from '../../contexts/ItemContex';
+import { ModalContext } from '../../contexts/ModalContext';
 import { TextP, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
@@ -87,7 +85,6 @@ export const NewTodo = () => {
               value={value}
               placeholder='"Walk the dog"'
               placeholderTextColor="#808080"
-              // clearButtonMode="while-editing"
             />
           </View>
         )}
@@ -96,10 +93,6 @@ export const NewTodo = () => {
       {errors.title && (
         <Text style={styles.errorText}> Please enter a title</Text>
       )}
-
-      {/* {errors.remindAt && (
-        <Text style={styles.errorText}> Please choose a time</Text>
-      )} */}
 
       <Controller
         control={control}
@@ -129,7 +122,6 @@ export const NewTodo = () => {
                 value={value}
                 placeholder='"Walk the dog"'
                 placeholderTextColor="#808080"
-                // clearButtonMode="while-editing"
               />
               <Ionicons
                 name="add-outline"
