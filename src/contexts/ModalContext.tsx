@@ -5,7 +5,7 @@ import React, {
   useContext,
   useState,
 } from 'react';
-import { Reminder } from '../../types/FirebaseTypes';
+import { Reminder, TodoList } from '../../types/FirebaseTypes';
 
 type ModalType = 'reminder' | 'todo';
 
@@ -14,8 +14,9 @@ type ModalContextType = {
   toggleNew: (visible: boolean) => void;
   editVisible: boolean;
   toggleEdit: (visible: boolean, type: ModalType) => void;
-  data: Reminder;
-  updateData: (datax: Reminder) => void;
+  todoData: TodoList;
+  reminderData: Reminder;
+  updateData: (datax: Reminder, type: ModalType) => void;
   modalType: ModalType;
 };
 
@@ -24,7 +25,8 @@ export const ModalContext = createContext<ModalContextType>({
   toggleNew: () => undefined,
   editVisible: false,
   toggleEdit: () => undefined,
-  data: { title: '', description: '' },
+  reminderData: { title: '', description: '' },
+  todoData: { title: '', items: [] },
   updateData: () => undefined,
   modalType: 'reminder',
 });
@@ -35,18 +37,25 @@ type Props = {
 
 export const ModalProvider: FC<Props> = ({ children }) => {
   const [newVisible, setNewVisible] = useState(false);
-  const [data, setData] = useState<Reminder>({ title: '', description: '' });
+  const [todoData, setTodoData] = useState<TodoList>({ title: '', items: [] });
+  const [reminderData, setReminderData] = useState<Reminder>({
+    title: '',
+    description: '',
+  });
   const [editVisible, setEditVisible] = useState(false);
   const [modalType, setModalType] = useState<ModalType>('reminder');
   const toggleNew = (visible: boolean) => {
-    setData({ title: '', description: '' });
+    setReminderData({ title: '', description: '' });
+    setTodoData({ title: '', items: [] });
     setNewVisible(visible);
   };
 
-  const updateData = (datax: any) => {
-    console.log('MODAL DATA ' + datax);
-    setData(datax);
-    console.log('MODAL ' + datax);
+  const updateData = (datax: any, type: ModalType) => {
+    if (type === 'reminder') {
+      setReminderData(datax);
+    } else {
+      setTodoData(datax);
+    }
   };
 
   const toggleEdit = (visible: boolean, type: ModalType) => {
@@ -61,7 +70,8 @@ export const ModalProvider: FC<Props> = ({ children }) => {
         newVisible,
         editVisible,
         toggleEdit,
-        data,
+        todoData,
+        reminderData,
         updateData,
       }}
     >

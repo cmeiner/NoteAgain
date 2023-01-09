@@ -24,7 +24,7 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
 
   const edit = () => {
     hideMenu();
-    updateData(data);
+    updateData(data, type);
     setTimeout(() => toggleEdit(true, type), 120);
   };
 

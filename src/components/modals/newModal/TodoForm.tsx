@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   KeyboardAvoidingView,
@@ -10,13 +10,14 @@ import {
   View,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { ModalContext } from '../../../contexts/ModalContext';
+import { ModalContext, useModalContext } from '../../../contexts/ModalContext';
 import { useUserContext } from '../../../contexts/UserContex';
 import { TextP, TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
 
 export const TodoForm = () => {
   const { addTodo } = useUserContext();
+  const { todoData } = useModalContext();
   type Todo = {
     desc: string;
     completed: boolean;
@@ -40,11 +41,7 @@ export const TodoForm = () => {
     formState: { errors },
     setValue,
   } = useForm({
-    defaultValues: {
-      title: '',
-      items: todos,
-      inputPlaceholder: '',
-    },
+    defaultValues: { ...todoData, inputPlaceholder: '' },
   });
 
   const onSubmit = async (data) => {
@@ -64,6 +61,9 @@ export const TodoForm = () => {
     setTodos(array);
     setValue('inputPlaceholder', '');
   };
+  useEffect(() => {
+    setTodos(todoData.items);
+  }, [todos]);
 
   return (
     <KeyboardAvoidingView

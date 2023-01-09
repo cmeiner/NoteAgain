@@ -21,7 +21,7 @@ import { FormButton } from '../../small/FormButton';
 
 export const ReminderForm = () => {
   const { addReminder } = useUserContext();
-  const { data } = useModalContext();
+  const { reminderData } = useModalContext();
   const [date, setDate] = useState<Date>(new Date());
   const [isChecked, setChecked] = useState(false);
 
@@ -49,7 +49,7 @@ export const ReminderForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: data,
+    defaultValues: reminderData,
   });
   const onSubmit = async (data) => {
     data = isChecked

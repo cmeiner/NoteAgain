@@ -22,7 +22,7 @@ export const EditModal = ({
   defaultValuesReminder,
   defaultValuesTodo,
 }: Props) => {
-  const { editVisible, toggleEdit, data, modalType } = useModalContext();
+  const { editVisible, toggleEdit, modalType } = useModalContext();
   return (
     <Modal animationType="slide" transparent={true} visible={editVisible}>
       <View style={styles.centeredView}>
