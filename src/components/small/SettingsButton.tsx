@@ -1,22 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { FC } from 'react';
-import {
-  Modal,
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React from 'react';
+import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useModalContext } from '../../contexts/ModalContext';
-import { AddNewModalContent } from '../newModal/AddNewModalContent';
 import { SettingsModalContent } from '../settingsModal/settingsModalContent';
 
-type Props = {
-  onPress: () => void;
-};
-
-export const SettingsButton: FC<Props> = ({ onPress }) => {
+export const SettingsButton = () => {
   const {
     SettingsModalVisible: SettingsModalVisible,
     toggleSettingsModal: toggleSettingsModal,
@@ -69,11 +57,11 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: 340,
-    height: 600,
+    height: 400,
     margin: 20,
     backgroundColor: '#F5F5F5',
     borderRadius: 20,
-    padding: 35,
+    padding: 15,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOpacity: 1,
@@ -83,11 +71,6 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
   },
   buttonClose: {
     position: 'absolute',

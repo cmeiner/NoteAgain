@@ -8,12 +8,17 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import Toast from 'react-native-toast-message';
+import { useModalContext } from '../../contexts/ModalContext';
+import { settingsContext } from '../../contexts/SettingsContext';
 import { userContext } from '../../contexts/UserContext';
-import { TextH3, TextThin } from '../../utils/styles/FontStyles';
+import { TextP } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const ChangePassword = () => {
   const { updateUserPassword } = userContext();
+  const { setCurrentlyShowing } = settingsContext();
+  const { toggleSettingsModal } = useModalContext();
 
   const {
     control,
@@ -25,8 +30,21 @@ export const ChangePassword = () => {
     },
   });
 
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Password updated! 😊',
+      position: 'bottom',
+      autoHide: true,
+      visibilityTime: 3000,
+    });
+  };
+
   const onSubmit = async (data) => {
     updateUserPassword(data.newPassword);
+    showToast();
+    setCurrentlyShowing('settings');
+    toggleSettingsModal(false);
   };
 
   return (
@@ -34,51 +52,66 @@ export const ChangePassword = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <TextH3 color="black">Change your password</TextH3>
+      <View style={{ alignItems: 'center' }}>
+        <TextP color="black">Change your Password</TextP>
+      </View>
 
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <View style={styles.inputContainer}>
-            <TextThin color="black">New password</TextThin>
-            <TextInput
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              placeholderTextColor="#808080"
-              autoCapitalize="none"
-            />
-          </View>
+      <View style={styles.formContainer}>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={styles.inputContainer}>
+              <TextP color="black">New password</TextP>
+              <TextInput
+                style={styles.input}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                placeholderTextColor="#808080"
+                autoCapitalize="none"
+              />
+            </View>
+          )}
+          name="newPassword"
+        />
+        {errors.newPassword && (
+          <Text style={styles.errorText}>
+            Please please choose a new password
+          </Text>
         )}
-        name="newPassword"
-      />
-      {errors.newPassword && (
-        <Text style={styles.errorText}>
-          Please please choose a new password
-        </Text>
-      )}
-      <FormButton width="240px" title="Save" onPress={handleSubmit(onSubmit)} />
+      </View>
+      <View style={{ position: 'absolute', bottom: 10 }}>
+        <FormButton
+          width="240px"
+          title="Save"
+          onPress={handleSubmit(onSubmit)}
+        />
+        <FormButton
+          width="240px"
+          title="Go back"
+          onPress={() => {
+            setCurrentlyShowing('settings');
+          }}
+        />
+      </View>
     </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    height: 350,
     alignItems: 'center',
-    justifyContent: 'space-between',
-    height: 472,
-  },
-  inputContainer: {
-    marginBottom: 10,
   },
   formContainer: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+  },
+  inputContainer: {
+    marginTop: 20,
+    marginBottom: 30,
   },
   input: {
     height: 40,
@@ -91,6 +124,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    marginTop: 5,
+    marginTop: -30,
+    marginBottom: 13,
   },
 });
