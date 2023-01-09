@@ -10,7 +10,8 @@ import {
 import { Reminder, TodoList } from '../../../types/FirebaseTypes';
 import { useModalContext } from '../../contexts/ModalContext';
 import { TextH3 } from '../../utils/styles/FontStyles';
-import { NewReminder } from './newModal/NewReminder';
+import { ReminderForm } from './newModal/ReminderForm';
+import { TodoForm } from './newModal/TodoForm';
 
 type Props = {
   defaultValuesReminder?: Reminder;
@@ -21,7 +22,7 @@ export const EditModal = ({
   defaultValuesReminder,
   defaultValuesTodo,
 }: Props) => {
-  const { editVisible, toggleEdit, data } = useModalContext();
+  const { editVisible, toggleEdit, data, modalType } = useModalContext();
   return (
     <Modal animationType="slide" transparent={true} visible={editVisible}>
       <View style={styles.centeredView}>
@@ -31,7 +32,7 @@ export const EditModal = ({
             size={40}
             color="black"
             onPress={() => {
-              toggleEdit(false);
+              toggleEdit(false, 'reminder');
             }}
             style={styles.buttonClose}
           />
@@ -40,10 +41,21 @@ export const EditModal = ({
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}
           >
-            <View style={styles.modalTitle}>
-              <TextH3 color="black">Edit reminder</TextH3>
-            </View>
-            <NewReminder />
+            {modalType === 'reminder' ? (
+              <>
+                <View style={styles.modalTitle}>
+                  <TextH3 color="black">Edit reminder</TextH3>
+                </View>
+                <ReminderForm />
+              </>
+            ) : (
+              <>
+                <View style={styles.modalTitle}>
+                  <TextH3 color="black">Edit todo</TextH3>
+                </View>
+                <TodoForm />
+              </>
+            )}
           </KeyboardAvoidingView>
         </View>
       </View>

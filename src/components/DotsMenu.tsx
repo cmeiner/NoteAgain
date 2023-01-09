@@ -1,12 +1,17 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 import { Menu, MenuItem } from 'react-native-material-menu';
 import { useModalContext } from '../contexts/ModalContext';
 import { TextP } from '../utils/styles/FontStyles';
 import { EditModal } from './modals/EditModal';
 
-export const DotsMenu = ({ data }: any) => {
+type Props = {
+  data: any;
+  type: 'reminder' | 'todo';
+};
+
+export const DotsMenu: FC<Props> = ({ data, type }) => {
   const [visible, setVisible] = useState(false);
   const { toggleEdit, updateData } = useModalContext();
 
@@ -20,7 +25,7 @@ export const DotsMenu = ({ data }: any) => {
   const edit = () => {
     hideMenu();
     updateData(data);
-    setTimeout(() => toggleEdit(true), 120);
+    setTimeout(() => toggleEdit(true, type), 120);
   };
 
   return (

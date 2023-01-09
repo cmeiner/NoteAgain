@@ -15,7 +15,7 @@ import { useUserContext } from '../../../contexts/UserContex';
 import { TextP, TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
 
-export const NewTodo = () => {
+export const TodoForm = () => {
   const { addTodo } = useUserContext();
   type Todo = {
     desc: string;

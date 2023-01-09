@@ -3,8 +3,8 @@ import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import SwitchWithIcons from 'react-native-switch-with-icons';
 import { reminder, todo } from '../../../../assets';
 import { TextH3 } from '../../../utils/styles/FontStyles';
-import { NewReminder } from './NewReminder';
-import { NewTodo } from './NewTodo';
+import { ReminderForm } from './ReminderForm';
+import { TodoForm } from './TodoForm';
 
 export const ModalContent = () => {
   const [newReminder, setNewReminder] = useState(false);
@@ -29,7 +29,7 @@ export const ModalContent = () => {
         trackColor={{ true: '#1B1D29', false: '#D77451' }}
         thumbColor={{ true: '#D77451', false: '#1B1D29' }}
       />
-      {!newReminder ? <NewReminder /> : <NewTodo />}
+      {!newReminder ? <ReminderForm /> : <TodoForm />}
     </KeyboardAvoidingView>
   );
 };

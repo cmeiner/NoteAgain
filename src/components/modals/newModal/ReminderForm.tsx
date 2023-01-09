@@ -19,7 +19,7 @@ import { useUserContext } from '../../../contexts/UserContex';
 import { TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
 
-export const NewReminder = () => {
+export const ReminderForm = () => {
   const { addReminder } = useUserContext();
   const { data } = useModalContext();
   const [date, setDate] = useState<Date>(new Date());

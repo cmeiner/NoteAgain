@@ -33,8 +33,7 @@ export const ReminderCard = ({
         </TextThin>
       </View>
       <View style={ReminderStyles.flexRow}>
-        {/* // TODO Add press events to the icons. */}
-        <DotsMenu data={data} />
+        <DotsMenu type="reminder" data={data} />
         <DeleteMenu />
       </View>
     </View>
