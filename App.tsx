@@ -13,8 +13,10 @@ import { loginUser } from './hooks/firebase/UserHooks';
 import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
+import { ItemProvider } from './src/contexts/ItemContext';
 import { ModalProvider } from './src/contexts/ModalContext';
-import { UserProvider } from './src/contexts/UserContex';
+import { SettingsProvider } from './src/contexts/SettingsContext';
+import { UserProvider } from './src/contexts/UserContext';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -59,31 +61,35 @@ const App = () => {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <UserProvider>
-        <ModalProvider>
-          <Stack.Navigator>
-            {loggedIn ? (
-              <Stack.Screen
-                options={{ headerShown: false }}
-                name="NavBar"
-                component={NavBar}
-              />
-            ) : (
-              <Stack.Screen
-                options={{ headerShown: false }}
-                name="Login"
-                component={Login}
-              />
-            )}
-            <Stack.Screen
-              options={{ headerShown: false }}
-              name="HomeScreen"
-              component={NavBar}
-            />
-          </Stack.Navigator>
-          <StatusBar />
-        </ModalProvider>
-      </UserProvider>
+      <SettingsProvider>
+        <UserProvider>
+          <ItemProvider>
+            <ModalProvider>
+              <Stack.Navigator>
+                {loggedIn ? (
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="NavBar"
+                    component={NavBar}
+                  />
+                ) : (
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="Login"
+                    component={Login}
+                  />
+                )}
+                <Stack.Screen
+                  options={{ headerShown: false }}
+                  name="HomeScreen"
+                  component={NavBar}
+                />
+              </Stack.Navigator>
+              <StatusBar />
+            </ModalProvider>
+          </ItemProvider>
+        </UserProvider>
+      </SettingsProvider>
       <Toast config={toastConfig} />
     </NavigationContainer>
   );

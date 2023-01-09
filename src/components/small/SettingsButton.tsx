@@ -1,34 +1,40 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { AddNewModalContent } from '../../components/modals/newModal/AddNewModalContent';
 import { useModalContext } from '../../contexts/ModalContext';
+import { SettingsModalContent } from '../settingsModal/settingsModalContent';
 
-export const AddButton = () => {
-  const { newVisible, toggleNew } = useModalContext();
-
+export const SettingsButton = () => {
+  const {
+    SettingsModalVisible: SettingsModalVisible,
+    toggleSettingsModal: toggleSettingsModal,
+  } = useModalContext();
   return (
-    <View style={{ marginHorizontal: 10 }}>
+    <View style={{ marginLeft: 10, marginRight: 10 }}>
       <TouchableOpacity
         onPress={() => {
-          toggleNew(true);
+          toggleSettingsModal(true);
         }}
       >
         <View>
-          <Ionicons name="md-add-circle" size={45} color="black" />
+          <Ionicons name="settings-sharp" size={35} color="#D77451" />
         </View>
       </TouchableOpacity>
-      <Modal animationType="slide" transparent={true} visible={newVisible}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={SettingsModalVisible}
+      >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Ionicons
               name="close-outline"
               size={40}
               color="black"
-              onPress={() => toggleNew(false)}
+              onPress={() => toggleSettingsModal(false)}
               style={styles.buttonClose}
             />
-            <AddNewModalContent />
+            <SettingsModalContent />
           </View>
         </View>
       </Modal>
@@ -37,6 +43,12 @@ export const AddButton = () => {
 };
 
 const styles = StyleSheet.create({
+  button: {
+    width: 40,
+    borderRadius: 10,
+    elevation: 3,
+    marginTop: 'auto',
+  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -45,11 +57,11 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: 340,
-    height: 600,
+    height: 400,
     margin: 20,
     backgroundColor: '#F5F5F5',
     borderRadius: 20,
-    padding: 35,
+    padding: 15,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOpacity: 1,
@@ -59,11 +71,6 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
   },
   buttonClose: {
     position: 'absolute',

@@ -10,13 +10,13 @@ import {
   View,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
+import { useItemContext } from '../../../contexts/ItemContext';
 import { ModalContext, useModalContext } from '../../../contexts/ModalContext';
-import { useUserContext } from '../../../contexts/UserContex';
 import { TextP, TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
 
 export const TodoForm = () => {
-  const { addTodo } = useUserContext();
+  const { addTodo } = useItemContext();
   const { todoData } = useModalContext();
   type Todo = {
     desc: string;
@@ -28,7 +28,7 @@ export const TodoForm = () => {
   const showToast = () => {
     Toast.show({
       type: 'success',
-      text1: 'New reminder added 🙂',
+      text1: 'New todo added 🙂',
       position: 'bottom',
       autoHide: true,
       visibilityTime: 2000,
@@ -85,7 +85,6 @@ export const TodoForm = () => {
               value={value}
               placeholder='"Walk the dog"'
               placeholderTextColor="#808080"
-              // clearButtonMode="while-editing"
             />
           </View>
         )}
@@ -94,10 +93,6 @@ export const TodoForm = () => {
       {errors.title && (
         <Text style={styles.errorText}> Please enter a title</Text>
       )}
-
-      {/* {errors.remindAt && (
-        <Text style={styles.errorText}> Please choose a time</Text>
-      )} */}
 
       <Controller
         control={control}
@@ -127,7 +122,6 @@ export const TodoForm = () => {
                 value={value}
                 placeholder='"Walk the dog"'
                 placeholderTextColor="#808080"
-                // clearButtonMode="while-editing"
               />
               <Ionicons
                 name="add-outline"

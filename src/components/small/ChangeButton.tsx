@@ -5,15 +5,13 @@ type Props = {
   onPress: () => void;
   title: string | any;
   width?: string;
-  disabled?: boolean;
 };
 
-export const FormButton: FC<Props> = ({ onPress, title, width, disabled }) => {
+export const ChangeButton: FC<Props> = ({ onPress, title, width }) => {
   return (
     <Pressable
-      style={width === '240px' ? styles.button240W : styles.button}
+      style={width === '250px' ? styles.button250W : styles.button}
       onPress={onPress}
-      disabled={disabled}
     >
       <Text style={styles.text}>{title}</Text>
     </Pressable>
@@ -32,17 +30,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#D77451',
     marginTop: 'auto',
   },
-  button240W: {
+  button250W: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 240,
-    marginBottom: 10,
+    width: 250,
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
     backgroundColor: '#D77451',
     marginTop: 'auto',
+    marginBottom: 10,
   },
   text: {
     fontSize: 16,

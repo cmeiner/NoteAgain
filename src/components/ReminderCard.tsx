@@ -3,7 +3,6 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 //import { removeReminder } from '../../hooks/firebase/ReminderHooks';
 import { Reminder } from '../../types/FirebaseTypes';
-import { useUserContext } from '../contexts/UserContex';
 import { TextH2, TextThin } from '../utils/styles/FontStyles';
 import { DotsMenu } from './DotsMenu';
 import { DeleteMenu } from './small/DeleteMenu';
@@ -15,8 +14,6 @@ export const ReminderCard = ({
   description,
   id,
 }: Reminder) => {
-  const { removeReminder } = useUserContext();
-
   const data = { title, remindAt, description, id };
   return (
     <View style={ReminderStyles.Box}>

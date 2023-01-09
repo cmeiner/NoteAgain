@@ -18,6 +18,8 @@ type ModalContextType = {
   reminderData: Reminder;
   updateData: (datax: Reminder, type: ModalType) => void;
   modalType: ModalType;
+  SettingsModalVisible: boolean;
+  toggleSettingsModal: (visible: boolean) => void;
 };
 
 export const ModalContext = createContext<ModalContextType>({
@@ -29,6 +31,8 @@ export const ModalContext = createContext<ModalContextType>({
   todoData: { title: '', items: [] },
   updateData: () => undefined,
   modalType: 'reminder',
+  SettingsModalVisible: false,
+  toggleSettingsModal: () => undefined,
 });
 
 type Props = {
@@ -44,10 +48,16 @@ export const ModalProvider: FC<Props> = ({ children }) => {
   });
   const [editVisible, setEditVisible] = useState(false);
   const [modalType, setModalType] = useState<ModalType>('reminder');
+  const [SettingsModalVisible, setSettingsModalVisible] = useState(false);
+
   const toggleNew = (visible: boolean) => {
     setReminderData({ title: '', description: '' });
     setTodoData({ title: '', items: [] });
     setNewVisible(visible);
+  };
+
+  const toggleSettingsModal = (visible: boolean) => {
+    setSettingsModalVisible(visible);
   };
 
   const updateData = (datax: any, type: ModalType) => {
@@ -73,6 +83,8 @@ export const ModalProvider: FC<Props> = ({ children }) => {
         todoData,
         reminderData,
         updateData,
+        SettingsModalVisible,
+        toggleSettingsModal,
       }}
     >
       {children}

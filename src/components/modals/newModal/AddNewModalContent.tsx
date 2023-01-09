@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import SwitchWithIcons from 'react-native-switch-with-icons';
-import { reminder, todo } from '../../../../assets';
+import { reminder, todo } from '../../../../assets/index';
 import { TextH3 } from '../../../utils/styles/FontStyles';
 import { ReminderForm } from './ReminderForm';
 import { TodoForm } from './TodoForm';
 
-export const ModalContent = () => {
+export const AddNewModalContent = () => {
   const [newReminder, setNewReminder] = useState(false);
   const toggleSwitch = () => {
     setNewReminder((previousState) => !previousState);

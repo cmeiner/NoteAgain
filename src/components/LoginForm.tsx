@@ -67,6 +67,7 @@ export const LoginForm = () => {
                   value={value}
                   placeholder="Email"
                   keyboardType="email-address"
+                  autoCapitalize="none"
                 />
               </View>
             )}
@@ -91,6 +92,7 @@ export const LoginForm = () => {
                   value={value}
                   placeholder="Password"
                   secureTextEntry={true}
+                  autoCapitalize="none"
                 />
               </View>
             )}
