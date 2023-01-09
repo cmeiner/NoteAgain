@@ -11,7 +11,7 @@ import { auth } from '../config/firebaseConfig';
 import { ReminderCard } from '../src/components/ReminderCard';
 import { TodoListCard } from '../src/components/TodoListCard';
 import { TopBar } from '../src/components/TopBar';
-import { useItemContext } from '../src/contexts/ItemContex';
+import { useItemContext } from '../src/contexts/ItemContext';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 
 export const Home = ({ navigation }: any) => {

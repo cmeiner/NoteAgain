@@ -1,14 +1,32 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 import { Menu, MenuItem } from 'react-native-material-menu';
+import { useModalContext } from '../contexts/ModalContext';
 import { TextP } from '../utils/styles/FontStyles';
+import { EditModal } from './modals/EditModal';
 
-export const DotsMenu = () => {
+type Props = {
+  data: any;
+  type: 'reminder' | 'todo';
+};
+
+export const DotsMenu: FC<Props> = ({ data, type }) => {
   const [visible, setVisible] = useState(false);
+  const { toggleEdit, updateData } = useModalContext();
 
-  const hideMenu = () => setVisible(false);
-  const showMenu = () => setVisible(true);
+  const hideMenu = () => {
+    setVisible(false);
+  };
+  const showMenu = () => {
+    setVisible(true);
+  };
+
+  const edit = () => {
+    hideMenu();
+    updateData(data, type);
+    setTimeout(() => toggleEdit(true, type), 120);
+  };
 
   return (
     <View
@@ -27,12 +45,12 @@ export const DotsMenu = () => {
             onPress={showMenu}
           />
         }
-        onRequestClose={hideMenu}
-        animationDuration={200}
+        onRequestClose={() => setVisible(false)}
+        animationDuration={100}
         style={{ backgroundColor: '#f5f5f5' }}
       >
         <View style={{ maxWidth: 80 }}>
-          <MenuItem onPress={hideMenu}>
+          <MenuItem onPress={edit}>
             <TextP color="black">Edit</TextP>
           </MenuItem>
           <MenuItem onPress={hideMenu}>
@@ -43,6 +61,7 @@ export const DotsMenu = () => {
           </MenuItem>
         </View>
       </Menu>
+      <EditModal />
     </View>
   );
 };

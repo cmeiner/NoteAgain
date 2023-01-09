@@ -13,7 +13,7 @@ import { loginUser } from './hooks/firebase/UserHooks';
 import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
-import { ItemProvider } from './src/contexts/ItemContex';
+import { ItemProvider } from './src/contexts/ItemContext';
 import { ModalProvider } from './src/contexts/ModalContext';
 import { SettingsProvider } from './src/contexts/SettingsContext';
 import { UserProvider } from './src/contexts/UserContext';

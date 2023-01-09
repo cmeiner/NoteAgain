@@ -1,11 +1,11 @@
-import React, { createContext, FC, ReactNode, useContext } from 'react';
 import {
   getAuth,
-  updateProfile,
   updateEmail,
   updatePassword,
+  updateProfile,
 } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
+import React, { createContext, FC, ReactNode, useContext } from 'react';
 import { db } from '../../config/firebaseConfig';
 import { loginUser } from '../../hooks/firebase/UserHooks';
 
@@ -47,7 +47,8 @@ export const UserProvider: FC<Props> = ({ children }) => {
       .then(async () => {
         const userRef = doc(db, 'users', auth.currentUser.uid);
         await updateDoc(userRef, { email: newEmail });
-        loginUser(newEmail, password);
+        const data = { email: newEmail, password };
+        loginUser(data);
 
         console.log('Email updated to' + newEmail);
       })
@@ -79,4 +80,4 @@ export const UserProvider: FC<Props> = ({ children }) => {
   );
 };
 
-export const userContext = () => useContext(UserContext);
+export const useUserContext = () => useContext(UserContext);

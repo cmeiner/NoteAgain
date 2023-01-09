@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   KeyboardAvoidingView,
@@ -10,18 +10,19 @@ import {
   View,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { useItemContext } from '../../contexts/ItemContex';
-import { ModalContext } from '../../contexts/ModalContext';
-import { TextP, TextThin } from '../../utils/styles/FontStyles';
-import { FormButton } from '../small/FormButton';
+import { useItemContext } from '../../../contexts/ItemContext';
+import { ModalContext, useModalContext } from '../../../contexts/ModalContext';
+import { TextP, TextThin } from '../../../utils/styles/FontStyles';
+import { FormButton } from '../../small/FormButton';
 
-export const NewTodo = () => {
+export const TodoForm = () => {
   const { addTodo } = useItemContext();
+  const { todoData } = useModalContext();
   type Todo = {
     desc: string;
     completed: boolean;
   };
-  const { toggleAddNewModal: toggleAddNewModal } = useContext(ModalContext);
+  const { toggleNew } = useContext(ModalContext);
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const showToast = () => {
@@ -40,11 +41,7 @@ export const NewTodo = () => {
     formState: { errors },
     setValue,
   } = useForm({
-    defaultValues: {
-      title: '',
-      items: todos,
-      inputPlaceholder: '',
-    },
+    defaultValues: { ...todoData, inputPlaceholder: '' },
   });
 
   const onSubmit = async (data) => {
@@ -54,7 +51,7 @@ export const NewTodo = () => {
       items: data.items,
     };
     addTodo(dataObject);
-    toggleAddNewModal(false);
+    toggleNew(false);
     showToast();
   };
 
@@ -64,6 +61,9 @@ export const NewTodo = () => {
     setTodos(array);
     setValue('inputPlaceholder', '');
   };
+  useEffect(() => {
+    setTodos(todoData.items);
+  }, [todos]);
 
   return (
     <KeyboardAvoidingView

@@ -3,14 +3,18 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 //import { removeReminder } from '../../hooks/firebase/ReminderHooks';
 import { Reminder } from '../../types/FirebaseTypes';
-import { useItemContext } from '../contexts/ItemContex';
 import { TextH2, TextThin } from '../utils/styles/FontStyles';
 import { DotsMenu } from './DotsMenu';
 import { DeleteMenu } from './small/DeleteMenu';
 
 // ? Think of "RemindAt" attribute
-export const ReminderCard = ({ title, remindAt, id }: Reminder) => {
-  const { removeReminder } = useItemContext();
+export const ReminderCard = ({
+  title,
+  remindAt,
+  description,
+  id,
+}: Reminder) => {
+  const data = { title, remindAt, description, id };
   return (
     <View style={ReminderStyles.Box}>
       <View>
@@ -26,8 +30,7 @@ export const ReminderCard = ({ title, remindAt, id }: Reminder) => {
         </TextThin>
       </View>
       <View style={ReminderStyles.flexRow}>
-        {/* // TODO Add press events to the icons. */}
-        <DotsMenu />
+        <DotsMenu type="reminder" data={data} />
         <DeleteMenu />
       </View>
     </View>

@@ -1,13 +1,18 @@
-import React, { createContext, FC, ReactNode, useContext } from 'react';
-import { Reminder, TodoList } from '../../types/FirebaseTypes';
-import { useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
+import React, {
+  createContext,
+  FC,
+  ReactNode,
+  useContext,
+  useState,
+} from 'react';
 import { auth, db } from '../../config/firebaseConfig';
 import {
   createReminder_DB,
   removeReminder_DB,
 } from '../../hooks/firebase/ReminderHooks';
 import { createTodo_DB } from '../../hooks/firebase/TodoHooks';
+import { Reminder, TodoList } from '../../types/FirebaseTypes';
 
 type ItemContextType = {
   reminders: Reminder[];

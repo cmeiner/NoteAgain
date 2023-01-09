@@ -1,38 +1,31 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { AddNewModalContent } from '../../components/modals/newModal/AddNewModalContent';
 import { useModalContext } from '../../contexts/ModalContext';
-import { AddNewModalContent } from '../newModal/AddNewModalContent';
 
 export const AddButton = () => {
-  const {
-    AddNewModalVisible: AddNewModalVisible,
-    toggleAddNewModal: toggleAddNewModal,
-  } = useModalContext();
+  const { newVisible, toggleNew } = useModalContext();
 
   return (
     <View style={{ marginHorizontal: 10 }}>
       <TouchableOpacity
         onPress={() => {
-          toggleAddNewModal(true);
+          toggleNew(true);
         }}
       >
         <View>
           <Ionicons name="md-add-circle" size={45} color="black" />
         </View>
       </TouchableOpacity>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={AddNewModalVisible}
-      >
+      <Modal animationType="slide" transparent={true} visible={newVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Ionicons
               name="close-outline"
               size={40}
               color="black"
-              onPress={() => toggleAddNewModal(false)}
+              onPress={() => toggleNew(false)}
               style={styles.buttonClose}
             />
             <AddNewModalContent />
