@@ -15,6 +15,7 @@ import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
 import { ItemProvider } from './src/contexts/ItemContex';
 import { ModalProvider } from './src/contexts/ModalContext';
+import { SettingsProvider } from './src/contexts/SettingsContext';
 import { UserProvider } from './src/contexts/UserContext';
 
 const App = () => {
@@ -60,33 +61,35 @@ const App = () => {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <UserProvider>
-        <ItemProvider>
-          <ModalProvider>
-            <Stack.Navigator>
-              {loggedIn ? (
+      <SettingsProvider>
+        <UserProvider>
+          <ItemProvider>
+            <ModalProvider>
+              <Stack.Navigator>
+                {loggedIn ? (
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="NavBar"
+                    component={NavBar}
+                  />
+                ) : (
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="Login"
+                    component={Login}
+                  />
+                )}
                 <Stack.Screen
                   options={{ headerShown: false }}
-                  name="NavBar"
+                  name="HomeScreen"
                   component={NavBar}
                 />
-              ) : (
-                <Stack.Screen
-                  options={{ headerShown: false }}
-                  name="Login"
-                  component={Login}
-                />
-              )}
-              <Stack.Screen
-                options={{ headerShown: false }}
-                name="HomeScreen"
-                component={NavBar}
-              />
-            </Stack.Navigator>
-            <StatusBar />
-          </ModalProvider>
-        </ItemProvider>
-      </UserProvider>
+              </Stack.Navigator>
+              <StatusBar />
+            </ModalProvider>
+          </ItemProvider>
+        </UserProvider>
+      </SettingsProvider>
       <Toast config={toastConfig} />
     </NavigationContainer>
   );
