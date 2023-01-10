@@ -1,4 +1,4 @@
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
 import { auth, db } from '../../config/firebaseConfig';
 import { TodoList } from '../../types/FirebaseTypes';
 
@@ -17,5 +17,14 @@ export const createTodo_DB = async ({ title, items }: TodoList) => {
     // TODO Create a nice toast message that a reminder is created.
   } catch (Error) {
     console.log(Error);
+  }
+};
+
+export const removeTodo_DB = async (id: string) => {
+  try {
+    await deleteDoc(doc(db, 'todos', id));
+    console.log('Todo Removed');
+  } catch (e) {
+    console.log(e);
   }
 };

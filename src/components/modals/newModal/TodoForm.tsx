@@ -31,7 +31,7 @@ export const TodoForm = () => {
       text1: 'New todo added 🙂',
       position: 'bottom',
       autoHide: true,
-      visibilityTime: 2000,
+      visibilityTime: 1000,
     });
   };
 

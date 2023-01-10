@@ -31,7 +31,7 @@ export const ReminderCard = ({
       </View>
       <View style={ReminderStyles.flexRow}>
         <DotsMenu type="reminder" data={data} />
-        <DeleteMenu id={id} />
+        <DeleteMenu type="reminder" id={id} />
       </View>
     </View>
   );

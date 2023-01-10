@@ -11,7 +11,7 @@ import {
   createReminder_DB,
   removeReminder_DB,
 } from '../../hooks/firebase/ReminderHooks';
-import { createTodo_DB } from '../../hooks/firebase/TodoHooks';
+import { createTodo_DB, removeTodo_DB } from '../../hooks/firebase/TodoHooks';
 import { Reminder, TodoList } from '../../types/FirebaseTypes';
 
 type ItemContextType = {
@@ -20,6 +20,7 @@ type ItemContextType = {
   addReminder: ({ title, remindAt, description }: Reminder) => void;
   todos: TodoList[];
   addTodo: ({ title, items, createdBy }: TodoList) => void;
+  removeTodo: (id: string) => void;
   fetchAllItems: () => void;
 };
 
@@ -29,6 +30,7 @@ export const ItemContext = createContext<ItemContextType>({
   addReminder: () => undefined,
   todos: [],
   addTodo: () => undefined,
+  removeTodo: () => undefined,
   fetchAllItems: () => undefined,
 });
 
@@ -96,6 +98,13 @@ export const ItemProvider: FC<Props> = ({ children }) => {
     });
   };
 
+  const removeTodo = (id: string) => {
+    // * Removing a todo from state and Firebase
+    removeTodo_DB(id);
+    const updatedArray = todos.filter((item) => item.id !== id);
+    setTodos(updatedArray);
+  };
+
   return (
     <ItemContext.Provider
       value={{
@@ -105,6 +114,7 @@ export const ItemProvider: FC<Props> = ({ children }) => {
         addReminder,
         removeReminder,
         addTodo,
+        removeTodo,
       }}
     >
       {children}

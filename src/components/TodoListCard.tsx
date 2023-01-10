@@ -18,7 +18,7 @@ export const TodoListCard = ({ items, title, id }: TodoList) => {
         <View style={TodoListStyles.flexRow}>
           {/* // TODO Add press events to the icons. */}
           <DotsMenu type="todo" data={data} />
-          <DeleteMenu />
+          <DeleteMenu type="todo" id={id} />
         </View>
       </View>
       <View>

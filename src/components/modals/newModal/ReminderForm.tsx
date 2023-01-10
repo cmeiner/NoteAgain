@@ -31,7 +31,7 @@ export const ReminderForm = () => {
       text1: 'New reminder added 🙂',
       position: 'bottom',
       autoHide: true,
-      visibilityTime: 2000,
+      visibilityTime: 1000,
     });
   };
 

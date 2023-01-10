@@ -36,7 +36,7 @@ export const ChangePassword = () => {
       text1: 'Password updated! 😊',
       position: 'bottom',
       autoHide: true,
-      visibilityTime: 3000,
+      visibilityTime: 2000,
     });
   };
 

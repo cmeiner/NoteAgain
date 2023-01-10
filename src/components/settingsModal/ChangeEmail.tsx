@@ -38,7 +38,7 @@ export const ChangeEmail = () => {
       text1: 'Email updated! 😊',
       position: 'bottom',
       autoHide: true,
-      visibilityTime: 3000,
+      visibilityTime: 2000,
     });
   };
 

@@ -1,24 +1,38 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 import { Menu, MenuItem } from 'react-native-material-menu';
+import Toast from 'react-native-toast-message';
 import { useItemContext } from '../../contexts/ItemContext';
 import { TextP } from '../../utils/styles/FontStyles';
 
-export const DeleteMenu = (id) => {
-  const { removeReminder } = useItemContext();
+type Props = {
+  id: string;
+  type: 'reminder' | 'todo';
+};
+
+export const DeleteMenu: FC<Props> = ({ id, type }) => {
+  const { removeReminder, removeTodo } = useItemContext();
 
   const [visible, setVisible] = useState(false);
 
   const hideMenu = () => setVisible(false);
   const showMenu = () => setVisible(true);
 
-  const itemId = id['id'];
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: type === 'reminder' ? 'Reminder deleted!' : 'Todo Deleted!',
+      position: 'bottom',
+      autoHide: true,
+      visibilityTime: 1000,
+    });
+  };
 
   const deleteItem = () => {
     hideMenu();
-    removeReminder(itemId);
-    console.log('item with id:', itemId, 'removed');
+    type === 'reminder' ? removeReminder(id) : removeTodo(id);
+    showToast();
   };
 
   return (
