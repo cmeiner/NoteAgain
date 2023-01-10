@@ -5,6 +5,7 @@ import { Menu, MenuItem } from 'react-native-material-menu';
 import { useModalContext } from '../contexts/ModalContext';
 import { TextP } from '../utils/styles/FontStyles';
 import { EditModal } from './modals/EditModal';
+import { ShareModal } from './modals/ShareModal';
 
 type Props = {
   data: any;
@@ -13,7 +14,7 @@ type Props = {
 
 export const DotsMenu: FC<Props> = ({ data, type }) => {
   const [visible, setVisible] = useState(false);
-  const { toggleEdit, updateData } = useModalContext();
+  const { toggleEdit, updateData, toggleShare } = useModalContext();
 
   const hideMenu = () => {
     setVisible(false);
@@ -26,6 +27,15 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
     hideMenu();
     updateData(data, type);
     setTimeout(() => toggleEdit(true, type), 120);
+  };
+
+  const share = () => {
+    hideMenu();
+    setTimeout(() => toggleShare(true), 120);
+  };
+
+  const bookmark = () => {
+    hideMenu();
   };
 
   return (
@@ -53,15 +63,16 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
           <MenuItem onPress={edit}>
             <TextP color="black">Edit</TextP>
           </MenuItem>
-          <MenuItem onPress={hideMenu}>
+          <MenuItem onPress={share}>
             <TextP color="black">Share</TextP>
           </MenuItem>
-          <MenuItem onPress={hideMenu}>
-            <TextP color="black">Favorite</TextP>
+          <MenuItem onPress={bookmark}>
+            <TextP color="black">Bookmark</TextP>
           </MenuItem>
         </View>
       </Menu>
       <EditModal />
+      <ShareModal />
     </View>
   );
 };

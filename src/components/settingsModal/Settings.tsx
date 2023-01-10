@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { settingsContext } from '../../contexts/SettingsContext';
+import { StyleSheet, View } from 'react-native';
+import { useSettingsContext } from '../../contexts/SettingsContext';
 import { ChangeButton } from '../small/ChangeButton';
 
 export const SettingsPage = () => {
-  const { setCurrentlyShowing } = settingsContext();
+  const { setCurrentlyShowing } = useSettingsContext();
 
   return (
     <View style={styles.buttonContainer}>

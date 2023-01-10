@@ -11,14 +11,14 @@ import {
 import Toast from 'react-native-toast-message';
 import { auth } from '../../../config/firebaseConfig';
 import { useModalContext } from '../../contexts/ModalContext';
-import { settingsContext } from '../../contexts/SettingsContext';
-import { userContext } from '../../contexts/UserContext';
+import { useSettingsContext } from '../../contexts/SettingsContext';
+import { useUserCotext } from '../../contexts/UserContext';
 import { TextP } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const ChangeDisplayName = () => {
-  const { updateUserDisplayName } = userContext();
-  const { setCurrentlyShowing } = settingsContext();
+  const { updateUserDisplayName } = useUserCotext();
+  const { setCurrentlyShowing } = useSettingsContext();
   const { toggleSettingsModal } = useModalContext();
 
   const {
