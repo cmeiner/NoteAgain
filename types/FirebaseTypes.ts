@@ -16,7 +16,7 @@ export type TodoList = {
   title: string;
   items: Todo[];
   createdBy?: string;
-  sharedWith: Share[];
+  sharedWith?: Share[];
 };
 
 /**

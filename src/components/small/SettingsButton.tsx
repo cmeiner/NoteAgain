@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useModalContext } from '../../contexts/ModalContext';
-import { SettingsModalContent } from '../settingsModal/SettingsModalContent';
+import { SettingsModalContent } from '../settingsModal/settingsModalContent';
 
 export const SettingsButton = () => {
   const {
