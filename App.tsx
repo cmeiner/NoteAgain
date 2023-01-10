@@ -21,7 +21,6 @@ import { SettingsProvider } from './src/contexts/SettingsContext';
 import { UserProvider } from './src/contexts/UserContext';
 
 const App = () => {
-  shareItem_db('VjaFj8zqnUsL14O334Hu', 'reminder', 'Felix@fis.com');
   const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
     checkUserData().then((boolean) => {
@@ -29,6 +28,7 @@ const App = () => {
         getUserData().then((data) => {
           loginUser(data).then(() => {
             setLoggedIn(true);
+            shareItem_db('5oC6i88nhfdXXse9udAA', 'Felix@fis.com');
           });
         });
       }

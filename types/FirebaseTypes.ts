@@ -16,7 +16,7 @@ export type TodoList = {
   title: string;
   items: Todo[];
   createdBy?: string;
-  //   sharedWith: Share[];
+  sharedWith: Share[];
 };
 
 /**
@@ -32,7 +32,8 @@ export type Todo = {
  * TODO Share Data
  *
  */
-type Share = {
+export type Share = {
+  itemID: string;
   receiverID: string;
   status: Status;
 };

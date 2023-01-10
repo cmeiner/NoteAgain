@@ -1,5 +1,6 @@
 import { fetchSignInMethodsForEmail } from 'firebase/auth';
 import {
+  addDoc,
   collection,
   doc,
   getDoc,
@@ -7,38 +8,38 @@ import {
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
-import { reminder } from '../../assets';
-import { auth, db } from '../../config/firebaseConfig';
-import { remindersRef } from './ReminderHooks';
+import { db } from '../../config/firebaseConfig';
+import { Share } from '../../types/FirebaseTypes';
+export const sharesRef = collection(db, 'shares'); // * Gets the collection of reminders.
 
-export const shareItem_db = async (itemID, itemType: string, receiverEmail) => {
+export const shareItem_db = async (itemID, receiverEmail) => {
   const users = [];
-
-  const querySnapshot = await getDocs(collection(db, 'users'));
-  querySnapshot.forEach((doc) => {
+  const shares = [];
+  const usersSnapshot = await getDocs(collection(db, 'users'));
+  usersSnapshot.forEach((doc) => {
     users.push({ ...doc.data(), id: doc.id });
+  });
+
+  const sharesSnapshot = await getDocs(collection(db, 'shares'));
+  sharesSnapshot.forEach((doc) => {
+    shares.push({ ...doc.data(), id: doc.id });
   });
 
   try {
     const receiverUser = users.find((doc) => doc.email === receiverEmail);
-    if (itemType === 'reminder') {
-      const docRef = doc(db, 'reminders', itemID);
-      const reminder = await getDoc(docRef);
-      const newData = await reminder.data();
-      const isSharedWithUser = newData.sharedWith.find(
-        (sharedItem) => sharedItem.receiverID === receiverUser.id
-      );
-      if (isSharedWithUser) return console.log('Already shared with this user');
-      newData.sharedWith = [
-        ...newData.sharedWith,
-        {
-          receiverID: receiverUser.id,
-          status: 'pending',
-        },
-      ];
-      updateDoc(docRef, newData);
-    }
+    const boolean = shares.find(
+      (sharedItem) =>
+        sharedItem.receiverID === receiverUser.id &&
+        sharedItem.itemID === itemID
+    );
+    if (boolean) return console.log('Already shared with user');
+    const sharesData: Share = {
+      itemID: itemID,
+      receiverID: receiverUser.id,
+      status: 'pending',
+    };
+    await addDoc(sharesRef, sharesData);
   } catch (e) {
-    console.log(e);
+    return;
   }
 };
