@@ -4,7 +4,7 @@
  * ? accepted
  * ? declined
  */
-// type Status = 'pending' | 'accepted' | 'declined';
+type Status = 'pending' | 'accepted';
 
 /**
  * * TodoList Data
@@ -16,7 +16,7 @@ export type TodoList = {
   title: string;
   items: Todo[];
   createdBy?: string;
-  //   sharedWith: Share[];
+  sharedWith: Share[];
 };
 
 /**
@@ -32,12 +32,11 @@ export type Todo = {
  * TODO Share Data
  *
  */
-// type Share = {
-//   senderID: string;
-//   receiverID: string;
-//   reminderType: string;
-//   status: Status;
-// };
+export type Share = {
+  itemID: string;
+  receiverID: string;
+  status: Status;
+};
 
 /**
  * * Reminder Data
@@ -49,7 +48,7 @@ export type Reminder = {
   description: string;
   createdBy?: string;
   remindAt?: Date | string;
-  //sharedWith: Share[];
+  sharedWith?: Share[];
 };
 
 /**
