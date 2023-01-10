@@ -45,4 +45,4 @@ export const SettingsProvider: FC<Props> = ({ children }) => {
   );
 };
 
-export const settingsContext = () => useContext(SettingsContext);
+export const useSettingsContext = () => useContext(SettingsContext);

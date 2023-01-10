@@ -80,4 +80,4 @@ export const UserProvider: FC<Props> = ({ children }) => {
   );
 };
 
-export const useUserContext = () => useContext(UserContext);
+export const useUserCotext = () => useContext(UserContext);

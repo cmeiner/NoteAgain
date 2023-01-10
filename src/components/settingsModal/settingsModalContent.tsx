@@ -2,16 +2,16 @@ import React from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import {
   CurrentlyShowing,
-  settingsContext,
+  useSettingsContext,
 } from '../../contexts/SettingsContext';
 import { TextH3 } from '../../utils/styles/FontStyles';
-import { SettingsPage } from '../settingsModal/Settings';
 import { ChangeDisplayName } from './ChangeDisplayName';
 import { ChangeEmail } from './ChangeEmail';
 import { ChangePassword } from './ChangePassword';
+import { SettingsPage } from './Settings';
 
 export const SettingsModalContent = () => {
-  const { showing } = settingsContext();
+  const { showing } = useSettingsContext();
 
   const getCurrentlyShowing = (showing: CurrentlyShowing) => {
     switch (showing) {
