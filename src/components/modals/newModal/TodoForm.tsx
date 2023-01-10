@@ -1,14 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useContext, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useItemContext } from '../../../contexts/ItemContext';
 import { ModalContext, useModalContext } from '../../../contexts/ModalContext';
@@ -66,81 +59,87 @@ export const TodoForm = () => {
   }, [todos]);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
-    >
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <View style={styles.inputContainer}>
-            <TextThin color="black">Title</TextThin>
-            <TextInput
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              placeholder='"Walk the dog"'
-              placeholderTextColor="#808080"
-            />
-          </View>
-        )}
-        name="title"
-      />
-      {errors.title && (
-        <Text style={styles.errorText}> Please enter a title</Text>
-      )}
-
-      <Controller
-        control={control}
-        rules={{
-          maxLength: 100,
-          required: false,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <View style={styles.inputContainer}>
-            <TextThin color="black">Todos ({todos.length})</TextThin>
-            {todos.map((todooo, key) => (
-              <TextP color="black" key={key}>
-                - {todooo.desc}
-              </TextP>
-            ))}
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
+    <View style={styles.container}>
+      <View>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={styles.inputContainer}>
+              <TextThin color="black">Title</TextThin>
               <TextInput
-                style={styles.todoInput}
+                style={styles.input}
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
                 placeholder='"Walk the dog"'
                 placeholderTextColor="#808080"
               />
-              <Ionicons
-                name="add-outline"
-                size={40}
-                color="black"
-                onPress={() => {
-                  value ? addTodoList({ desc: value, completed: false }) : null;
-                }}
-              />
             </View>
-          </View>
+          )}
+          name="title"
+        />
+        {errors.title && (
+          <Text style={styles.errorText}> Please enter a title</Text>
         )}
-        name="inputPlaceholder"
-      />
-      {errors.inputPlaceholder && (
-        <Text style={styles.errorText}>Please enter a description</Text>
-      )}
-      <FormButton width="240px" title="Add" onPress={handleSubmit(onSubmit)} />
-    </KeyboardAvoidingView>
+        <Controller
+          control={control}
+          rules={{
+            maxLength: 100,
+            required: false,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={styles.inputContainer}>
+              <TextThin color="black">Todos ({todos.length})</TextThin>
+              {todos.map((todooo, key) => (
+                <TextP color="black" key={key}>
+                  - {todooo.desc}
+                </TextP>
+              ))}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <TextInput
+                  style={styles.todoInput}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                  placeholder='"Walk the dog"'
+                  placeholderTextColor="#808080"
+                />
+                <Ionicons
+                  name="add-outline"
+                  size={40}
+                  color="black"
+                  onPress={() => {
+                    value
+                      ? addTodoList({ desc: value, completed: false })
+                      : null;
+                  }}
+                />
+              </View>
+            </View>
+          )}
+          name="inputPlaceholder"
+        />
+        {errors.inputPlaceholder && (
+          <Text style={styles.errorText}>Please enter a description</Text>
+        )}
+      </View>
+      <View>
+        <FormButton
+          width="240px"
+          title="Add"
+          onPress={handleSubmit(onSubmit)}
+        />
+      </View>
+    </View>
   );
 };
 
@@ -148,7 +147,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 472,
+    flex: 1,
   },
   inputContainer: {
     marginBottom: 10,

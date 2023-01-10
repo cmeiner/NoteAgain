@@ -72,7 +72,7 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
         </View>
       </Menu>
       <EditModal />
-      <ShareModal />
+      <ShareModal data={data} />
     </View>
   );
 };

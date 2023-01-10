@@ -16,7 +16,6 @@ export type TodoList = {
   title: string;
   items: Todo[];
   createdBy?: string;
-  sharedWith: Share[];
 };
 
 /**
@@ -48,7 +47,6 @@ export type Reminder = {
   description: string;
   createdBy?: string;
   remindAt?: Date | string;
-  sharedWith?: Share[];
 };
 
 /**

@@ -6,14 +6,16 @@ import {
   Modal,
   Platform,
   StyleSheet,
+  Text,
   TextInput,
   View,
 } from 'react-native';
+import { shareItem_db } from '../../../hooks/firebase/ShareHooks';
 import { useModalContext } from '../../contexts/ModalContext';
 import { TextH3, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
-export const ShareModal = () => {
+export const ShareModal = (data: any) => {
   const { shareVisible, toggleShare } = useModalContext();
 
   const {
@@ -21,12 +23,15 @@ export const ShareModal = () => {
     handleSubmit,
     formState: { errors },
     setValue,
+    getValues,
+    clearErrors,
   } = useForm({
     defaultValues: { receiver: '' },
   });
 
-  const onSubmit = async (data) => {
-    console.log(data);
+  const onSubmit = async () => {
+    const receiver = getValues('receiver');
+    shareItem_db(data.id, receiver);
     toggleShare(false);
     setValue('receiver', '');
   };
@@ -41,6 +46,8 @@ export const ShareModal = () => {
             color="black"
             onPress={() => {
               toggleShare(false);
+              setValue('receiver', '');
+              clearErrors();
             }}
             style={styles.buttonClose}
           />
@@ -50,27 +57,36 @@ export const ShareModal = () => {
             style={styles.container}
           >
             <View style={styles.modalTitle}>
-              <TextH3 color="black">Share</TextH3>
-              <TextThin color="black">Enter their e-mail below</TextThin>
+              <TextH3 color="black">Share this with someone</TextH3>
               <Controller
                 control={control}
                 rules={{
                   maxLength: 100,
                   required: true,
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: 'Please enter a valid e-mail address',
+                  },
                 }}
-                name="receiver"
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    style={styles.input}
-                    placeholder="E-mail"
-                    placeholderTextColor="#808080"
-                    keyboardType="email-address"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                  />
+                  <View>
+                    <TextThin color="black">Their e-mail</TextThin>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="john@doe.com"
+                      placeholderTextColor="#808080"
+                      keyboardType="email-address"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                    />
+                  </View>
                 )}
+                name="receiver"
               />
+              {errors.receiver && (
+                <Text style={styles.errorText}>{errors.receiver.message}</Text>
+              )}
               <FormButton
                 width="240px"
                 title="Share it!"
@@ -113,14 +129,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
   },
-  switch: {
-    marginRight: 'auto',
-    transform: [{ scale: 0.8 }],
-  },
   modalTitle: {
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: '100%',
+    flex: 1,
+  },
+  errorText: {
+    color: 'red',
+    marginTop: 5,
   },
   input: {
     height: 40,
@@ -129,6 +145,15 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     borderColor: '#808080',
-    marginTop: 20,
+    marginTop: 5,
+  },
+  inputDesc: {
+    height: 200,
+    width: 280,
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#808080',
+    marginTop: 5,
   },
 });
