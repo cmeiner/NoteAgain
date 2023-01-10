@@ -9,6 +9,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import Toast, { BaseToast } from 'react-native-toast-message';
+import { reminder } from './assets';
+import { shareItem_db } from './hooks/firebase/ShareHooks';
 import { loginUser } from './hooks/firebase/UserHooks';
 import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
@@ -19,6 +21,7 @@ import { SettingsProvider } from './src/contexts/SettingsContext';
 import { UserProvider } from './src/contexts/UserContext';
 
 const App = () => {
+  shareItem_db('VjaFj8zqnUsL14O334Hu', 'reminder', 'Felix@fis.com');
   const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
     checkUserData().then((boolean) => {

@@ -17,6 +17,7 @@ export const createReminder_DB = async ({
       description: description,
       createdBy: user.uid,
       remindAt: remindAt,
+      sharedWith: [],
     });
     return {
       title: title,
