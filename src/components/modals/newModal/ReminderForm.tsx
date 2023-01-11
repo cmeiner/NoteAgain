@@ -4,14 +4,7 @@ import DateTimePicker, {
 import Checkbox from 'expo-checkbox';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 //import { createReminder } from '../../../hooks/firebase/ReminderHooks';
 import Toast from 'react-native-toast-message';
 import { useItemContext } from '../../../contexts/ItemContext';
@@ -61,61 +54,64 @@ export const ReminderForm = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
-    >
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <View style={styles.inputContainer}>
-            <TextThin color="black">Title</TextThin>
-            <TextInput
-              style={styles.input}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              placeholder='"Pizzatime"'
-              placeholderTextColor="#808080"
-            />
-          </View>
-        )}
-        name="title"
-      />
-      {errors.title && (
-        <Text style={styles.errorText}> Please enter a title</Text>
-      )}
-
-      <Controller
-        control={control}
-        rules={{
-          maxLength: 100,
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <View style={styles.inputContainer}>
-            <TextThin color="black">Description</TextThin>
-            <TextInput
-              style={styles.inputDesc}
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              multiline={true}
-              placeholder='"Pick up pizza"'
-              enablesReturnKeyAutomatically={true}
-            />
-          </View>
-        )}
-        name="description"
-      />
-      {errors.description && (
-        <Text style={styles.errorText}>Please enter a description</Text>
-      )}
+    <View style={styles.container}>
       <View>
-        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={styles.inputContainer}>
+              <TextThin color="black">Title</TextThin>
+              <TextInput
+                style={styles.input}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                placeholder='"Pizzatime"'
+                placeholderTextColor="#808080"
+              />
+            </View>
+          )}
+          name="title"
+        />
+        {errors.title && (
+          <Text style={styles.errorText}> Please enter a title</Text>
+        )}
+
+        <Controller
+          control={control}
+          rules={{
+            maxLength: 100,
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={styles.inputContainer}>
+              <TextThin color="black">Description</TextThin>
+              <TextInput
+                style={styles.inputDesc}
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                multiline={true}
+                placeholder='"Pick up pizza"'
+                enablesReturnKeyAutomatically={true}
+              />
+            </View>
+          )}
+          name="description"
+        />
+        {errors.description && (
+          <Text style={styles.errorText}>Please enter a description</Text>
+        )}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 10,
+          }}
+        >
           <TextThin color="black">Notify me</TextThin>
           <Checkbox
             style={styles.checkbox}
@@ -124,7 +120,12 @@ export const ReminderForm = () => {
             color={isChecked ? '#D77451' : undefined}
           />
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}
+        >
           {isChecked ? (
             <DateTimePicker
               onChange={updateDate}
@@ -141,12 +142,14 @@ export const ReminderForm = () => {
           ) : null}
         </View>
       </View>
-      <FormButton
-        width="240px"
-        title="Remind me"
-        onPress={handleSubmit(onSubmit)}
-      />
-    </KeyboardAvoidingView>
+      <View>
+        <FormButton
+          width="240px"
+          title="Remind me"
+          onPress={handleSubmit(onSubmit)}
+        />
+      </View>
+    </View>
   );
 };
 
@@ -154,7 +157,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 472,
+    flex: 1,
   },
   inputContainer: {
     marginBottom: 10,

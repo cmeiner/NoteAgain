@@ -5,10 +5,7 @@ import { useModalContext } from '../../contexts/ModalContext';
 import { SettingsModalContent } from '../settingsModal/settingsModalContent';
 
 export const SettingsButton = () => {
-  const {
-    settingsModalVisible: SettingsModalVisible,
-    toggleSettingsModal: toggleSettingsModal,
-  } = useModalContext();
+  const { settingsModalVisible, toggleSettingsModal } = useModalContext();
   return (
     <View style={{ marginLeft: 10, marginRight: 10 }}>
       <TouchableOpacity
@@ -23,7 +20,7 @@ export const SettingsButton = () => {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={SettingsModalVisible}
+        visible={settingsModalVisible}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>

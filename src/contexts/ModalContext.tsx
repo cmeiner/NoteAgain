@@ -16,7 +16,9 @@ type ModalContextType = {
   toggleEdit: (visible: boolean, type: ModalType) => void;
   todoData: TodoList;
   reminderData: Reminder;
-  updateData: (datax: Reminder, type: ModalType) => void;
+  updateData: (datax: Reminder | TodoList, type: ModalType) => void;
+  shareID: string;
+  idToShare: (a: string) => void;
   modalType: ModalType;
   settingsModalVisible: boolean;
   toggleSettingsModal: (visible: boolean) => void;
@@ -32,6 +34,8 @@ export const ModalContext = createContext<ModalContextType>({
   reminderData: { title: '', description: '' },
   todoData: { title: '', items: [] },
   updateData: () => undefined,
+  shareID: '',
+  idToShare: () => undefined,
   modalType: 'reminder',
   settingsModalVisible: false,
   toggleSettingsModal: () => undefined,
@@ -54,6 +58,7 @@ export const ModalProvider: FC<Props> = ({ children }) => {
   const [editVisible, setEditVisible] = useState(false);
   const [modalType, setModalType] = useState<ModalType>('reminder');
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
+  const [shareID, setShareID] = useState('');
 
   const toggleNew = (visible: boolean) => {
     setReminderData({ title: '', description: '' });
@@ -77,6 +82,10 @@ export const ModalProvider: FC<Props> = ({ children }) => {
     }
   };
 
+  const idToShare = (shareID: string) => {
+    setShareID(shareID);
+  };
+
   const toggleEdit = (visible: boolean, type: ModalType) => {
     setModalType(type);
     setEditVisible(visible);
@@ -96,6 +105,8 @@ export const ModalProvider: FC<Props> = ({ children }) => {
         toggleSettingsModal,
         shareVisible,
         toggleShare,
+        shareID,
+        idToShare,
       }}
     >
       {children}
