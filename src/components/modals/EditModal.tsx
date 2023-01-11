@@ -7,13 +7,13 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { useModalContext } from '../../contexts/ModalContext';
+import { useEditContext } from '../../contexts/EditContext';
 import { TextH3 } from '../../utils/styles/FontStyles';
 import { ReminderForm } from './newModal/ReminderForm';
 import { TodoForm } from './newModal/TodoForm';
 
 export const EditModal = () => {
-  const { editVisible, toggleEdit, modalType } = useModalContext();
+  const { editVisible, toggleEdit, modalType } = useEditContext();
   return (
     <Modal animationType="slide" transparent={true} visible={editVisible}>
       <View style={styles.centeredView}>

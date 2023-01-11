@@ -7,13 +7,14 @@ import { Controller, useForm } from 'react-hook-form';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 //import { createReminder } from '../../../hooks/firebase/ReminderHooks';
 import Toast from 'react-native-toast-message';
+import { useEditContext } from '../../../contexts/EditContext';
 import { useItemContext } from '../../../contexts/ItemContext';
 import { useModalContext } from '../../../contexts/ModalContext';
 import { TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
 
 export const ReminderForm = () => {
-  const { reminderData } = useModalContext();
+  const { reminderData } = useEditContext();
   const { addReminder } = useItemContext();
   const [date, setDate] = useState<Date>(new Date());
   const [isChecked, setChecked] = useState(false);

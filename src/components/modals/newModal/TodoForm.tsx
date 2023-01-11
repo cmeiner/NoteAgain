@@ -3,14 +3,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import Toast from 'react-native-toast-message';
+import { useEditContext } from '../../../contexts/EditContext';
 import { useItemContext } from '../../../contexts/ItemContext';
-import { ModalContext, useModalContext } from '../../../contexts/ModalContext';
+import { ModalContext } from '../../../contexts/ModalContext';
 import { TextP, TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
 
 export const TodoForm = () => {
   const { addTodo } = useItemContext();
-  const { todoData } = useModalContext();
+  const { todoData } = useEditContext();
   type Todo = {
     desc: string;
     completed: boolean;

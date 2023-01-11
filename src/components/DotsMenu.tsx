@@ -2,7 +2,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 import { Menu, MenuItem } from 'react-native-material-menu';
-import { useModalContext } from '../contexts/ModalContext';
+import { useEditContext } from '../contexts/EditContext';
+import { useShareContext } from '../contexts/ShareContext';
 import { TextP } from '../utils/styles/FontStyles';
 import { EditModal } from './modals/EditModal';
 import { ShareModal } from './modals/ShareModal';
@@ -14,7 +15,8 @@ type Props = {
 
 export const DotsMenu: FC<Props> = ({ data, type }) => {
   const [visible, setVisible] = useState(false);
-  const { toggleEdit, updateData, toggleShare, idToShare } = useModalContext();
+  const { toggleEdit, updateData } = useEditContext();
+  const { toggleShare, idToShare } = useShareContext();
 
   const hideMenu = () => {
     setVisible(false);

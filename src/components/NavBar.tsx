@@ -4,9 +4,9 @@ import React from 'react';
 import { auth } from '../../config/firebaseConfig';
 import { Home } from '../../pages/Home';
 import { Login } from '../../pages/Login';
-import { Messages } from '../../pages/Messages';
 import { Profile } from '../../pages/Profile';
 import { Saved } from '../../pages/Saved';
+import { Share } from '../../pages/Share';
 import { AddButton } from './small/AddButton';
 
 export const NavBar = () => {
@@ -31,8 +31,8 @@ export const NavBar = () => {
         }}
       />
       <Tab.Screen
-        name="Messages"
-        component={Messages}
+        name="Share"
+        component={Share}
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons
