@@ -14,7 +14,7 @@ type Props = {
 
 export const DotsMenu: FC<Props> = ({ data, type }) => {
   const [visible, setVisible] = useState(false);
-  const { toggleEdit, updateData, toggleShare } = useModalContext();
+  const { toggleEdit, updateData, toggleShare, idToShare } = useModalContext();
 
   const hideMenu = () => {
     setVisible(false);
@@ -31,6 +31,8 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
 
   const share = () => {
     hideMenu();
+    console.log(data);
+    idToShare(data.id);
     setTimeout(() => toggleShare(true), 120);
   };
 
@@ -72,7 +74,7 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
         </View>
       </Menu>
       <EditModal />
-      <ShareModal data={data} />
+      <ShareModal />
     </View>
   );
 };

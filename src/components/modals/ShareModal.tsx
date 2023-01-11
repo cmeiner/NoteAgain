@@ -15,13 +15,13 @@ import { useModalContext } from '../../contexts/ModalContext';
 import { TextH3, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
-export const ShareModal = (data: any) => {
-  const { shareVisible, toggleShare } = useModalContext();
+export const ShareModal = () => {
+  const { shareVisible, toggleShare, shareID } = useModalContext();
 
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, touchedFields },
     setValue,
     getValues,
     clearErrors,
@@ -29,9 +29,9 @@ export const ShareModal = (data: any) => {
     defaultValues: { receiver: '' },
   });
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     const receiver = getValues('receiver');
-    shareItem_db(data.id, receiver);
+    shareItem_db(shareID, receiver);
     toggleShare(false);
     setValue('receiver', '');
   };
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   errorText: {
+    position: 'relative',
     color: 'red',
     marginTop: 5,
   },
