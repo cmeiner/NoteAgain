@@ -46,7 +46,7 @@ export const Home = ({ navigation }: any) => {
             {reminders.map((reminder, key) => {
               return (
                 <ReminderCard
-                  description="asdsd"
+                  description={reminder.description}
                   key={key}
                   title={reminder.title}
                   remindAt={reminder.remindAt}
@@ -88,7 +88,7 @@ export const Home = ({ navigation }: any) => {
               }}
             >
               <AntDesign
-                onPress={() => navigation.navigate('Messages')}
+                onPress={() => navigation.navigate('Share')}
                 name="plus"
                 size={24}
                 color="black"

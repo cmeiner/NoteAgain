@@ -11,12 +11,12 @@ import {
   View,
 } from 'react-native';
 import { shareItem_db } from '../../../hooks/firebase/ShareHooks';
-import { useModalContext } from '../../contexts/ModalContext';
+import { useShareContext } from '../../contexts/ShareContext';
 import { TextH3, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const ShareModal = () => {
-  const { shareVisible, toggleShare, shareID } = useModalContext();
+  const { shareVisible, toggleShare, shareID } = useShareContext();
 
   const {
     control,
