@@ -35,6 +35,7 @@ export type Todo = {
 export type Share = {
   itemID: string;
   receiverID: string;
+  itemType: string;
   status: Status;
 };
 

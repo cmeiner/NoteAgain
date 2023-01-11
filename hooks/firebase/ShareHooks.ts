@@ -12,7 +12,7 @@ import { db } from '../../config/firebaseConfig';
 import { Share } from '../../types/FirebaseTypes';
 export const sharesRef = collection(db, 'shares'); // * Gets the collection of reminders.
 
-export const shareItem_db = async (itemID, receiverEmail) => {
+export const shareItem_db = async (itemID, itemType, receiverEmail) => {
   const users = [];
   const shares = [];
   const usersSnapshot = await getDocs(collection(db, 'users'));
@@ -35,6 +35,7 @@ export const shareItem_db = async (itemID, receiverEmail) => {
     if (boolean) return console.log('Already shared with user');
     const sharesData: Share = {
       itemID: itemID,
+      itemType: itemType,
       receiverID: receiverUser.id,
       status: 'pending',
     };

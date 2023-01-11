@@ -31,7 +31,7 @@ export const ShareModal = () => {
 
   const onSubmit = () => {
     const receiver = getValues('receiver');
-    shareItem_db(shareID, receiver);
+    shareItem_db(shareID, 'reminder', receiver); // ! MÅSTE FIXA SÅ VI SER VILKEN ITEMTYPE VI HAR SATT IN. "Reminder" är bara satt för NUET
     toggleShare(false);
     setValue('receiver', '');
   };
