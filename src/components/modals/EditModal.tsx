@@ -7,21 +7,12 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { Reminder, TodoList } from '../../../types/FirebaseTypes';
 import { useModalContext } from '../../contexts/ModalContext';
 import { TextH3 } from '../../utils/styles/FontStyles';
 import { ReminderForm } from './newModal/ReminderForm';
 import { TodoForm } from './newModal/TodoForm';
 
-type Props = {
-  defaultValuesReminder?: Reminder;
-  defaultValuesTodo?: TodoList;
-};
-
-export const EditModal = ({
-  defaultValuesReminder,
-  defaultValuesTodo,
-}: Props) => {
+export const EditModal = () => {
   const { editVisible, toggleEdit, modalType } = useModalContext();
   return (
     <Modal animationType="slide" transparent={true} visible={editVisible}>
@@ -73,10 +64,8 @@ const styles = StyleSheet.create({
   modalView: {
     width: 340,
     height: 600,
-    margin: 20,
     backgroundColor: '#F5F5F5',
     borderRadius: 20,
-    padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOpacity: 1,
@@ -90,11 +79,8 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    height: '100%',
-  },
-  switch: {
-    marginRight: 'auto',
-    transform: [{ scale: 0.8 }],
+    flex: 1,
+    margin: 35,
   },
   modalTitle: {
     marginRight: 'auto',

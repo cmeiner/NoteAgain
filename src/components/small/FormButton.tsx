@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 3,
     backgroundColor: '#D77451',
-    marginTop: 'auto',
+    // marginTop: 'auto',
   },
   text: {
     fontSize: 16,

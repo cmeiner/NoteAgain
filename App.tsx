@@ -9,8 +9,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import Toast, { BaseToast } from 'react-native-toast-message';
-import { reminder } from './assets';
-import { shareItem_db } from './hooks/firebase/ShareHooks';
 import { loginUser } from './hooks/firebase/UserHooks';
 import { checkUserData, getUserData } from './hooks/StorageHooks';
 import { Login } from './pages/Login';
@@ -28,7 +26,6 @@ const App = () => {
         getUserData().then((data) => {
           loginUser(data).then(() => {
             setLoggedIn(true);
-            shareItem_db('5oC6i88nhfdXXse9udAA', 'Felix@fis.com');
           });
         });
       }
