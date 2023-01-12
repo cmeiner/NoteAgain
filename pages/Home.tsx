@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1B1D29',
     width: '100%',
     padding: 20,
+    marginBottom: 20,
   },
   image: {
     flex: 1,
