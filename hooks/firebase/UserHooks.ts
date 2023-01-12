@@ -5,13 +5,8 @@ import {
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../config/firebaseConfig';
+import { User } from '../../types/FirebaseTypes';
 import { storeUserData } from '../StorageHooks';
-
-type UserProps = {
-  email: string;
-  displayName?: string;
-  password: string;
-};
 
 // export const usePost = async (api: string, data: object) => {
 //   await setDoc(doc(collection(db, api)), data);
@@ -24,11 +19,7 @@ type UserProps = {
 //   return { user };
 // };
 
-export const registerUser = async ({
-  email,
-  password,
-  displayName,
-}: UserProps) => {
+export const registerUser = async ({ email, password, displayName }: User) => {
   await createUserWithEmailAndPassword(auth, email, password);
   await setDoc(doc(db, `users/${auth.currentUser?.uid}`), {
     // TODO Add Profile Picture
@@ -46,7 +37,7 @@ export const registerUser = async ({
   console.log('sucessful register');
 };
 
-export const loginUser = async ({ email, password }: UserProps) => {
+export const loginUser = async ({ email, password }: User) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
     storeUserData(email, password);

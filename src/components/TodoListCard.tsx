@@ -1,12 +1,19 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { auth } from '../../config/firebaseConfig';
 import { TextH2 } from '../../src/utils/styles/FontStyles';
 import { Todo, TodoList } from '../../types/FirebaseTypes';
 import { DotsMenu } from './DotsMenu';
 import { DeleteMenu } from './small/DeleteMenu';
 import { TodoCard } from './TodoCard';
 
-export const TodoListCard = ({ items, title, id }: TodoList) => {
+export const TodoListCard = ({
+  items,
+  title,
+  id,
+  shareID,
+  createdBy,
+}: TodoList) => {
   const data = { items, title, id };
 
   return (
@@ -16,9 +23,10 @@ export const TodoListCard = ({ items, title, id }: TodoList) => {
           <TextH2 color="white">{title}</TextH2>
         </View>
         <View style={TodoListStyles.flexRow}>
-          {/* // TODO Add press events to the icons. */}
-          <DotsMenu type="todo" data={data} />
-          <DeleteMenu type="todo" id={id} />
+          {createdBy === auth.currentUser.uid && (
+            <DotsMenu type="reminder" data={data} />
+          )}
+          <DeleteMenu type="reminder" id={id} shareID={shareID} share />
         </View>
       </View>
       <View>

@@ -1,23 +1,20 @@
+import { Ionicons } from '@expo/vector-icons';
 import { Timestamp } from 'firebase/firestore';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { auth } from '../../config/firebaseConfig';
+import { declineShare, updateStatus_db } from '../../hooks/firebase/ShareHooks';
 import { Reminder } from '../../types/FirebaseTypes';
 import { TextH2, TextThin } from '../utils/styles/FontStyles';
-import { DotsMenu } from './DotsMenu';
-import { DeleteMenu } from './small/DeleteMenu';
 
 // ? Think of "RemindAt" attribute
-export const ReminderCard = ({
+export const PendingReminder = ({
   title,
   remindAt,
   description,
   id,
-  createdBy,
   shareID,
 }: Reminder) => {
   const data = { title, remindAt, description, id };
-
   return (
     <View style={ReminderStyles.Box}>
       <View>
@@ -33,10 +30,19 @@ export const ReminderCard = ({
         </TextThin>
       </View>
       <View style={ReminderStyles.flexRow}>
-        {createdBy === auth.currentUser.uid && (
-          <DotsMenu type="reminder" data={data} />
-        )}
-        <DeleteMenu type="reminder" id={id} shareID={shareID} share />
+        <Ionicons
+          name="checkmark"
+          size={24}
+          color="white"
+          style={{ marginRight: 5 }}
+          onPress={() => updateStatus_db(shareID)}
+        />
+        <Ionicons
+          name="close"
+          size={24}
+          color="white"
+          onPress={() => declineShare(shareID)}
+        />
       </View>
     </View>
   );

@@ -13,6 +13,7 @@ import {
 } from '../../hooks/firebase/ReminderHooks';
 import { createTodo_DB, removeTodo_DB } from '../../hooks/firebase/TodoHooks';
 import { Reminder, TodoList } from '../../types/FirebaseTypes';
+import { useShareContext } from './ShareContext';
 
 type ItemContextType = {
   reminders: Reminder[];
@@ -42,10 +43,13 @@ export const ItemProvider: FC<Props> = ({ children }) => {
   const [reminders, setReminders] = useState<Reminder[] | any>([]);
   const [todos, setTodos] = useState<TodoList[] | any>([]);
 
+  const { getSharedItems } = useShareContext();
+
   const fetchAllItems = async () => {
     // * Fetching all reminders & todos for a user.
     getTodos();
     getReminders();
+    getSharedItems();
   };
 
   const addReminder = async ({ title, remindAt, description }: Reminder) => {

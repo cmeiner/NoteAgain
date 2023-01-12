@@ -6,8 +6,8 @@ import {
 } from '@expo-google-fonts/sora';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { StatusBar } from 'react-native';
 import Toast, { BaseToast } from 'react-native-toast-message';
 import { loginUser } from './hooks/firebase/UserHooks';
 import { checkUserData, getUserData } from './hooks/StorageHooks';

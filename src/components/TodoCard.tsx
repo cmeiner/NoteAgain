@@ -4,12 +4,14 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { TextP } from '../../src/utils/styles/FontStyles';
 import { Todo } from '../../types/FirebaseTypes';
 
-export const TodoCard = ({ desc, completed, id }: Todo) => {
+export const TodoCard = ({ desc, completed, id, share }: Todo) => {
   const [isChecked, setChecked] = useState(completed);
   return (
     <View>
       <Pressable
-        onPress={() => (isChecked ? setChecked(false) : setChecked(true))}
+        onPress={() =>
+          share ? null : isChecked ? setChecked(false) : setChecked(true)
+        }
         style={TodoStyles.section}
       >
         <Checkbox
@@ -17,6 +19,7 @@ export const TodoCard = ({ desc, completed, id }: Todo) => {
           value={isChecked}
           onValueChange={setChecked}
           color={isChecked ? '#D77451' : undefined}
+          disabled
         />
         <TextP color="white">{desc}</TextP>
       </Pressable>

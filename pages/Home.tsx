@@ -6,16 +6,18 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { auth } from '../config/firebaseConfig';
 import { ReminderCard } from '../src/components/ReminderCard';
 import { TodoListCard } from '../src/components/TodoListCard';
 import { TopBar } from '../src/components/TopBar';
 import { useItemContext } from '../src/contexts/ItemContext';
+import { useShareContext } from '../src/contexts/ShareContext';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 import { AntDesign } from '@expo/vector-icons';
 
 export const Home = () => {
   const { reminders, todos, fetchAllItems } = useItemContext();
+  const { sharedReminders, sharedTodos } = useShareContext();
+
   useEffect(() => {
     fetchAllItems();
   }, []);
@@ -30,7 +32,7 @@ export const Home = () => {
         source={require('../assets/images/Wave.png')}
       />
       <View style={{ marginHorizontal: 10, marginBottom: 10 }}>
-        <TopBar settings={false} />
+        <TopBar />
       </View>
       {reminders.length || todos.length ? (
         <ScrollView
@@ -43,6 +45,19 @@ export const Home = () => {
         >
           <View style={{ marginBottom: 'auto' }}>
             <TextH2 color="black">Your reminders:</TextH2>
+            {sharedReminders.accepted.map((reminder, key) => {
+              return (
+                <ReminderCard
+                  description={reminder.description}
+                  key={key}
+                  title={reminder.title}
+                  remindAt={reminder.remindAt}
+                  id={reminder.id}
+                  createdBy={reminder.createdBy}
+                  shareID={reminder.shareID}
+                />
+              );
+            })}
             {reminders.map((reminder, key) => {
               return (
                 <ReminderCard
@@ -51,18 +66,31 @@ export const Home = () => {
                   title={reminder.title}
                   remindAt={reminder.remindAt}
                   id={reminder.id}
+                  createdBy={reminder.createdBy}
                 />
               );
             })}
             <View style={{ marginTop: 15 }}>
               <TextH2 color="black">Your Todos:</TextH2>
+              {sharedTodos.accepted.map((todo, key) => {
+                return (
+                  <TodoListCard
+                    key={key}
+                    items={todo.items}
+                    title={todo.title}
+                    createdBy={todo.createdBy}
+                    id={todo.id}
+                    shareID={todo.shareID}
+                  />
+                );
+              })}
               {todos.map((todo, key) => {
                 return (
                   <TodoListCard
                     key={key}
                     items={todo.items}
                     title={todo.title}
-                    createdBy={auth.currentUser.displayName}
+                    createdBy={todo.createdBy}
                     id={todo.id}
                   />
                 );
