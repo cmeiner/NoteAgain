@@ -1,4 +1,3 @@
-import { AntDesign } from '@expo/vector-icons';
 import React, { useEffect } from 'react';
 import {
   Image,
@@ -13,8 +12,9 @@ import { TodoListCard } from '../src/components/TodoListCard';
 import { TopBar } from '../src/components/TopBar';
 import { useItemContext } from '../src/contexts/ItemContext';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
+import { AntDesign } from '@expo/vector-icons';
 
-export const Home = ({ navigation }: any) => {
+export const Home = () => {
   const { reminders, todos, fetchAllItems } = useItemContext();
   useEffect(() => {
     fetchAllItems();
@@ -32,15 +32,15 @@ export const Home = ({ navigation }: any) => {
       <View style={{ marginHorizontal: 10, marginBottom: 10 }}>
         <TopBar settings={false} />
       </View>
-      <ScrollView
-        style={{
-          position: 'relative',
-          marginHorizontal: 10,
-          paddingBottom: 40,
-          height: '100%',
-        }}
-      >
-        {reminders.length || todos.length ? (
+      {reminders.length || todos.length ? (
+        <ScrollView
+          style={{
+            position: 'relative',
+            marginHorizontal: 10,
+            paddingBottom: 40,
+            height: '100%',
+          }}
+        >
           <View style={{ marginBottom: 'auto' }}>
             <TextH2 color="black">Your reminders:</TextH2>
             {reminders.map((reminder, key) => {
@@ -69,34 +69,39 @@ export const Home = ({ navigation }: any) => {
               })}
             </View>
           </View>
-        ) : (
+        </ScrollView>
+      ) : (
+        <View
+          style={{
+            marginHorizontal: 10,
+            height: '100%',
+            justifyContent: 'center',
+          }}
+        >
           <View style={styles.Box}>
             <View>
               <View style={{ paddingBottom: 10 }}>
-                <TextH2 color="white">You don't have any notes</TextH2>
+                <TextH2 color="white">
+                  You don't have any reminders or todos
+                </TextH2>
               </View>
-              <TextThin color="white">Create one today</TextThin>
-            </View>
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                backgroundColor: '#F5F5F5',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 10,
-              }}
-            >
-              <AntDesign
-                onPress={() => navigation.navigate('Share')}
-                name="plus"
-                size={24}
-                color="black"
-              />
+              <TextThin color="white">
+                Create one by pressing the + icon in the navigation bar
+              </TextThin>
             </View>
           </View>
-        )}
-      </ScrollView>
+          <View
+            style={{
+              position: 'relative',
+              alignItems: 'center',
+              bottom: -140,
+              marginRight: 4,
+            }}
+          >
+            <AntDesign name="arrowdown" size={100} color="black" />
+          </View>
+        </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -111,14 +116,14 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   Box: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    textAlign: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
     backgroundColor: '#1B1D29',
     width: '100%',
     padding: 20,
-    marginVertical: 5,
+    marginBottom: 20,
   },
   image: {
     flex: 1,
@@ -143,10 +148,6 @@ const styles = StyleSheet.create({
     padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 2,
-    //   height: 2,
-    // },
     shadowOpacity: 1,
     shadowRadius: 100,
     elevation: 5,

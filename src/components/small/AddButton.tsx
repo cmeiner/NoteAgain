@@ -22,9 +22,7 @@ export const AddButton = () => {
   return (
     <View style={{ marginHorizontal: 10 }}>
       <TouchableOpacity onPress={openNewModal}>
-        <View>
-          <Ionicons name="md-add-circle" size={45} color="black" />
-        </View>
+        <Ionicons name="md-add-circle" size={45} color="black" />
       </TouchableOpacity>
       <Modal animationType="slide" transparent={true} visible={newVisible}>
         <View style={styles.centeredView}>
