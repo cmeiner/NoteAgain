@@ -15,7 +15,7 @@ import { useItemContext } from '../src/contexts/ItemContext';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 
 export const Home = ({ navigation }: any) => {
-  const { reminders, todos, fetchAllItems } = useItemContext();
+  const { reminders, todos, fetchAllItems, sharedReminders } = useItemContext();
   useEffect(() => {
     fetchAllItems();
   }, []);
@@ -43,6 +43,18 @@ export const Home = ({ navigation }: any) => {
         {reminders.length || todos.length ? (
           <View style={{ marginBottom: 'auto' }}>
             <TextH2 color="black">Your reminders:</TextH2>
+            {sharedReminders.accepted.map((reminder, key) => {
+              return (
+                <ReminderCard
+                  description={reminder.description}
+                  key={key}
+                  title={reminder.title}
+                  remindAt={reminder.remindAt}
+                  id={reminder.id}
+                  createdBy={reminder.createdBy}
+                />
+              );
+            })}
             {reminders.map((reminder, key) => {
               return (
                 <ReminderCard
@@ -51,6 +63,7 @@ export const Home = ({ navigation }: any) => {
                   title={reminder.title}
                   remindAt={reminder.remindAt}
                   id={reminder.id}
+                  createdBy={reminder.createdBy}
                 />
               );
             })}

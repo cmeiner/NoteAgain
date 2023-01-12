@@ -4,7 +4,7 @@
  * ? accepted
  * ? declined
  */
-type Status = 'pending' | 'accepted';
+export type Status = 'pending' | 'accepted';
 
 /**
  * * TodoList Data

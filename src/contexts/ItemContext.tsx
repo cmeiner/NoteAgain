@@ -66,6 +66,14 @@ export const ItemProvider: FC<Props> = ({ children }) => {
     getTodos();
     getReminders();
     getSharedItems();
+    console.log('Reminders');
+    console.log(reminders);
+    console.log('todos');
+    console.log(todos);
+    console.log('Shared Reminders');
+    console.log(sharedReminders);
+    console.log('Shared Todos');
+    console.log(sharedTodos);
   };
 
   const addReminder = async ({ title, remindAt, description }: Reminder) => {
@@ -133,7 +141,7 @@ export const ItemProvider: FC<Props> = ({ children }) => {
           getDoc(docRef)
             .then((data) => {
               if (item.data().status === 'pending') {
-                pendingReminderArray.push(data.data());
+                pendingReminderArray.push({ ...data.data(), shareID: item.id });
               } else if (item.data().status === 'accepted') {
                 acceptedReminderArray.push(data.data());
               }
@@ -167,10 +175,6 @@ export const ItemProvider: FC<Props> = ({ children }) => {
         }
       });
     });
-    console.log('Shared Reminders');
-    console.log(sharedReminders);
-    console.log('Shared Todos');
-    console.log(sharedTodos);
   };
 
   const removeTodo = (id: string) => {

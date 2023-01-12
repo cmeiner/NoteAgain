@@ -1,6 +1,7 @@
 import { Timestamp } from 'firebase/firestore';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { auth } from '../../config/firebaseConfig';
 import { Reminder } from '../../types/FirebaseTypes';
 import { TextH2, TextThin } from '../utils/styles/FontStyles';
 import { DotsMenu } from './DotsMenu';
@@ -12,9 +13,10 @@ export const ReminderCard = ({
   remindAt,
   description,
   id,
+  createdBy,
 }: Reminder) => {
   const data = { title, remindAt, description, id };
-
+  console.log(createdBy);
   return (
     <View style={ReminderStyles.Box}>
       <View>
@@ -30,7 +32,10 @@ export const ReminderCard = ({
         </TextThin>
       </View>
       <View style={ReminderStyles.flexRow}>
-        <DotsMenu type="reminder" data={data} />
+        {createdBy === auth.currentUser.uid && (
+          <DotsMenu type="reminder" data={data} />
+        )}
+        {/* <DotsMenu type="reminder" data={data} /> */}
         <DeleteMenu type="reminder" id={id} />
       </View>
     </View>
