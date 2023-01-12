@@ -110,6 +110,12 @@ export const TodoForm = () => {
                   style={styles.todoInput}
                   onBlur={onBlur}
                   onChangeText={onChange}
+                  onSubmitEditing={() => {
+                    addTodoList({
+                      desc: value,
+                      completed: false,
+                    });
+                  }}
                   value={value}
                   placeholder='"Walk the dog"'
                   placeholderTextColor="#808080"
