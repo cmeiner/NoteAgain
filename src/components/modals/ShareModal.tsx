@@ -21,7 +21,7 @@ export const ShareModal = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, touchedFields },
+    formState: { errors },
     setValue,
     getValues,
     clearErrors,

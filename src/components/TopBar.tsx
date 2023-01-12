@@ -6,23 +6,25 @@ import { SettingsButton } from './small/SettingsButton';
 import { Logo, ProfilePic } from './SvgLibary';
 
 type Props = {
-  settings: boolean;
+  settings?: boolean;
 };
 
 export const TopBar = ({ settings }: Props) => {
   return (
     <View style={styles.flexRow}>
       <View style={styles.flexRow}>
-        {!settings && <ProfilePic />}
-        {!settings ? (
-          <View style={{ marginLeft: 10 }}>
-            <TextP color="black">Welcome back</TextP>
-            <TextH2 color="black">{auth.currentUser?.displayName}</TextH2>
-          </View>
-        ) : (
+        {settings ? (
           <View style={{ marginLeft: 0 }}>
             <SettingsButton />
           </View>
+        ) : (
+          <>
+            <ProfilePic />
+            <View style={{ marginLeft: 10 }}>
+              <TextP color="black">Welcome back</TextP>
+              <TextH2 color="black">{auth.currentUser?.displayName}</TextH2>
+            </View>
+          </>
         )}
       </View>
       <Logo width="70px" height="40px" />
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 47,
+    height: 50,
   },
   logoView: {
     justifyContent: 'center',

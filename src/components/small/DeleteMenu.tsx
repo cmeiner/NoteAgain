@@ -3,20 +3,23 @@ import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 import { Menu, MenuItem } from 'react-native-material-menu';
 import Toast from 'react-native-toast-message';
+import { declineShare } from '../../../hooks/firebase/ShareHooks';
 import { useItemContext } from '../../contexts/ItemContext';
 import { TextP } from '../../utils/styles/FontStyles';
 
 type Props = {
   id: string;
   type: 'reminder' | 'todo';
+  share?: boolean;
+  shareID: string;
 };
 
-export const DeleteMenu: FC<Props> = ({ id, type }) => {
+export const DeleteMenu: FC<Props> = ({ id, type, share, shareID }) => {
   const { removeReminder, removeTodo } = useItemContext();
-
   const [visible, setVisible] = useState(false);
 
   const hideMenu = () => setVisible(false);
+
   const showMenu = () => setVisible(true);
 
   const showToast = () => {
@@ -28,10 +31,13 @@ export const DeleteMenu: FC<Props> = ({ id, type }) => {
       visibilityTime: 1000,
     });
   };
-
   const deleteItem = () => {
     hideMenu();
-    type === 'reminder' ? removeReminder(id) : removeTodo(id);
+    if (share) {
+      declineShare(shareID).then(() => console.log('test'));
+    } else {
+      type === 'reminder' ? removeReminder(id) : removeTodo(id);
+    }
     showToast();
   };
 

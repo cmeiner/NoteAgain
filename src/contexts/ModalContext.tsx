@@ -6,8 +6,6 @@ import React, {
   useState,
 } from 'react';
 
-type ModalType = 'reminder' | 'todo';
-
 type ModalContextType = {
   newVisible: boolean;
   toggleNew: (visible: boolean) => void;

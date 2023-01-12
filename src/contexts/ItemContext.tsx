@@ -1,11 +1,4 @@
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-} from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import React, {
   createContext,
   FC,
@@ -20,10 +13,9 @@ import {
 } from '../../hooks/firebase/ReminderHooks';
 import { createTodo_DB, removeTodo_DB } from '../../hooks/firebase/TodoHooks';
 import { Reminder, TodoList } from '../../types/FirebaseTypes';
+import { useShareContext } from './ShareContext';
 
 type ItemContextType = {
-  sharedReminders: { pending: Reminder[]; accepted: Reminder[] };
-  sharedTodos: { pending: TodoList[]; accepted: TodoList[] };
   reminders: Reminder[];
   removeReminder: (id: string) => void;
   addReminder: ({ title, remindAt, description }: Reminder) => void;
@@ -31,12 +23,9 @@ type ItemContextType = {
   addTodo: ({ title, items, createdBy }: TodoList) => void;
   removeTodo: (id: string) => void;
   fetchAllItems: () => void;
-  getSharedItems: () => void;
 };
 
 export const ItemContext = createContext<ItemContextType>({
-  sharedTodos: { pending: [], accepted: [] },
-  sharedReminders: { pending: [], accepted: [] },
   reminders: [],
   removeReminder: () => undefined,
   addReminder: () => undefined,
@@ -44,7 +33,6 @@ export const ItemContext = createContext<ItemContextType>({
   addTodo: () => undefined,
   removeTodo: () => undefined,
   fetchAllItems: () => undefined,
-  getSharedItems: () => undefined,
 });
 
 type Props = {
@@ -52,28 +40,16 @@ type Props = {
 };
 
 export const ItemProvider: FC<Props> = ({ children }) => {
-  const [sharedReminders, setSharedReminders] = useState<
-    { pending: Reminder[]; accepted: Reminder[] } | any
-  >({ pending: [], accepted: [] });
-  const [sharedTodos, setSharedTodos] = useState<
-    { pending: TodoList[]; accepted: TodoList[] } | any
-  >({ pending: [], accepted: [] });
   const [reminders, setReminders] = useState<Reminder[] | any>([]);
   const [todos, setTodos] = useState<TodoList[] | any>([]);
+
+  const { getSharedItems } = useShareContext();
 
   const fetchAllItems = async () => {
     // * Fetching all reminders & todos for a user.
     getTodos();
     getReminders();
     getSharedItems();
-    console.log('Reminders');
-    console.log(reminders);
-    console.log('todos');
-    console.log(todos);
-    console.log('Shared Reminders');
-    console.log(sharedReminders);
-    console.log('Shared Todos');
-    console.log(sharedTodos);
   };
 
   const addReminder = async ({ title, remindAt, description }: Reminder) => {
@@ -126,57 +102,6 @@ export const ItemProvider: FC<Props> = ({ children }) => {
     });
   };
 
-  const getSharedItems = async () => {
-    const shareQ = query(
-      collection(db, 'shares'),
-      where('receiverID', '==', auth.currentUser?.uid)
-    );
-    getDocs(shareQ).then((data) => {
-      data.docs.map((item) => {
-        //console.log(item.data());
-        if (item.data().itemType === 'reminder') {
-          const pendingReminderArray = [];
-          const acceptedReminderArray = [];
-          const docRef = doc(db, 'reminders', item.data().itemID);
-          getDoc(docRef)
-            .then((data) => {
-              if (item.data().status === 'pending') {
-                pendingReminderArray.push({ ...data.data(), shareID: item.id });
-              } else if (item.data().status === 'accepted') {
-                acceptedReminderArray.push(data.data());
-              }
-            })
-            .then(() => {
-              let sharedRemindersObject = {
-                pending: pendingReminderArray,
-                accepted: acceptedReminderArray,
-              };
-              setSharedReminders(sharedRemindersObject);
-            });
-        } else if (item.data().itemType === 'todo') {
-          const pendingTodoArray = [];
-          const acceptedTodoArray = [];
-          const docRef = doc(db, 'todos', item.data().itemID);
-          getDoc(docRef)
-            .then((data) => {
-              if (item.data().status === 'pending') {
-                pendingTodoArray.push(data.data());
-              } else if (item.data().status === 'accepted') {
-                acceptedTodoArray.push(data.data());
-              }
-            })
-            .then(() => {
-              const sharedTodosObject = {
-                pending: pendingTodoArray,
-                accepted: acceptedTodoArray,
-              };
-              setSharedTodos(sharedTodosObject);
-            });
-        }
-      });
-    });
-  };
-
   const removeTodo = (id: string) => {
     // * Removing a todo from state and Firebase
     removeTodo_DB(id);
@@ -194,9 +119,6 @@ export const ItemProvider: FC<Props> = ({ children }) => {
         removeReminder,
         addTodo,
         removeTodo,
-        sharedReminders,
-        sharedTodos,
-        getSharedItems,
       }}
     >
       {children}

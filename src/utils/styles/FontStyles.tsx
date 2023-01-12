@@ -13,7 +13,7 @@ type Props = {
   style?: ViewStyle;
 };
 
-export const TextH1: FC<Props> = ({ children, color, style }) => {
+export const TextH1: FC<Props> = ({ children, color }) => {
   useFonts({
     Sora_700Bold,
   });
@@ -24,7 +24,7 @@ export const TextH1: FC<Props> = ({ children, color, style }) => {
   );
 };
 
-export const TextH2: FC<Props> = ({ children, color, style }) => {
+export const TextH2: FC<Props> = ({ children, color }) => {
   useFonts({
     Sora_700Bold,
   });
@@ -35,7 +35,7 @@ export const TextH2: FC<Props> = ({ children, color, style }) => {
   );
 };
 
-export const TextH3: FC<Props> = ({ children, color, style }) => {
+export const TextH3: FC<Props> = ({ children, color }) => {
   useFonts({
     Sora_700Bold,
   });
@@ -46,7 +46,7 @@ export const TextH3: FC<Props> = ({ children, color, style }) => {
   );
 };
 
-export const TextP: FC<Props> = ({ children, color, style }) => {
+export const TextP: FC<Props> = ({ children, color }) => {
   useFonts({
     Sora_400Regular,
   });
@@ -57,7 +57,7 @@ export const TextP: FC<Props> = ({ children, color, style }) => {
   );
 };
 
-export const TextThin: FC<Props> = ({ children, color, style }) => {
+export const TextThin: FC<Props> = ({ children, color }) => {
   useFonts({
     Sora_100Thin,
   });

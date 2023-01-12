@@ -16,7 +16,7 @@ export type TodoList = {
   title: string;
   items: Todo[];
   createdBy?: string;
-  sharedWith?: Share[];
+  shareID?: string;
 };
 
 /**
@@ -26,6 +26,7 @@ export type Todo = {
   id?: string;
   desc: string;
   completed: boolean;
+  share?: boolean;
 };
 
 /**
@@ -44,6 +45,7 @@ export type Share = {
  * TODO Share Data
  */
 export type Reminder = {
+  shareID?: string;
   id?: string;
   title: string;
   description: string;
@@ -58,6 +60,11 @@ export type Reminder = {
  * TODO Reminder Data
  * ? Should we TYPO ID ?
  */
+export type User = {
+  email: string;
+  displayName?: string;
+  password: string;
+};
 // type User = {
 //   //   id?: string;
 //   email: string;

@@ -15,7 +15,7 @@ export const Profile = () => {
         source={require('../assets/images/Wave.png')}
       />
       <View style={{ marginHorizontal: 10 }}>
-        <TopBar settings={true} />
+        <TopBar settings />
       </View>
       <View
         style={{

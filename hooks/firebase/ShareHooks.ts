@@ -1,4 +1,3 @@
-import { fetchSignInMethodsForEmail } from 'firebase/auth';
 import {
   addDoc,
   collection,
@@ -6,11 +5,10 @@ import {
   doc,
   getDoc,
   getDocs,
-  setDoc,
   updateDoc,
 } from 'firebase/firestore';
 import { db } from '../../config/firebaseConfig';
-import { Share, Status } from '../../types/FirebaseTypes';
+import { Share } from '../../types/FirebaseTypes';
 export const sharesRef = collection(db, 'shares'); // * Gets the collection of reminders.
 
 export const shareItem_db = async (itemID, itemType, receiverEmail) => {
@@ -46,11 +44,11 @@ export const shareItem_db = async (itemID, itemType, receiverEmail) => {
   }
 };
 
-export const updateStatus_db = async (shareID: string, status: Status) => {
+export const updateStatus_db = async (shareID: string) => {
   const docRef = doc(db, 'shares', shareID);
   const docData = (await getDoc(docRef)).data();
   const updatedData = docData;
-  updatedData.status = status;
+  updatedData.status = 'accepted';
   updateDoc(docRef, updatedData).then(() => console.log('data updated.'));
 };
 

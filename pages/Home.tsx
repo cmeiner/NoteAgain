@@ -7,15 +7,17 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { auth } from '../config/firebaseConfig';
 import { ReminderCard } from '../src/components/ReminderCard';
 import { TodoListCard } from '../src/components/TodoListCard';
 import { TopBar } from '../src/components/TopBar';
 import { useItemContext } from '../src/contexts/ItemContext';
+import { useShareContext } from '../src/contexts/ShareContext';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 
 export const Home = ({ navigation }: any) => {
-  const { reminders, todos, fetchAllItems, sharedReminders } = useItemContext();
+  const { reminders, todos, fetchAllItems } = useItemContext();
+  const { sharedReminders, sharedTodos } = useShareContext();
+
   useEffect(() => {
     fetchAllItems();
   }, []);
@@ -30,7 +32,7 @@ export const Home = ({ navigation }: any) => {
         source={require('../assets/images/Wave.png')}
       />
       <View style={{ marginHorizontal: 10, marginBottom: 10 }}>
-        <TopBar settings={false} />
+        <TopBar />
       </View>
       <ScrollView
         style={{
@@ -52,6 +54,7 @@ export const Home = ({ navigation }: any) => {
                   remindAt={reminder.remindAt}
                   id={reminder.id}
                   createdBy={reminder.createdBy}
+                  shareID={reminder.shareID}
                 />
               );
             })}
@@ -69,13 +72,25 @@ export const Home = ({ navigation }: any) => {
             })}
             <View style={{ marginTop: 15 }}>
               <TextH2 color="black">Your Todos:</TextH2>
+              {sharedTodos.accepted.map((todo, key) => {
+                return (
+                  <TodoListCard
+                    key={key}
+                    items={todo.items}
+                    title={todo.title}
+                    createdBy={todo.createdBy}
+                    id={todo.id}
+                    shareID={todo.shareID}
+                  />
+                );
+              })}
               {todos.map((todo, key) => {
                 return (
                   <TodoListCard
                     key={key}
                     items={todo.items}
                     title={todo.title}
-                    createdBy={auth.currentUser.displayName}
+                    createdBy={todo.createdBy}
                     id={todo.id}
                   />
                 );
