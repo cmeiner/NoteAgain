@@ -2,8 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { Timestamp } from 'firebase/firestore';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { declineShare, updateStatus_db } from '../../hooks/firebase/ShareHooks';
 import { Reminder } from '../../types/FirebaseTypes';
+import { useShareContext } from '../contexts/ShareContext';
 import { TextH2, TextThin } from '../utils/styles/FontStyles';
 
 // ? Think of "RemindAt" attribute
@@ -15,6 +15,8 @@ export const PendingReminder = ({
   shareID,
 }: Reminder) => {
   const data = { title, remindAt, description, id };
+  const { removeSharedItem, updateShare } = useShareContext();
+
   return (
     <View style={ReminderStyles.Box}>
       <View>
@@ -35,13 +37,13 @@ export const PendingReminder = ({
           size={24}
           color="white"
           style={{ marginRight: 5 }}
-          onPress={() => updateStatus_db(shareID)}
+          onPress={() => updateShare(shareID)}
         />
         <Ionicons
           name="close"
           size={24}
           color="white"
-          onPress={() => declineShare(shareID)}
+          onPress={() => removeSharedItem(shareID)}
         />
       </View>
     </View>

@@ -14,16 +14,21 @@ import React, {
   useState,
 } from 'react';
 import { auth, db } from '../../config/firebaseConfig';
+import { declineShare, updateStatus_db } from '../../hooks/firebase/ShareHooks';
 import { Reminder, TodoList } from '../../types/FirebaseTypes';
 
 type ShareContextType = {
   shareID: string;
   idToShare: (a: string) => void;
   shareVisible: boolean;
-  toggleShare: (visible: boolean) => void;
-  sharedReminders: { pending: Reminder[]; accepted: Reminder[] };
-  sharedTodos: { pending: TodoList[]; accepted: TodoList[] };
+  toggleShare: (a: boolean) => void;
+  acceptedReminders: Reminder[];
+  pendingReminders: Reminder[];
+  acceptedTodos: TodoList[];
+  pendingTodos: TodoList[];
   getSharedItems: () => void;
+  removeSharedItem: (a: string) => void;
+  updateShare: (shareID: string) => void;
 };
 
 export const ShareContext = createContext<ShareContextType>({
@@ -31,9 +36,13 @@ export const ShareContext = createContext<ShareContextType>({
   idToShare: () => undefined,
   shareVisible: false,
   toggleShare: () => undefined,
-  sharedTodos: { pending: [], accepted: [] },
-  sharedReminders: { pending: [], accepted: [] },
+  acceptedReminders: [],
+  pendingReminders: [],
+  acceptedTodos: [],
+  pendingTodos: [],
   getSharedItems: () => undefined,
+  removeSharedItem: () => undefined,
+  updateShare: () => undefined,
 });
 
 type Props = {
@@ -43,12 +52,10 @@ type Props = {
 export const ShareProvider: FC<Props> = ({ children }) => {
   const [shareVisible, setShareVisible] = useState(false);
   const [shareID, setShareID] = useState('');
-  const [sharedReminders, setSharedReminders] = useState<
-    { pending: Reminder[]; accepted: Reminder[] } | any
-  >({ pending: [], accepted: [] });
-  const [sharedTodos, setSharedTodos] = useState<
-    { pending: TodoList[]; accepted: TodoList[] } | any
-  >({ pending: [], accepted: [] });
+  const [pendingReminders, setPendingReminders] = useState<Reminder[]>();
+  const [acceptedReminders, setAcceptedReminders] = useState<Reminder[]>();
+  const [pendingTodos, setPendingTodos] = useState<TodoList[]>();
+  const [acceptedTodos, setAcceptedTodos] = useState<TodoList[]>();
 
   const toggleShare = (visible: boolean) => {
     setShareVisible(visible);
@@ -65,7 +72,6 @@ export const ShareProvider: FC<Props> = ({ children }) => {
     );
     getDocs(shareQ).then((data) => {
       data.docs.map((item) => {
-        //console.log(item.data());
         if (item.data().itemType === 'reminder') {
           const pendingReminderArray = [];
           const acceptedReminderArray = [];
@@ -82,11 +88,8 @@ export const ShareProvider: FC<Props> = ({ children }) => {
               }
             })
             .then(() => {
-              const sharedRemindersObject = {
-                pending: pendingReminderArray,
-                accepted: acceptedReminderArray,
-              };
-              setSharedReminders(sharedRemindersObject);
+              setPendingReminders(pendingReminderArray);
+              setAcceptedReminders(acceptedReminderArray);
             });
         } else if (item.data().itemType === 'todo') {
           const pendingTodoArray = [];
@@ -101,15 +104,64 @@ export const ShareProvider: FC<Props> = ({ children }) => {
               }
             })
             .then(() => {
-              const sharedTodosObject = {
-                pending: pendingTodoArray,
-                accepted: acceptedTodoArray,
-              };
-              setSharedTodos(sharedTodosObject);
+              setPendingTodos(pendingTodoArray);
+              setAcceptedTodos(acceptedTodoArray);
             });
         }
       });
     });
+  };
+
+  const removeSharedItem = (shareID: string) => {
+    declineShare(shareID);
+    const pendingReminder = pendingReminders?.find(
+      (item) => item.shareID === shareID
+    );
+    const acceptedReminder = acceptedReminders?.find(
+      (item) => item.shareID === shareID
+    );
+    const pendingTodo = pendingTodos?.find((item) => item.shareID === shareID);
+    const acceptedTodo = acceptedTodos?.find(
+      (item) => item.shareID === shareID
+    );
+
+    if (pendingReminder) {
+      setPendingReminders(
+        pendingReminders.filter((item) => item.shareID !== shareID)
+      );
+    } else if (acceptedReminder) {
+      setAcceptedReminders(
+        acceptedReminders.filter((item) => item.shareID !== shareID)
+      );
+    } else if (pendingTodo) {
+      setPendingTodos(pendingTodos.filter((item) => item.shareID !== shareID));
+    } else if (acceptedTodo) {
+      setAcceptedTodos(
+        acceptedTodos.filter((item) => item.shareID !== shareID)
+      );
+    }
+  };
+
+  const updateShare = (shareID: string) => {
+    updateStatus_db(shareID);
+    const pendingReminder = pendingReminders?.find(
+      (item) => item.shareID === shareID
+    );
+    const pendingTodo = pendingTodos?.find((item) => item.shareID === shareID);
+
+    if (pendingReminder) {
+      setPendingReminders(
+        pendingReminders.filter((item) => item.shareID !== shareID)
+      );
+      const acceptedR = acceptedReminders;
+      acceptedR.push(pendingReminder);
+      setAcceptedReminders(acceptedR);
+    } else if (pendingTodo) {
+      setPendingTodos(pendingTodos.filter((item) => item.shareID !== shareID));
+      const acceptedT = acceptedTodos;
+      acceptedT.push(pendingTodo);
+      setAcceptedTodos(acceptedT);
+    }
   };
 
   return (
@@ -117,11 +169,15 @@ export const ShareProvider: FC<Props> = ({ children }) => {
       value={{
         shareVisible,
         toggleShare,
+        updateShare,
         shareID,
         idToShare,
-        sharedReminders,
-        sharedTodos,
+        acceptedReminders,
+        pendingReminders,
+        acceptedTodos,
+        pendingTodos,
         getSharedItems,
+        removeSharedItem,
       }}
     >
       {children}

@@ -1,3 +1,4 @@
+import { AntDesign } from '@expo/vector-icons';
 import React, { useEffect } from 'react';
 import {
   Image,
@@ -12,11 +13,10 @@ import { TopBar } from '../src/components/TopBar';
 import { useItemContext } from '../src/contexts/ItemContext';
 import { useShareContext } from '../src/contexts/ShareContext';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
-import { AntDesign } from '@expo/vector-icons';
 
 export const Home = () => {
   const { reminders, todos, fetchAllItems } = useItemContext();
-  const { sharedReminders, sharedTodos } = useShareContext();
+  const { acceptedReminders, acceptedTodos } = useShareContext();
 
   useEffect(() => {
     fetchAllItems();
@@ -45,7 +45,7 @@ export const Home = () => {
         >
           <View style={{ marginBottom: 'auto' }}>
             <TextH2 color="black">Your reminders:</TextH2>
-            {sharedReminders.accepted.map((reminder, key) => {
+            {acceptedReminders?.map((reminder, key) => {
               return (
                 <ReminderCard
                   description={reminder.description}
@@ -72,7 +72,7 @@ export const Home = () => {
             })}
             <View style={{ marginTop: 15 }}>
               <TextH2 color="black">Your Todos:</TextH2>
-              {sharedTodos.accepted.map((todo, key) => {
+              {acceptedTodos?.map((todo, key) => {
                 return (
                   <TodoListCard
                     key={key}

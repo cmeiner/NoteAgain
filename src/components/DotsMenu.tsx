@@ -28,14 +28,14 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
   const edit = () => {
     hideMenu();
     updateData(data, type);
-    setTimeout(() => toggleEdit(true, type), 120);
+    setTimeout(() => toggleEdit(true, type), 150);
   };
 
   const share = () => {
     hideMenu();
     console.log(data);
     idToShare(data.id);
-    setTimeout(() => toggleShare(true), 120);
+    setTimeout(() => toggleShare(true), 150);
   };
 
   const bookmark = () => {
