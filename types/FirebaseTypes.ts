@@ -19,6 +19,8 @@ export type TodoList = {
   shareID?: string;
 };
 
+export type ItemType = 'reminders' | 'todos';
+
 /**
  * * Todo Data
  */
@@ -36,7 +38,7 @@ export type Todo = {
 export type Share = {
   itemID: string;
   receiverID: string;
-  itemType: string;
+  itemType: ItemType;
   status: Status;
 };
 

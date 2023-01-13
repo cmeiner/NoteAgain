@@ -24,9 +24,9 @@ export const TodoListCard = ({
         </View>
         <View style={TodoListStyles.flexRow}>
           {createdBy === auth.currentUser.uid && (
-            <DotsMenu type="reminder" data={data} />
+            <DotsMenu type="todo" data={data} />
           )}
-          <DeleteMenu type="reminder" id={id} shareID={shareID} share />
+          <DeleteMenu type="todo" id={id} shareID={shareID} share />
         </View>
       </View>
       <View>

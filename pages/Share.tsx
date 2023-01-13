@@ -13,7 +13,7 @@ import { useShareContext } from '../src/contexts/ShareContext';
 import { TextH2 } from '../src/utils/styles/FontStyles';
 
 export const Share = () => {
-  const { sharedReminders, sharedTodos } = useShareContext();
+  const { pendingReminders, pendingTodos } = useShareContext();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -36,7 +36,7 @@ export const Share = () => {
         }}
       >
         <TextH2 color="black">Your pending reminders:</TextH2>
-        {sharedReminders.pending.map((reminder, key) => (
+        {pendingReminders?.map((reminder, key) => (
           <PendingReminder
             title={reminder.title}
             description={reminder.description}
@@ -46,7 +46,7 @@ export const Share = () => {
           />
         ))}
         <TextH2 color="black">Your pending todos:</TextH2>
-        {sharedTodos.pending.map((todo, key) => (
+        {pendingTodos?.map((todo, key) => (
           <PendingTodo
             shareID={todo.shareID}
             items={todo.items}
