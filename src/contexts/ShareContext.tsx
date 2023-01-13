@@ -57,6 +57,12 @@ export const ShareProvider: FC<Props> = ({ children }) => {
   const [pendingTodos, setPendingTodos] = useState<TodoList[]>();
   const [acceptedTodos, setAcceptedTodos] = useState<TodoList[]>();
 
+  // const unsubscribe = onSnapshot(q, (querySnapshot) => {
+  //   getSharedItems();
+  // }); // * FIX FIX
+
+  // unsubscribe();
+
   const toggleShare = (visible: boolean) => {
     setShareVisible(visible);
   };
