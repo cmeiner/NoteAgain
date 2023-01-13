@@ -39,6 +39,7 @@ export const shareItem_db = async (itemID, itemType, receiverEmail) => {
       status: 'pending',
     };
     await addDoc(sharesRef, sharesData);
+    return sharesData;
   } catch (e) {
     return;
   }
