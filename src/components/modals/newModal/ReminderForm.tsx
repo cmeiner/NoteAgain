@@ -6,28 +6,18 @@ import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 //import { createReminder } from '../../../hooks/firebase/ReminderHooks';
-import Toast from 'react-native-toast-message';
 import { useEditContext } from '../../../contexts/EditContext';
 import { useItemContext } from '../../../contexts/ItemContext';
 import { useModalContext } from '../../../contexts/ModalContext';
 import { TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
+import { showToast } from './Helpers';
 
 export const ReminderForm = () => {
-  const { reminderData } = useEditContext();
-  const { addReminder } = useItemContext();
+  const { reminderData, editVisible, toggleEdit } = useEditContext();
+  const { addReminder, updateReminder } = useItemContext();
   const [date, setDate] = useState<Date>(new Date());
   const [isChecked, setChecked] = useState(false);
-
-  const showToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'New reminder added 🙂',
-      position: 'bottom',
-      autoHide: true,
-      visibilityTime: 1000,
-    });
-  };
 
   const updateDate = (event: DateTimePickerEvent, date: Date) => {
     const {
@@ -45,13 +35,25 @@ export const ReminderForm = () => {
   } = useForm({
     defaultValues: reminderData,
   });
+
   const onSubmit = async (data) => {
     data = isChecked
       ? { ...data, remindAt: date }
       : { ...data, remindAt: 'Dont remind' };
     addReminder(data);
     toggleNew(false);
-    showToast();
+    showToast('new');
+  };
+
+  const onSubmitSaveEdit = async (data) => {
+    data = isChecked
+      ? { ...data, remindAt: date }
+      : { ...data, remindAt: 'Dont remind' };
+
+    updateReminder(data);
+    toggleEdit(false, 'reminder');
+    toggleNew(false);
+    showToast('edit');
   };
 
   return (
@@ -144,11 +146,19 @@ export const ReminderForm = () => {
         </View>
       </View>
       <View>
-        <FormButton
-          width="240px"
-          title="Remind me"
-          onPress={handleSubmit(onSubmit)}
-        />
+        {editVisible ? (
+          <FormButton
+            width="240px"
+            title="Save changes"
+            onPress={handleSubmit(onSubmitSaveEdit)}
+          />
+        ) : (
+          <FormButton
+            width="240px"
+            title="Add todo"
+            onPress={handleSubmit(onSubmit)}
+          />
+        )}
       </View>
     </View>
   );

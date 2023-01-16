@@ -10,8 +10,13 @@ import { auth, db } from '../../config/firebaseConfig';
 import {
   createReminder_DB,
   removeReminder_DB,
+  updateReminder_DB,
 } from '../../hooks/firebase/ReminderHooks';
-import { createTodo_DB, removeTodo_DB } from '../../hooks/firebase/TodoHooks';
+import {
+  createTodo_DB,
+  removeTodo_DB,
+  updateTodo_DB,
+} from '../../hooks/firebase/TodoHooks';
 import { Reminder, TodoList } from '../../types/FirebaseTypes';
 import { useShareContext } from './ShareContext';
 
@@ -23,6 +28,8 @@ type ItemContextType = {
   addTodo: ({ title, items, createdBy }: TodoList) => void;
   removeTodo: (id: string) => void;
   fetchAllItems: () => void;
+  updateTodo: (data: TodoList) => void;
+  updateReminder: (data: Reminder) => void;
 };
 
 export const ItemContext = createContext<ItemContextType>({
@@ -33,6 +40,8 @@ export const ItemContext = createContext<ItemContextType>({
   addTodo: () => undefined,
   removeTodo: () => undefined,
   fetchAllItems: () => undefined,
+  updateTodo: () => undefined,
+  updateReminder: () => undefined,
 });
 
 type Props = {
@@ -109,6 +118,44 @@ export const ItemProvider: FC<Props> = ({ children }) => {
     setTodos(updatedArray);
   };
 
+  const updateTodo = async (data: TodoList) => {
+    const newTodoArray = todos.filter((item) => item.id !== data.id);
+    const contextObject: TodoList = {
+      items: data.items,
+      title: data.title,
+      createdBy: auth.currentUser.uid,
+      id: data.id,
+    };
+    const firebaseObject: TodoList = {
+      items: data.items,
+      title: data.title,
+      createdBy: auth.currentUser.uid,
+    };
+    newTodoArray.push(contextObject);
+    setTodos(newTodoArray);
+    updateTodo_DB(data.id, firebaseObject);
+  };
+
+  const updateReminder = async (data: Reminder) => {
+    const newReminderArray = reminders.filter((item) => item.id !== data.id);
+    const contextObject: Reminder = {
+      description: data.description,
+      title: data.title,
+      createdBy: auth.currentUser.uid,
+      remindAt: data.remindAt,
+      id: data.id,
+    };
+    const firebaseObject: Reminder = {
+      description: data.description,
+      title: data.title,
+      createdBy: auth.currentUser.uid,
+      remindAt: data.remindAt,
+    };
+    newReminderArray.push(contextObject);
+    setReminders(newReminderArray);
+    updateReminder_DB(data.id, firebaseObject);
+  };
+
   return (
     <ItemContext.Provider
       value={{
@@ -119,6 +166,8 @@ export const ItemProvider: FC<Props> = ({ children }) => {
         removeReminder,
         addTodo,
         removeTodo,
+        updateTodo,
+        updateReminder,
       }}
     >
       {children}
