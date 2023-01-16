@@ -1,12 +1,10 @@
 import Toast from 'react-native-toast-message';
-
-type ToastType = 'edit' | 'new';
+import { toastMessage, ToastType } from './ToastTypes';
 
 export const showToast = (toastType: ToastType) => {
   Toast.show({
     type: 'success',
-    text1:
-      toastType === 'edit' ? 'Reminder updated 🙂' : 'New Reminder added 🙂',
+    text1: toastMessage(toastType),
     position: 'bottom',
     autoHide: true,
     visibilityTime: 1000,

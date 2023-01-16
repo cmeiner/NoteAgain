@@ -2,9 +2,9 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 import { Menu, MenuItem } from 'react-native-material-menu';
-import Toast from 'react-native-toast-message';
 import { useItemContext } from '../../contexts/ItemContext';
 import { useShareContext } from '../../contexts/ShareContext';
+import { showToast } from '../../utils/constants/ToastHelper';
 import { TextP } from '../../utils/styles/FontStyles';
 
 type Props = {
@@ -23,23 +23,18 @@ export const DeleteMenu: FC<Props> = ({ id, type, share, shareID }) => {
 
   const showMenu = () => setVisible(true);
 
-  const showToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: type === 'reminder' ? 'Reminder deleted!' : 'Todo Deleted!',
-      position: 'bottom',
-      autoHide: true,
-      visibilityTime: 1000,
-    });
-  };
   const deleteItem = () => {
     hideMenu();
     if (share) {
       removeSharedItem(shareID);
+      type === 'reminder'
+        ? showToast('deleteReminder')
+        : showToast('deleteTodo');
     } else {
-      type === 'reminder' ? removeReminder(id) : removeTodo(id);
+      type === 'reminder'
+        ? (removeReminder(id), showToast('deleteReminder'))
+        : (removeTodo(id), showToast('deleteTodo'));
     }
-    showToast();
   };
 
   return (

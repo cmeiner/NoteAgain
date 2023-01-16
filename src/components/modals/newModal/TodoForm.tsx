@@ -6,13 +6,13 @@ import { Todo } from '../../../../types/FirebaseTypes';
 import { useEditContext } from '../../../contexts/EditContext';
 import { useItemContext } from '../../../contexts/ItemContext';
 import { ModalContext } from '../../../contexts/ModalContext';
+import { showToast } from '../../../utils/constants/ToastHelper';
 import { TextP, TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
-import { showToast } from './Helpers';
 
 export const TodoForm = () => {
   const { addTodo, updateTodo } = useItemContext();
-  const { todoData, toggleEdit, updateData, editVisible } = useEditContext();
+  const { todoData, toggleEdit, editVisible } = useEditContext();
   const { toggleNew } = useContext(ModalContext);
   const [todos, setTodos] = useState<Todo[]>([]);
 
@@ -34,19 +34,19 @@ export const TodoForm = () => {
     addTodo(dataObject);
     toggleEdit(false, 'todo');
     toggleNew(false);
-    showToast('new');
+    showToast('newTodo');
   };
 
   const onSubmitSaveEdit = async (data) => {
     data.items = todos;
-    const dataObject = {
-      title: data.title,
-      items: data.items,
-    };
+    // const dataObject = {
+    //   title: data.title,
+    //   items: data.items,
+    // };
     updateTodo(data);
     toggleEdit(false, 'todo');
     toggleNew(false);
-    showToast('edit');
+    showToast('editTodo');
   };
 
   const addTodoList = (data: Todo) => {

@@ -8,10 +8,10 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import Toast from 'react-native-toast-message';
 import { useModalContext } from '../../contexts/ModalContext';
 import { useSettingsContext } from '../../contexts/SettingsContext';
 import { useUserCotext } from '../../contexts/UserContext';
+import { showToast } from '../../utils/constants/ToastHelper';
 import { TextP } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
@@ -30,19 +30,9 @@ export const ChangePassword = () => {
     },
   });
 
-  const showToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Password updated! 😊',
-      position: 'bottom',
-      autoHide: true,
-      visibilityTime: 2000,
-    });
-  };
-
   const onSubmit = async (data) => {
     updateUserPassword(data.newPassword);
-    showToast();
+    showToast('passwordUpdated');
     setCurrentlyShowing('settings');
     toggleSettingsModal(false);
   };
