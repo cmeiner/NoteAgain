@@ -56,6 +56,7 @@ export const EditProvider: FC<Props> = ({ children }) => {
     setModalType(type);
     setEditVisible(visible);
   };
+
   return (
     <EditContext.Provider
       value={{

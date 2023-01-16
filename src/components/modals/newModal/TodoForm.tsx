@@ -2,32 +2,19 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useContext, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import Toast from 'react-native-toast-message';
+import { Todo } from '../../../../types/FirebaseTypes';
 import { useEditContext } from '../../../contexts/EditContext';
 import { useItemContext } from '../../../contexts/ItemContext';
 import { ModalContext } from '../../../contexts/ModalContext';
 import { TextP, TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
+import { showToast } from './Helpers';
 
 export const TodoForm = () => {
-  const { addTodo } = useItemContext();
-  const { todoData } = useEditContext();
-  type Todo = {
-    desc: string;
-    completed: boolean;
-  };
+  const { addTodo, updateTodo } = useItemContext();
+  const { todoData, toggleEdit, updateData, editVisible } = useEditContext();
   const { toggleNew } = useContext(ModalContext);
   const [todos, setTodos] = useState<Todo[]>([]);
-
-  const showToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'New todo added 🙂',
-      position: 'bottom',
-      autoHide: true,
-      visibilityTime: 1000,
-    });
-  };
 
   const {
     control,
@@ -45,8 +32,21 @@ export const TodoForm = () => {
       items: data.items,
     };
     addTodo(dataObject);
+    toggleEdit(false, 'todo');
     toggleNew(false);
-    showToast();
+    showToast('new');
+  };
+
+  const onSubmitSaveEdit = async (data) => {
+    data.items = todos;
+    const dataObject = {
+      title: data.title,
+      items: data.items,
+    };
+    updateTodo(data);
+    toggleEdit(false, 'todo');
+    toggleNew(false);
+    showToast('edit');
   };
 
   const addTodoList = (data: Todo) => {
@@ -110,12 +110,16 @@ export const TodoForm = () => {
                   style={styles.todoInput}
                   onBlur={onBlur}
                   onChangeText={onChange}
-                  onSubmitEditing={() => {
-                    addTodoList({
-                      desc: value,
-                      completed: false,
-                    });
-                  }}
+                  onSubmitEditing={
+                    value
+                      ? () => {
+                          addTodoList({
+                            desc: value,
+                            completed: false,
+                          });
+                        }
+                      : null
+                  }
                   value={value}
                   placeholder='"Walk the dog"'
                   placeholderTextColor="#808080"
@@ -140,11 +144,19 @@ export const TodoForm = () => {
         )}
       </View>
       <View>
-        <FormButton
-          width="240px"
-          title="Add"
-          onPress={handleSubmit(onSubmit)}
-        />
+        {editVisible ? (
+          <FormButton
+            width="240px"
+            title="Save changes"
+            onPress={handleSubmit(onSubmitSaveEdit)}
+          />
+        ) : (
+          <FormButton
+            width="240px"
+            title="Add todo"
+            onPress={handleSubmit(onSubmit)}
+          />
+        )}
       </View>
     </View>
   );

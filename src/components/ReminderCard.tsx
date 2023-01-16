@@ -1,4 +1,3 @@
-import { Timestamp } from 'firebase/firestore';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { auth } from '../../config/firebaseConfig';
@@ -23,13 +22,14 @@ export const ReminderCard = ({
       <View>
         <TextH2 color="white">{title}</TextH2>
         <TextThin color="white">
-          {remindAt instanceof Timestamp
+          {/* {remindAt instanceof Timestamp
             ? `${new Date(
                 remindAt.seconds * 1000
               ).toDateString()} \n ${new Date(remindAt.seconds * 1000)
                 .toLocaleTimeString()
                 .substring(0, 5)}`
-            : 'No notification'}
+            : 'No notification'} */}
+          {description}
         </TextThin>
       </View>
       <View style={ReminderStyles.flexRow}>

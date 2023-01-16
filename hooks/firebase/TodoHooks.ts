@@ -1,4 +1,10 @@
-import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from 'firebase/firestore';
 import { auth, db } from '../../config/firebaseConfig';
 import { TodoList } from '../../types/FirebaseTypes';
 
@@ -28,3 +34,19 @@ export const removeTodo_DB = async (id: string) => {
     console.log(e);
   }
 };
+
+export const updateTodo_DB = async (id: string, data: TodoList) => {
+  try {
+    await updateDoc(doc(db, 'todos', id), data);
+    console.log('Todo Updated');
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+// const washingtonRef = doc(db, 'cities', 'DC');
+
+// // Set the "capital" field of the city 'DC'
+// await updateDoc(washingtonRef, {
+//   capital: true,
+// });

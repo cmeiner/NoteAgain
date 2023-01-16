@@ -23,10 +23,14 @@ export const TodoListCard = ({
           <TextH2 color="white">{title}</TextH2>
         </View>
         <View style={TodoListStyles.flexRow}>
-          {createdBy === auth.currentUser.uid && (
-            <DotsMenu type="todo" data={data} />
+          {createdBy === auth.currentUser.uid ? (
+            <>
+              <DotsMenu type="todo" data={data} />
+              <DeleteMenu type="todo" id={id} shareID={shareID} />
+            </>
+          ) : (
+            <DeleteMenu type="todo" id={id} shareID={shareID} share />
           )}
-          <DeleteMenu type="todo" id={id} shareID={shareID} share />
         </View>
       </View>
       <View>
