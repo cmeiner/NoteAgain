@@ -67,7 +67,7 @@ export const ItemProvider: FC<Props> = ({ children }) => {
   };
 
   const removeReminder = (id: string) => {
-    // * Removing a reminder from state and Firebase
+    // Removing a reminder from state and Firebase
     removeReminder_DB(id);
     const updatedArray = reminders.filter((item) => item.id !== id);
     setReminders(updatedArray);

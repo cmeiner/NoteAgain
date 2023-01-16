@@ -33,10 +33,14 @@ export const ReminderCard = ({
         </TextThin>
       </View>
       <View style={ReminderStyles.flexRow}>
-        {createdBy === auth.currentUser.uid && (
-          <DotsMenu type="reminder" data={data} />
+        {createdBy === auth.currentUser.uid ? (
+          <>
+            <DotsMenu type="reminder" data={data} />
+            <DeleteMenu type="reminder" id={id} shareID={shareID} />
+          </>
+        ) : (
+          <DeleteMenu type="reminder" id={id} shareID={shareID} share />
         )}
-        <DeleteMenu type="reminder" id={id} shareID={shareID} share />
       </View>
     </View>
   );

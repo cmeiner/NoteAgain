@@ -18,6 +18,7 @@ export const DeleteMenu: FC<Props> = ({ id, type, share, shareID }) => {
   const { removeReminder, removeTodo } = useItemContext();
   const { removeSharedItem } = useShareContext();
   const [visible, setVisible] = useState(false);
+  console.log(share);
 
   const hideMenu = () => setVisible(false);
 
