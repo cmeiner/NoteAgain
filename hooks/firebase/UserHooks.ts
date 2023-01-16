@@ -1,12 +1,14 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
   updateProfile,
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../config/firebaseConfig';
+import { showToast } from '../../src/utils/constants/ToastHelper';
 import { User } from '../../types/FirebaseTypes';
-import { storeUserData } from '../StorageHooks';
+import { resetUserData, storeUserData } from '../StorageHooks';
 
 // export const usePost = async (api: string, data: object) => {
 //   await setDoc(doc(collection(db, api)), data);
@@ -53,5 +55,16 @@ export const loginUser = async ({ email, password }: User) => {
         ? 'Wrong Email or Password'
         : 'No account found';
     return errorMessage;
+  }
+};
+
+export const logOutUser = async () => {
+  try {
+    await signOut(auth);
+    showToast('logoutSuccesful');
+    resetUserData();
+    return 'Success';
+  } catch (error) {
+    return 'Error';
   }
 };

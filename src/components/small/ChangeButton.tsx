@@ -9,10 +9,7 @@ type Props = {
 
 export const ChangeButton: FC<Props> = ({ onPress, title, width }) => {
   return (
-    <Pressable
-      style={width === '250px' ? styles.button250W : styles.button}
-      onPress={onPress}
-    >
+    <Pressable style={styles.button} onPress={onPress}>
       <Text style={styles.text}>{title}</Text>
     </Pressable>
   );
@@ -22,25 +19,12 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 350,
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 10,
-    elevation: 3,
-    backgroundColor: '#D77451',
-    marginTop: 'auto',
-  },
-  button250W: {
-    alignItems: 'center',
-    justifyContent: 'center',
     width: 250,
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
     backgroundColor: '#D77451',
-    marginTop: 'auto',
-    marginBottom: 10,
   },
   text: {
     fontSize: 16,

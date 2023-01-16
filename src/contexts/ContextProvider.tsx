@@ -12,15 +12,17 @@ type Props = {
 export const ContextProvider: FC<Props> = ({ children }) => {
   return (
     <ModalProvider>
-      <EditProvider>
-        <ShareProvider>
-          <ItemProvider>
-            <SettingsProvider>
-              <UserProvider>{children}</UserProvider>
-            </SettingsProvider>
-          </ItemProvider>
-        </ShareProvider>
-      </EditProvider>
+      <UserProvider>
+        <EditProvider>
+          <ShareProvider>
+            <ItemProvider>
+              <SettingsProvider>
+                <UserProvider>{children}</UserProvider>
+              </SettingsProvider>
+            </ItemProvider>
+          </ShareProvider>
+        </EditProvider>
+      </UserProvider>
     </ModalProvider>
   );
 };
