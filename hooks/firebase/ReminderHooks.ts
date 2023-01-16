@@ -31,7 +31,6 @@ export const createReminder_DB = async ({
       remindAt: remindAt,
       id: reminder.id,
     };
-    // TODO Create a nice toast message that a reminder is created.
   } catch (Error) {
     console.log(Error);
   }

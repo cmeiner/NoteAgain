@@ -9,9 +9,9 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { useEditContext } from '../../../contexts/EditContext';
 import { useItemContext } from '../../../contexts/ItemContext';
 import { useModalContext } from '../../../contexts/ModalContext';
+import { showToast } from '../../../utils/constants/ToastHelper';
 import { TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
-import { showToast } from './Helpers';
 
 export const ReminderForm = () => {
   const { reminderData, editVisible, toggleEdit } = useEditContext();
@@ -42,7 +42,7 @@ export const ReminderForm = () => {
       : { ...data, remindAt: 'Dont remind' };
     addReminder(data);
     toggleNew(false);
-    showToast('new');
+    showToast('newReminder');
   };
 
   const onSubmitSaveEdit = async (data) => {
@@ -53,7 +53,7 @@ export const ReminderForm = () => {
     updateReminder(data);
     toggleEdit(false, 'reminder');
     toggleNew(false);
-    showToast('edit');
+    showToast('editReminder');
   };
 
   return (

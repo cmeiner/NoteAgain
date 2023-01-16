@@ -8,11 +8,11 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import Toast from 'react-native-toast-message';
 import { auth } from '../../../config/firebaseConfig';
 import { useModalContext } from '../../contexts/ModalContext';
 import { useSettingsContext } from '../../contexts/SettingsContext';
 import { useUserCotext } from '../../contexts/UserContext';
+import { showToast } from '../../utils/constants/ToastHelper';
 import { TextP } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
@@ -30,19 +30,10 @@ export const ChangeDisplayName = () => {
       newDisplayName: '',
     },
   });
-  const showToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Display Name updated! 😊',
-      position: 'bottom',
-      autoHide: true,
-      visibilityTime: 2000,
-    });
-  };
 
   const onSubmit = async (data) => {
     updateUserDisplayName(data.newDisplayName);
-    showToast();
+    showToast('displayNameUpdated');
     setCurrentlyShowing('settings');
     toggleSettingsModal(false);
   };

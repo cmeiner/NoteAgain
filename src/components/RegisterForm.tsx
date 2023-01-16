@@ -13,6 +13,7 @@ import { loginUser, registerUser } from '../../hooks/firebase/UserHooks';
 import { FormButton } from './small/FormButton';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
+import { showToast } from '../utils/constants/ToastHelper';
 
 type StackParamList = {
   HomeScreen: undefined;
@@ -46,6 +47,7 @@ export const RegisterForm = () => {
       navigation.navigate('HomeScreen');
       setIsLoading(false);
     }, 1000);
+    showToast('accountCreated');
   };
 
   return (
