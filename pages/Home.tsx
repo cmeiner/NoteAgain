@@ -122,7 +122,7 @@ export const Home = () => {
             style={{
               position: 'relative',
               alignItems: 'center',
-              bottom: -140,
+              bottom: -130,
               marginRight: 4,
             }}
           >

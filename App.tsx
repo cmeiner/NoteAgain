@@ -59,10 +59,6 @@ const App = () => {
   return (
     <NavigationContainer>
       <ContextProvider>
-        {/* <SettingsProvider>
-        <UserProvider>
-          <ItemProvider>
-            <ModalProvider> */}
         <Stack.Navigator>
           {loggedIn ? (
             <Stack.Screen
@@ -82,12 +78,13 @@ const App = () => {
             name="HomeScreen"
             component={NavBar}
           />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Login2"
+            component={Login}
+          />
         </Stack.Navigator>
         <StatusBar />
-        {/* </ModalProvider>
-          </ItemProvider>
-        </UserProvider>
-      </SettingsProvider> */}
       </ContextProvider>
       <Toast config={toastConfig} />
     </NavigationContainer>

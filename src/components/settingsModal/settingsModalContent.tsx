@@ -6,7 +6,7 @@ import {
 } from '../../contexts/SettingsContext';
 import { TextH3 } from '../../utils/styles/FontStyles';
 import { ChangeDisplayName } from './ChangeDisplayName';
-import { ChangeEmail } from './ChangeEmail';
+import { ChangeDisplayPicture, ChangeEmail } from './ChangeDisplayPicture';
 import { ChangePassword } from './ChangePassword';
 import { SettingsPage } from './Settings';
 
@@ -20,8 +20,8 @@ export const SettingsModalContent = () => {
         return <SettingsPage />;
       case 'displayname':
         return <ChangeDisplayName />;
-      case 'email':
-        return <ChangeEmail />;
+      case 'displayPicture':
+        return <ChangeDisplayPicture />;
       case 'password':
         return <ChangePassword />;
     }
@@ -42,12 +42,8 @@ export const SettingsModalContent = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
-    height: '100%',
-  },
-  buttonContainer: {
-    marginTop: 20,
-    height: 200,
     justifyContent: 'center',
   },
 });
