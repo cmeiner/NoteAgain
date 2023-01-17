@@ -1,5 +1,13 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Octicons } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import {
+  LayoutAnimation,
+  Platform,
+  Pressable,
+  StyleSheet,
+  UIManager,
+  View,
+} from 'react-native';
 import { auth } from '../../config/firebaseConfig';
 import { Reminder } from '../../types/FirebaseTypes';
 import { TextH2, TextThin } from '../utils/styles/FontStyles';
@@ -16,32 +24,44 @@ export const ReminderCard = ({
   shareID,
 }: Reminder) => {
   const data = { title, remindAt, description, id };
+  const [exp, setExp] = useState(false);
+
+  if (
+    Platform.OS === 'android' &&
+    UIManager.setLayoutAnimationEnabledExperimental
+  ) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+
+  const toggleExp = () => {
+    LayoutAnimation.configureNext({
+      duration: 100,
+      create: { type: 'easeIn', property: 'opacity' },
+    });
+    setExp((prevState) => !prevState);
+  };
 
   return (
     <View style={ReminderStyles.Box}>
-      <View>
+      <Pressable onPress={toggleExp} style={{ flex: 1 }}>
         <TextH2 color="white">{title}</TextH2>
-        <TextThin color="white">
-          {/* {remindAt instanceof Timestamp
-            ? `${new Date(
-                remindAt.seconds * 1000
-              ).toDateString()} \n ${new Date(remindAt.seconds * 1000)
-                .toLocaleTimeString()
-                .substring(0, 5)}`
-            : 'No notification'} */}
-          {description}
-        </TextThin>
-      </View>
-      <View style={ReminderStyles.flexRow}>
-        {createdBy === auth.currentUser.uid ? (
-          <>
-            <DotsMenu type="reminder" data={data} />
-            <DeleteMenu type="reminder" id={id} shareID={shareID} />
-          </>
-        ) : (
-          <DeleteMenu type="reminder" id={id} shareID={shareID} share />
-        )}
-      </View>
+        {exp ? <TextThin color="white">{description}</TextThin> : null}
+      </Pressable>
+
+      {exp ? (
+        <View style={ReminderStyles.flexRow}>
+          {createdBy === auth.currentUser.uid ? (
+            <>
+              <DotsMenu type="reminder" data={data} />
+              <DeleteMenu type="reminder" id={id} shareID={shareID} />
+            </>
+          ) : (
+            <DeleteMenu type="reminder" id={id} shareID={shareID} share />
+          )}
+        </View>
+      ) : remindAt === 'Dont remind' ? null : (
+        <Octicons name="bell-fill" size={20} color="white" />
+      )}
     </View>
   );
 };
@@ -53,20 +73,9 @@ const ReminderStyles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     backgroundColor: '#1B1D29',
-    width: '100%',
+    flex: 1,
     padding: 20,
     marginVertical: 5,
-  },
-  DropDown: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    borderRadius: 10,
-    padding: 20,
-    width: '70%',
-    backgroundColor: '#1B1D29',
-    position: 'absolute',
-    right: 0,
-    bottom: -50,
   },
   flexRow: {
     alignItems: 'center',

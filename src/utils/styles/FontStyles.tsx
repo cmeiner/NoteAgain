@@ -5,12 +5,11 @@ import {
   useFonts,
 } from '@expo-google-fonts/sora';
 import React, { FC, ReactNode } from 'react';
-import { StyleSheet, Text, ViewStyle } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
 type Props = {
   children: ReactNode;
-  color: string;
-  style?: ViewStyle;
+  color: 'white' | 'black';
 };
 
 export const TextH1: FC<Props> = ({ children, color }) => {
@@ -76,7 +75,7 @@ const fontStyles = StyleSheet.create({
   },
   wh2: {
     fontFamily: 'Sora_700Bold',
-    fontSize: 20,
+    fontSize: 24,
     color: '#F5F5F5',
   },
   wh3: {
