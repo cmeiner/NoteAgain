@@ -2,7 +2,7 @@ import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
 import Checkbox from 'expo-checkbox';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 //import { createReminder } from '../../../hooks/firebase/ReminderHooks';
@@ -19,13 +19,20 @@ export const ReminderForm = () => {
   const [date, setDate] = useState<Date>(new Date());
   const [isChecked, setChecked] = useState(false);
 
+  useEffect(() => {
+    if (reminderData.remindAt && reminderData.remindAt !== 'Dont remind') {
+      setDate(new Date(reminderData.remindAt));
+      setChecked(true);
+    }
+  }, [reminderData]);
+
   const updateDate = (event: DateTimePickerEvent, date: Date) => {
     const {
       type,
       nativeEvent: { timestamp },
     } = event;
     setDate(date);
-    console.log(date);
+    //console.log(date);
   };
   const { toggleNew } = useModalContext();
   const {
@@ -49,8 +56,7 @@ export const ReminderForm = () => {
     data = isChecked
       ? { ...data, remindAt: date }
       : { ...data, remindAt: 'Dont remind' };
-
-    updateReminder(data);
+    updateReminder(data, date.valueOf());
     toggleEdit(false, 'reminder');
     toggleNew(false);
     showToast('editReminder');
