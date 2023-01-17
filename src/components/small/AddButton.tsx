@@ -1,6 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Keyboard,
+  Modal,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { AddNewModalContent } from '../../components/modals/newModal/AddNewModalContent';
 import { useEditContext } from '../../contexts/EditContext';
 import { useModalContext } from '../../contexts/ModalContext';
@@ -25,18 +32,20 @@ export const AddButton = () => {
         <Ionicons name="md-add-circle" size={45} color="black" />
       </TouchableOpacity>
       <Modal animationType="slide" transparent={true} visible={newVisible}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Ionicons
-              name="close-outline"
-              size={40}
-              color="black"
-              onPress={closeNewModal}
-              style={styles.buttonClose}
-            />
-            <AddNewModalContent />
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Ionicons
+                name="close-outline"
+                size={40}
+                color="black"
+                onPress={closeNewModal}
+                style={styles.buttonClose}
+              />
+              <AddNewModalContent />
+            </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Modal>
     </View>
   );

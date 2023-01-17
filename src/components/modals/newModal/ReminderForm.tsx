@@ -74,6 +74,7 @@ export const ReminderForm = () => {
                 value={value}
                 placeholder='"Pizzatime"'
                 placeholderTextColor="#808080"
+                enablesReturnKeyAutomatically={true}
               />
             </View>
           )}
@@ -86,7 +87,7 @@ export const ReminderForm = () => {
         <Controller
           control={control}
           rules={{
-            maxLength: 100,
+            maxLength: 1000,
             required: true,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
@@ -97,9 +98,9 @@ export const ReminderForm = () => {
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
-                multiline={true}
                 placeholder='"Pick up pizza"'
                 enablesReturnKeyAutomatically={true}
+                multiline
               />
             </View>
           )}

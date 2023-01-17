@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 import { Menu, MenuItem } from 'react-native-material-menu';
@@ -52,10 +52,10 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
       <Menu
         visible={visible}
         anchor={
-          <MaterialCommunityIcons
-            name="dots-vertical"
-            size={30}
-            color="#F5F5F5"
+          <Entypo
+            name="dots-three-vertical"
+            size={24}
+            color="white"
             onPress={showMenu}
           />
         }
