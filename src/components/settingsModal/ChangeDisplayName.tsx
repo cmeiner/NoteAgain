@@ -11,13 +11,13 @@ import {
 import { auth } from '../../../config/firebaseConfig';
 import { useModalContext } from '../../contexts/ModalContext';
 import { useSettingsContext } from '../../contexts/SettingsContext';
-import { useUserCotext } from '../../contexts/UserContext';
+import { useUserContext } from '../../contexts/UserContext';
 import { showToast } from '../../utils/constants/ToastHelper';
 import { TextP } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const ChangeDisplayName = () => {
-  const { updateUserDisplayName } = useUserCotext();
+  const { updateUserDisplayName } = useUserContext();
   const { setCurrentlyShowing } = useSettingsContext();
   const { toggleSettingsModal } = useModalContext();
 
@@ -71,16 +71,14 @@ export const ChangeDisplayName = () => {
         {errors.newDisplayName && (
           <Text style={styles.errorText}>Please choose a new display name</Text>
         )}
-      </View>
-      <View style={{ position: 'absolute', bottom: 10 }}>
         <FormButton
-          width="240px"
           title="Save"
           onPress={handleSubmit(onSubmit)}
           disabled={false}
         />
+      </View>
+      <View style={{ position: 'absolute', bottom: 10 }}>
         <FormButton
-          width="240px"
           title="Go back"
           onPress={() => {
             setCurrentlyShowing('settings');

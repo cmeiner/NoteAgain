@@ -2,13 +2,15 @@ import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useModalContext } from '../../contexts/ModalContext';
-// import { SettingsModalContent } from '../settingsModal/SettingsModalContent';
+import { useSettingsContext } from '../../contexts/SettingsContext';
+import { SettingsModalContent } from '../settingsModal/SettingsModalContent';
 
 export const SettingsButton = () => {
-  // const { settingsModalVisible, toggleSettingsModal } = useModalContext();
+  const { settingsModalVisible, toggleSettingsModal } = useModalContext();
+  const { setCurrentlyShowing } = useSettingsContext();
   return (
     <View style={{ marginLeft: 10, marginRight: 10 }}>
-      {/* <TouchableOpacity
+      <TouchableOpacity
         onPress={() => {
           toggleSettingsModal(true);
         }}
@@ -28,13 +30,15 @@ export const SettingsButton = () => {
               name="close-outline"
               size={40}
               color="black"
-              onPress={() => toggleSettingsModal(false)}
+              onPress={() => (
+                toggleSettingsModal(false), setCurrentlyShowing('settings')
+              )}
               style={styles.buttonClose}
             />
             <SettingsModalContent />
           </View>
         </View>
-      </Modal> */}
+      </Modal>
     </View>
   );
 };

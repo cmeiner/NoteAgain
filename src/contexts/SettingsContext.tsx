@@ -9,7 +9,7 @@ import React, {
 export type CurrentlyShowing =
   | 'settings'
   | 'displayname'
-  | 'email'
+  | 'displayPicture'
   | 'password';
 
 type SettingsContextType = {

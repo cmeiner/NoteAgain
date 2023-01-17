@@ -5,20 +5,32 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
-import React, { createContext, FC, ReactNode, useContext } from 'react';
+import React, {
+  createContext,
+  FC,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { db } from '../../config/firebaseConfig';
 import { loginUser } from '../../hooks/firebase/UserHooks';
+import { checkUserData, getUserData } from '../../hooks/StorageHooks';
 
 type UserContextType = {
   updateUserDisplayName: (newDisplayName: string) => void;
   updateUserEmail: (newEmail: string, password: string) => void;
   updateUserPassword: (newPassword: string) => void;
+  isLoggedIn: boolean;
+  updateLoggedIn: (status: boolean) => void;
 };
 
 export const UserContext = createContext<UserContextType>({
   updateUserDisplayName: () => undefined,
   updateUserEmail: () => undefined,
   updateUserPassword: () => undefined,
+  isLoggedIn: false,
+  updateLoggedIn: () => undefined,
 });
 
 type Props = {
@@ -26,6 +38,26 @@ type Props = {
 };
 
 export const UserProvider: FC<Props> = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const updateLoggedIn = (status: boolean) => {
+    console.log('I context');
+    setIsLoggedIn(status);
+  };
+
+  useEffect(() => {
+    checkUserData().then((boolean) => {
+      if (boolean) {
+        getUserData().then((data) => {
+          loginUser(data).then(() => {
+            setIsLoggedIn(true);
+            //console.log(isLoggedIn);
+          });
+        });
+      }
+    });
+  }, [isLoggedIn]);
+
   const auth = getAuth();
 
   const updateUserDisplayName = (newDisplayName: string) => {
@@ -70,6 +102,8 @@ export const UserProvider: FC<Props> = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
+        updateLoggedIn,
+        isLoggedIn,
         updateUserDisplayName,
         updateUserEmail,
         updateUserPassword,
@@ -80,4 +114,4 @@ export const UserProvider: FC<Props> = ({ children }) => {
   );
 };
 
-export const useUserCotext = () => useContext(UserContext);
+export const useUserContext = () => useContext(UserContext);

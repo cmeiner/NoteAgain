@@ -10,13 +10,13 @@ import {
 } from 'react-native';
 import { useModalContext } from '../../contexts/ModalContext';
 import { useSettingsContext } from '../../contexts/SettingsContext';
-import { useUserCotext } from '../../contexts/UserContext';
+import { useUserContext } from '../../contexts/UserContext';
 import { showToast } from '../../utils/constants/ToastHelper';
 import { TextP } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const ChangePassword = () => {
-  const { updateUserPassword } = useUserCotext();
+  const { updateUserPassword } = useUserContext();
   const { setCurrentlyShowing } = useSettingsContext();
   const { toggleSettingsModal } = useModalContext();
 
@@ -72,15 +72,10 @@ export const ChangePassword = () => {
             Please please choose a new password
           </Text>
         )}
+        <FormButton title="Save" onPress={handleSubmit(onSubmit)} />
       </View>
       <View style={{ position: 'absolute', bottom: 10 }}>
         <FormButton
-          width="240px"
-          title="Save"
-          onPress={handleSubmit(onSubmit)}
-        />
-        <FormButton
-          width="240px"
           title="Go back"
           onPress={() => {
             setCurrentlyShowing('settings');
