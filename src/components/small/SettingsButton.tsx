@@ -2,13 +2,13 @@ import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useModalContext } from '../../contexts/ModalContext';
-import { SettingsModalContent } from '../settingsModal/SettingsModalContent';
+// import { SettingsModalContent } from '../settingsModal/SettingsModalContent';
 
 export const SettingsButton = () => {
-  const { settingsModalVisible, toggleSettingsModal } = useModalContext();
+  // const { settingsModalVisible, toggleSettingsModal } = useModalContext();
   return (
     <View style={{ marginLeft: 10, marginRight: 10 }}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => {
           toggleSettingsModal(true);
         }}
@@ -34,7 +34,7 @@ export const SettingsButton = () => {
             <SettingsModalContent />
           </View>
         </View>
-      </Modal>
+      </Modal> */}
     </View>
   );
 };

@@ -1,3 +1,4 @@
+import { Timestamp } from 'firebase/firestore';
 import React, {
   createContext,
   FC,
@@ -41,6 +42,25 @@ export const EditProvider: FC<Props> = ({ children }) => {
 
   const updateData = (datax: any, type: ModalType) => {
     if (type === 'reminder') {
+      console.log('EDIT CONTEXT WHEN SETTING DATA');
+      console.log(datax.remindAt);
+      if (datax.remindAt !== 'Dont remind') {
+        let updatedDate;
+        if (datax.remindAt instanceof Timestamp) {
+          updatedDate = new Date(
+            datax.remindAt.seconds * 1000 + datax.remindAt.nanoseconds / 1000000
+          );
+        } else {
+          updatedDate = new Date(datax.remindAt);
+        }
+        const updatedObject: Reminder = {
+          remindAt: updatedDate,
+          title: datax.title,
+          description: datax.description,
+          id: datax.id,
+        };
+        return setReminderData(updatedObject);
+      }
       setReminderData(datax);
     } else {
       setTodoData(datax);

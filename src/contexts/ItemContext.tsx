@@ -1,4 +1,10 @@
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  query,
+  Timestamp,
+  where,
+} from 'firebase/firestore';
 import React, {
   createContext,
   FC,
@@ -29,7 +35,7 @@ type ItemContextType = {
   removeTodo: (id: string) => void;
   fetchAllItems: () => void;
   updateTodo: (data: TodoList) => void;
-  updateReminder: (data: Reminder) => void;
+  updateReminder: (data: Reminder, newDate: any) => void;
 };
 
 export const ItemContext = createContext<ItemContextType>({
@@ -136,13 +142,13 @@ export const ItemProvider: FC<Props> = ({ children }) => {
     updateTodo_DB(data.id, firebaseObject);
   };
 
-  const updateReminder = async (data: Reminder) => {
+  const updateReminder = async (data: any, newDate: any) => {
     const newReminderArray = reminders.filter((item) => item.id !== data.id);
-    const contextObject: Reminder = {
+    const contextObject = {
       description: data.description,
       title: data.title,
       createdBy: auth.currentUser.uid,
-      remindAt: data.remindAt,
+      remindAt: data.remindAt === 'Dont remind' ? 'Dont remind' : newDate,
       id: data.id,
     };
     const firebaseObject: Reminder = {
