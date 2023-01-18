@@ -32,7 +32,6 @@ export const ReminderForm = () => {
       nativeEvent: { timestamp },
     } = event;
     setDate(date);
-    //console.log(date);
   };
   const { toggleNew } = useModalContext();
   const {

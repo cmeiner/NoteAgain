@@ -2,10 +2,10 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { logOutUser } from '../../../hooks/firebase/UserHooks';
-import { useModalContext } from '../../contexts/ModalContext';
-import { useSettingsContext } from '../../contexts/SettingsContext';
-import { ChangeButton } from '../small/ChangeButton';
+import { logOutUser } from '../../../../hooks/firebase/UserHooks';
+import { useModalContext } from '../../../contexts/ModalContext';
+import { useSettingsContext } from '../../../contexts/SettingsContext';
+import { ChangeButton } from '../../small/ChangeButton';
 
 type StackParamList = {
   Login2: undefined;

@@ -34,7 +34,6 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
 
   const share = () => {
     hideMenu();
-    console.log(data);
     idToShare(data.id);
     setTimeout(() => toggleShare(true, type), 150);
   };

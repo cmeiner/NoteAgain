@@ -81,7 +81,6 @@ export const ShareProvider: FC<Props> = ({ children }) => {
       const acceptedTodoArray = [];
       data.docs.map((item) => {
         if (item.data().itemType === 'reminders') {
-          // console.log('shared reminders' + JSON.stringify(item.data())); // Hur många items
           const docRef = doc(db, 'reminders', item.data().itemID);
           getDoc(docRef).then((data) => {
             if (item.data().status === 'pending') {
@@ -105,8 +104,6 @@ export const ShareProvider: FC<Props> = ({ children }) => {
         }
       });
       setPendingReminders(pendingReminderArray);
-      console.log('' + JSON.stringify(pendingReminders));
-
       setAcceptedReminders(acceptedReminderArray);
       setPendingTodos(pendingTodoArray);
       setAcceptedTodos(acceptedTodoArray);

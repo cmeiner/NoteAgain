@@ -8,16 +8,15 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { auth } from '../../../config/firebaseConfig';
-import { useModalContext } from '../../contexts/ModalContext';
-import { useSettingsContext } from '../../contexts/SettingsContext';
-import { useUserContext } from '../../contexts/UserContext';
-import { showToast } from '../../utils/constants/ToastHelper';
-import { TextP } from '../../utils/styles/FontStyles';
-import { FormButton } from '../small/FormButton';
+import { useModalContext } from '../../../contexts/ModalContext';
+import { useSettingsContext } from '../../../contexts/SettingsContext';
+import { useUserContext } from '../../../contexts/UserContext';
+import { showToast } from '../../../utils/constants/ToastHelper';
+import { TextP, TextThin } from '../../../utils/styles/FontStyles';
+import { FormButton } from '../../small/FormButton';
 
-export const ChangeDisplayName = () => {
-  const { updateUserDisplayName } = useUserContext();
+export const ChangePassword = () => {
+  const { updateUserPassword } = useUserContext();
   const { setCurrentlyShowing } = useSettingsContext();
   const { toggleSettingsModal } = useModalContext();
 
@@ -27,13 +26,13 @@ export const ChangeDisplayName = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      newDisplayName: '',
+      newPassword: '',
     },
   });
 
   const onSubmit = async (data) => {
-    updateUserDisplayName(data.newDisplayName);
-    showToast('displayNameUpdated');
+    updateUserPassword(data.newPassword);
+    showToast('passwordUpdated');
     setCurrentlyShowing('settings');
     toggleSettingsModal(false);
   };
@@ -44,7 +43,7 @@ export const ChangeDisplayName = () => {
       style={styles.container}
     >
       <View style={{ alignItems: 'center' }}>
-        <TextP color="black">Change your display name</TextP>
+        <TextP color="black">Change your Password</TextP>
       </View>
 
       <View style={styles.formContainer}>
@@ -55,27 +54,25 @@ export const ChangeDisplayName = () => {
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <View style={styles.inputContainer}>
-              <TextP color="black">New display name</TextP>
+              <TextThin color="black">New password</TextThin>
               <TextInput
                 style={styles.input}
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
-                placeholder={auth.currentUser.displayName}
                 placeholderTextColor="#808080"
+                autoCapitalize="none"
               />
             </View>
           )}
-          name="newDisplayName"
+          name="newPassword"
         />
-        {errors.newDisplayName && (
-          <Text style={styles.errorText}>Please choose a new display name</Text>
+        {errors.newPassword && (
+          <Text style={styles.errorText}>
+            Please please choose a new password
+          </Text>
         )}
-        <FormButton
-          title="Save"
-          onPress={handleSubmit(onSubmit)}
-          disabled={false}
-        />
+        <FormButton title="Save" onPress={handleSubmit(onSubmit)} />
       </View>
       <View style={{ position: 'absolute', bottom: 10 }}>
         <FormButton

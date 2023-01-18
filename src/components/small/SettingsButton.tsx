@@ -3,7 +3,7 @@ import React from 'react';
 import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useModalContext } from '../../contexts/ModalContext';
 import { useSettingsContext } from '../../contexts/SettingsContext';
-import { SettingsModalContent } from '../settingsModal/SettingsModalContent';
+import { SettingsModalContent } from '../modals/settingsModal/SettingsModalContent';
 
 export const SettingsButton = () => {
   const { settingsModalVisible, toggleSettingsModal } = useModalContext();
