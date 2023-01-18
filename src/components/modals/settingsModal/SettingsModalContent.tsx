@@ -3,10 +3,10 @@ import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import {
   CurrentlyShowing,
   useSettingsContext,
-} from '../../contexts/SettingsContext';
-import { TextH3 } from '../../utils/styles/FontStyles';
+} from '../../../contexts/SettingsContext';
+import { TextH3 } from '../../../utils/styles/FontStyles';
 import { ChangeDisplayName } from './ChangeDisplayName';
-import { ChangeDisplayPicture, ChangeEmail } from './ChangeDisplayPicture';
+import { ChangeDisplayPicture } from './ChangeDisplayPicture';
 import { ChangePassword } from './ChangePassword';
 import { SettingsPage } from './Settings';
 

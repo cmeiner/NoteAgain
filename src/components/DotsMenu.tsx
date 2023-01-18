@@ -2,6 +2,7 @@ import { Entypo } from '@expo/vector-icons';
 import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 import { Menu, MenuItem } from 'react-native-material-menu';
+import { ItemType } from '../../types/FirebaseTypes';
 import { useEditContext } from '../contexts/EditContext';
 import { useShareContext } from '../contexts/ShareContext';
 import { TextP } from '../utils/styles/FontStyles';
@@ -10,7 +11,7 @@ import { ShareModal } from './modals/ShareModal';
 
 type Props = {
   data: any;
-  type: 'reminder' | 'todo';
+  type: ItemType;
 };
 
 export const DotsMenu: FC<Props> = ({ data, type }) => {
@@ -33,9 +34,8 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
 
   const share = () => {
     hideMenu();
-    console.log(data);
     idToShare(data.id);
-    setTimeout(() => toggleShare(true), 150);
+    setTimeout(() => toggleShare(true, type), 150);
   };
 
   const bookmark = () => {

@@ -41,7 +41,6 @@ export const UserProvider: FC<Props> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const updateLoggedIn = (status: boolean) => {
-    console.log('I context');
     setIsLoggedIn(status);
   };
 
@@ -51,7 +50,6 @@ export const UserProvider: FC<Props> = ({ children }) => {
         getUserData().then((data) => {
           loginUser(data).then(() => {
             setIsLoggedIn(true);
-            //console.log(isLoggedIn);
           });
         });
       }
@@ -81,7 +79,6 @@ export const UserProvider: FC<Props> = ({ children }) => {
         await updateDoc(userRef, { email: newEmail });
         const data = { email: newEmail, password };
         loginUser(data);
-
         console.log('Email updated to' + newEmail);
       })
       .catch((error) => {

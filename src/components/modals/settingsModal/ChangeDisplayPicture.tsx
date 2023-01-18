@@ -1,8 +1,8 @@
 import React from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
-import { useSettingsContext } from '../../contexts/SettingsContext';
-import { TextP } from '../../utils/styles/FontStyles';
-import { FormButton } from '../small/FormButton';
+import { useSettingsContext } from '../../../contexts/SettingsContext';
+import { TextP } from '../../../utils/styles/FontStyles';
+import { FormButton } from '../../small/FormButton';
 
 export const ChangeDisplayPicture = () => {
   const { setCurrentlyShowing } = useSettingsContext();

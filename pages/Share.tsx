@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Image,
+  RefreshControl,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -9,11 +10,23 @@ import {
 import { PendingReminder } from '../src/components/PendingReminder';
 import { PendingTodo } from '../src/components/PendingTodo';
 import { TopBar } from '../src/components/TopBar';
+import { useItemContext } from '../src/contexts/ItemContext';
 import { useShareContext } from '../src/contexts/ShareContext';
 import { TextH2 } from '../src/utils/styles/FontStyles';
 
 export const Share = () => {
   const { pendingReminders, pendingTodos } = useShareContext();
+  const { fetchAllItems } = useItemContext();
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    fetchAllItems();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -34,6 +47,9 @@ export const Share = () => {
           paddingBottom: 40,
           flex: 1,
         }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
         <TextH2 color="black">Your pending reminders:</TextH2>
         {pendingReminders?.map((reminder, key) => (
@@ -45,7 +61,7 @@ export const Share = () => {
             key={key}
           />
         ))}
-        <TextH2 color="black">Your pending todos:</TextH2>
+        <TextH2 color="black">Your pending to-dos:</TextH2>
         {pendingTodos?.map((todo, key) => (
           <PendingTodo
             shareID={todo.shareID}

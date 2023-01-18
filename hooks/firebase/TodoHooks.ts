@@ -8,7 +8,7 @@ import {
 import { auth, db } from '../../config/firebaseConfig';
 import { TodoList } from '../../types/FirebaseTypes';
 
-export const todoRef = collection(db, 'todos'); // * Gets the collection of todos.
+export const todoRef = collection(db, 'todos'); // * Gets the collection of to-dos.
 
 export const createTodo_DB = async ({ title, items }: TodoList) => {
   try {
@@ -29,7 +29,7 @@ export const createTodo_DB = async ({ title, items }: TodoList) => {
 export const removeTodo_DB = async (id: string) => {
   try {
     await deleteDoc(doc(db, 'todos', id));
-    console.log('Todo Removed');
+    console.log('To-do Removed');
   } catch (e) {
     console.log(e);
   }
@@ -38,7 +38,7 @@ export const removeTodo_DB = async (id: string) => {
 export const updateTodo_DB = async (id: string, data: TodoList) => {
   try {
     await updateDoc(doc(db, 'todos', id), data);
-    console.log('Todo Updated');
+    console.log('To-do Updated');
   } catch (e) {
     console.log(e);
   }

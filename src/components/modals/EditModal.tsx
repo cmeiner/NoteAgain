@@ -13,7 +13,7 @@ import { ReminderForm } from './newModal/ReminderForm';
 import { TodoForm } from './newModal/TodoForm';
 
 export const EditModal = () => {
-  const { editVisible, toggleEdit, modalType } = useEditContext();
+  const { editVisible, toggleEdit, itemType } = useEditContext();
   return (
     <Modal animationType="slide" transparent={true} visible={editVisible}>
       <View style={styles.centeredView}>
@@ -23,7 +23,7 @@ export const EditModal = () => {
             size={40}
             color="black"
             onPress={() => {
-              toggleEdit(false, 'reminder');
+              toggleEdit(false, 'reminders');
             }}
             style={styles.buttonClose}
           />
@@ -32,7 +32,7 @@ export const EditModal = () => {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}
           >
-            {modalType === 'reminder' ? (
+            {itemType === 'reminders' ? (
               <>
                 <View style={styles.modalTitle}>
                   <TextH3 color="black">Edit reminder</TextH3>

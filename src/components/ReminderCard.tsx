@@ -52,7 +52,7 @@ export const ReminderCard = ({
         <View style={ReminderStyles.flexRow}>
           {createdBy === auth.currentUser.uid ? (
             <>
-              <DotsMenu type="reminder" data={data} />
+              <DotsMenu type="reminders" data={data} />
               <DeleteMenu type="reminder" id={id} shareID={shareID} />
             </>
           ) : (

@@ -16,7 +16,7 @@ import { TextH3, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
 export const ShareModal = () => {
-  const { shareVisible, toggleShare, shareID } = useShareContext();
+  const { shareVisible, toggleShare, shareID, itemType } = useShareContext();
 
   const {
     control,
@@ -31,8 +31,8 @@ export const ShareModal = () => {
 
   const onSubmit = () => {
     const receiver = getValues('receiver');
-    shareItem_db(shareID, 'reminder', receiver); // ! MÅSTE FIXA SÅ VI SER VILKEN ITEMTYPE VI HAR SATT IN. "Reminder" är bara satt för NUET
-    toggleShare(false);
+    shareItem_db(shareID, itemType, receiver.toLocaleLowerCase());
+    toggleShare(false, itemType);
     setValue('receiver', '');
   };
 
@@ -45,7 +45,7 @@ export const ShareModal = () => {
             size={40}
             color="black"
             onPress={() => {
-              toggleShare(false);
+              toggleShare(false, 'reminders');
               setValue('receiver', '');
               clearErrors();
             }}
@@ -87,11 +87,7 @@ export const ShareModal = () => {
               {errors.receiver && (
                 <Text style={styles.errorText}>{errors.receiver.message}</Text>
               )}
-              <FormButton
-                width="240px"
-                title="Share it!"
-                onPress={handleSubmit(onSubmit)}
-              />
+              <FormButton title="Share it!" onPress={handleSubmit(onSubmit)} />
             </View>
           </KeyboardAvoidingView>
         </View>

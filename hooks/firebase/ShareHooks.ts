@@ -5,15 +5,17 @@ import {
   doc,
   getDoc,
   getDocs,
-  query,
   updateDoc,
-  where,
 } from 'firebase/firestore';
 import { db } from '../../config/firebaseConfig';
 import { ItemType, Share } from '../../types/FirebaseTypes';
 export const sharesRef = collection(db, 'shares'); // * Gets the collection of reminders.
 
-export const shareItem_db = async (itemID, itemType, receiverEmail) => {
+export const shareItem_db = async (
+  itemID: string,
+  itemType: ItemType,
+  receiverEmail: string
+) => {
   const users = [];
   const shares = [];
   const usersSnapshot = await getDocs(collection(db, 'users'));
@@ -43,15 +45,8 @@ export const shareItem_db = async (itemID, itemType, receiverEmail) => {
     await addDoc(sharesRef, sharesData);
     return sharesData;
   } catch (e) {
-    return;
+    console.log(e);
   }
-};
-
-export const matchItem_db = async (shareID: string, type: ItemType) => {
-  const matchQ = query(collection(db, type), where('itemID', '==', shareID));
-  getDocs(matchQ).then((item) => {
-    console.log(item);
-  });
 };
 
 export const updateStatus_db = async (shareID: string) => {
