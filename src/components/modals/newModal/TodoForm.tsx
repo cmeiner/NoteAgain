@@ -32,7 +32,7 @@ export const TodoForm = () => {
       items: data.items,
     };
     addTodo(dataObject);
-    toggleEdit(false, 'todo');
+    toggleEdit(false, 'todos');
     toggleNew(false);
     showToast('newTodo');
   };
@@ -44,7 +44,7 @@ export const TodoForm = () => {
     //   items: data.items,
     // };
     updateTodo(data);
-    toggleEdit(false, 'todo');
+    toggleEdit(false, 'todos');
     toggleNew(false);
     showToast('editTodo');
   };
@@ -146,16 +146,11 @@ export const TodoForm = () => {
       <View>
         {editVisible ? (
           <FormButton
-            width="240px"
             title="Save changes"
             onPress={handleSubmit(onSubmitSaveEdit)}
           />
         ) : (
-          <FormButton
-            width="240px"
-            title="Add todo"
-            onPress={handleSubmit(onSubmit)}
-          />
+          <FormButton title="Add to-do" onPress={handleSubmit(onSubmit)} />
         )}
       </View>
     </View>

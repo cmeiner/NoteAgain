@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Image,
+  RefreshControl,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -14,6 +15,14 @@ import { TextH2 } from '../src/utils/styles/FontStyles';
 
 export const Share = () => {
   const { pendingReminders, pendingTodos } = useShareContext();
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -34,6 +43,9 @@ export const Share = () => {
           paddingBottom: 40,
           flex: 1,
         }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
         <TextH2 color="black">Your pending reminders:</TextH2>
         {pendingReminders?.map((reminder, key) => (
@@ -45,7 +57,7 @@ export const Share = () => {
             key={key}
           />
         ))}
-        <TextH2 color="black">Your pending todos:</TextH2>
+        <TextH2 color="black">Your pending to-dos:</TextH2>
         {pendingTodos?.map((todo, key) => (
           <PendingTodo
             shareID={todo.shareID}

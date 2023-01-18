@@ -6,16 +6,14 @@ import React, {
   useContext,
   useState,
 } from 'react';
-import { Reminder, TodoList } from '../../types/FirebaseTypes';
-
-type ModalType = 'reminder' | 'todo';
+import { ItemType, Reminder, TodoList } from '../../types/FirebaseTypes';
 
 type EditContextType = {
   editVisible: boolean;
-  toggleEdit: (visible: boolean, type: ModalType) => void;
-  updateData: (datax: Reminder, type: ModalType) => void;
+  toggleEdit: (visible: boolean, type: ItemType) => void;
+  updateData: (datax: Reminder, type: ItemType) => void;
   resetData: () => void;
-  modalType: ModalType;
+  itemType: ItemType;
   todoData: TodoList;
   reminderData: Reminder;
 };
@@ -24,7 +22,7 @@ export const EditContext = createContext<EditContextType>({
   editVisible: false,
   toggleEdit: () => undefined,
   updateData: () => undefined,
-  modalType: 'reminder',
+  itemType: 'reminders',
   resetData: () => undefined,
   reminderData: { title: '', description: '' },
   todoData: { title: '', items: [] },
@@ -38,10 +36,10 @@ export const EditProvider: FC<Props> = ({ children }) => {
   const [todoData, setTodoData] = useState<TodoList>();
   const [reminderData, setReminderData] = useState<Reminder>();
   const [editVisible, setEditVisible] = useState(false);
-  const [modalType, setModalType] = useState<ModalType>('reminder');
+  const [itemType, setItemType] = useState<ItemType>('reminders');
 
-  const updateData = (datax: any, type: ModalType) => {
-    if (type === 'reminder') {
+  const updateData = (datax: any, type: ItemType) => {
+    if (type === 'reminders') {
       console.log('EDIT CONTEXT WHEN SETTING DATA');
       console.log(datax.remindAt);
       if (datax.remindAt !== 'Dont remind') {
@@ -72,15 +70,15 @@ export const EditProvider: FC<Props> = ({ children }) => {
     setTodoData({ title: '', items: [] });
   };
 
-  const toggleEdit = (visible: boolean, type: ModalType) => {
-    setModalType(type);
+  const toggleEdit = (visible: boolean, type: ItemType) => {
+    setItemType(type);
     setEditVisible(visible);
   };
 
   return (
     <EditContext.Provider
       value={{
-        modalType,
+        itemType,
         editVisible,
         toggleEdit,
         updateData,

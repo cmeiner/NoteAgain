@@ -13,7 +13,11 @@ import { db } from '../../config/firebaseConfig';
 import { ItemType, Share } from '../../types/FirebaseTypes';
 export const sharesRef = collection(db, 'shares'); // * Gets the collection of reminders.
 
-export const shareItem_db = async (itemID, itemType, receiverEmail) => {
+export const shareItem_db = async (
+  itemID: string,
+  itemType: any,
+  receiverEmail: string
+) => {
   const users = [];
   const shares = [];
   const usersSnapshot = await getDocs(collection(db, 'users'));

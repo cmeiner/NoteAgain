@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
+import React, { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   KeyboardAvoidingView,
@@ -11,11 +11,16 @@ import {
   View,
 } from 'react-native';
 import { shareItem_db } from '../../../hooks/firebase/ShareHooks';
+import { ItemType } from '../../../types/FirebaseTypes';
 import { useShareContext } from '../../contexts/ShareContext';
 import { TextH3, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
-export const ShareModal = () => {
+type Props = {
+  type: ItemType;
+};
+
+export const ShareModal: FC<Props> = ({ type }) => {
   const { shareVisible, toggleShare, shareID } = useShareContext();
 
   const {
@@ -31,7 +36,7 @@ export const ShareModal = () => {
 
   const onSubmit = () => {
     const receiver = getValues('receiver');
-    shareItem_db(shareID, 'reminder', receiver); // ! MÅSTE FIXA SÅ VI SER VILKEN ITEMTYPE VI HAR SATT IN. "Reminder" är bara satt för NUET
+    shareItem_db(shareID, type, receiver.toLocaleLowerCase()); // ! MÅSTE FIXA SÅ VI SER VILKEN ITEMTYPE VI HAR SATT IN. "Reminder" är bara satt för NUET
     toggleShare(false);
     setValue('receiver', '');
   };
@@ -87,11 +92,7 @@ export const ShareModal = () => {
               {errors.receiver && (
                 <Text style={styles.errorText}>{errors.receiver.message}</Text>
               )}
-              <FormButton
-                width="240px"
-                title="Share it!"
-                onPress={handleSubmit(onSubmit)}
-              />
+              <FormButton title="Share it!" onPress={handleSubmit(onSubmit)} />
             </View>
           </KeyboardAvoidingView>
         </View>

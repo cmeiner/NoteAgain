@@ -71,44 +71,41 @@ export const ShareProvider: FC<Props> = ({ children }) => {
       where('receiverID', '==', auth.currentUser?.uid)
     );
     getDocs(shareQ).then((data) => {
+      const pendingReminderArray = [];
+      const acceptedReminderArray = [];
+      const pendingTodoArray = [];
+      const acceptedTodoArray = [];
       data.docs.map((item) => {
         if (item.data().itemType === 'reminder') {
-          const pendingReminderArray = [];
-          const acceptedReminderArray = [];
+          // console.log('shared reminders' + JSON.stringify(item.data())); // Hur många items
           const docRef = doc(db, 'reminders', item.data().itemID);
-          getDoc(docRef)
-            .then((data) => {
-              if (item.data().status === 'pending') {
-                pendingReminderArray.push({ ...data.data(), shareID: item.id });
-              } else if (item.data().status === 'accepted') {
-                acceptedReminderArray.push({
-                  ...data.data(),
-                  shareID: item.id,
-                });
-              }
-            })
-            .then(() => {
-              setPendingReminders(pendingReminderArray);
-              setAcceptedReminders(acceptedReminderArray);
-            });
+          getDoc(docRef).then((data) => {
+            if (item.data().status === 'pending') {
+              pendingReminderArray.push({ ...data.data(), shareID: item.id });
+            } else if (item.data().status === 'accepted') {
+              acceptedReminderArray.push({
+                ...data.data(),
+                shareID: item.id,
+              });
+            }
+          });
         } else if (item.data().itemType === 'todo') {
-          const pendingTodoArray = [];
-          const acceptedTodoArray = [];
           const docRef = doc(db, 'todos', item.data().itemID);
-          getDoc(docRef)
-            .then((data) => {
-              if (item.data().status === 'pending') {
-                pendingTodoArray.push({ ...data.data(), shareID: item.id });
-              } else if (item.data().status === 'accepted') {
-                acceptedTodoArray.push({ ...data.data(), shareID: item.id });
-              }
-            })
-            .then(() => {
-              setPendingTodos(pendingTodoArray);
-              setAcceptedTodos(acceptedTodoArray);
-            });
+          getDoc(docRef).then((data) => {
+            if (item.data().status === 'pending') {
+              pendingTodoArray.push({ ...data.data(), shareID: item.id });
+            } else if (item.data().status === 'accepted') {
+              acceptedTodoArray.push({ ...data.data(), shareID: item.id });
+            }
+          });
         }
       });
+      setPendingReminders(pendingReminderArray);
+      console.log('' + JSON.stringify(pendingReminders));
+
+      setAcceptedReminders(acceptedReminderArray);
+      setPendingTodos(pendingTodoArray);
+      setAcceptedTodos(acceptedTodoArray);
     });
   };
 

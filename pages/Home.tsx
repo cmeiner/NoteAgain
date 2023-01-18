@@ -71,7 +71,7 @@ export const Home = () => {
               );
             })}
             <View style={{ marginTop: 15 }}>
-              <TextH2 color="black">Your Todos:</TextH2>
+              <TextH2 color="black">Your to-dos:</TextH2>
               {acceptedTodos?.map((todo, key) => {
                 return (
                   <TodoListCard
@@ -110,7 +110,7 @@ export const Home = () => {
             <View>
               <View style={{ paddingBottom: 10 }}>
                 <TextH2 color="white">
-                  You don't have any reminders or todos
+                  You don't have any reminders or to-dos
                 </TextH2>
               </View>
               <TextThin color="white">

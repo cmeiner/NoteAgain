@@ -57,7 +57,7 @@ export const ReminderForm = () => {
       ? { ...data, remindAt: date }
       : { ...data, remindAt: 'Dont remind' };
     updateReminder(data, date.valueOf());
-    toggleEdit(false, 'reminder');
+    toggleEdit(false, 'reminders');
     toggleNew(false);
     showToast('editReminder');
   };
@@ -155,16 +155,11 @@ export const ReminderForm = () => {
       <View>
         {editVisible ? (
           <FormButton
-            width="240px"
             title="Save changes"
             onPress={handleSubmit(onSubmitSaveEdit)}
           />
         ) : (
-          <FormButton
-            width="240px"
-            title="Add todo"
-            onPress={handleSubmit(onSubmit)}
-          />
+          <FormButton title="Add reminder" onPress={handleSubmit(onSubmit)} />
         )}
       </View>
     </View>
