@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Image,
   RefreshControl,
@@ -10,15 +10,19 @@ import {
 import { PendingReminder } from '../src/components/PendingReminder';
 import { PendingTodo } from '../src/components/PendingTodo';
 import { TopBar } from '../src/components/TopBar';
+import { useItemContext } from '../src/contexts/ItemContext';
 import { useShareContext } from '../src/contexts/ShareContext';
 import { TextH2 } from '../src/utils/styles/FontStyles';
 
 export const Share = () => {
   const { pendingReminders, pendingTodos } = useShareContext();
-  const [refreshing, setRefreshing] = React.useState(false);
+  const { fetchAllItems } = useItemContext();
 
-  const onRefresh = React.useCallback(() => {
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
+    fetchAllItems();
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);

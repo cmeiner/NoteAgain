@@ -1,7 +1,8 @@
 import { AntDesign } from '@expo/vector-icons';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Image,
+  RefreshControl,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -17,9 +18,18 @@ import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 export const Home = () => {
   const { reminders, todos, fetchAllItems } = useItemContext();
   const { acceptedReminders, acceptedTodos } = useShareContext();
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     fetchAllItems();
+  }, []);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    fetchAllItems();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
   }, []);
 
   return (
@@ -42,6 +52,9 @@ export const Home = () => {
             paddingBottom: 40,
             height: '100%',
           }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         >
           <View style={{ marginBottom: 'auto' }}>
             <TextH2 color="black">Your reminders:</TextH2>
