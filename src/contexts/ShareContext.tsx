@@ -15,13 +15,13 @@ import React, {
 } from 'react';
 import { auth, db } from '../../config/firebaseConfig';
 import { declineShare, updateStatus_db } from '../../hooks/firebase/ShareHooks';
-import { Reminder, TodoList } from '../../types/FirebaseTypes';
+import { ItemType, Reminder, TodoList } from '../../types/FirebaseTypes';
 
 type ShareContextType = {
   shareID: string;
   idToShare: (a: string) => void;
   shareVisible: boolean;
-  toggleShare: (a: boolean) => void;
+  toggleShare: (a: boolean, itemType: ItemType) => void;
   acceptedReminders: Reminder[];
   pendingReminders: Reminder[];
   acceptedTodos: TodoList[];
@@ -29,6 +29,7 @@ type ShareContextType = {
   getSharedItems: () => void;
   removeSharedItem: (a: string) => void;
   updateShare: (shareID: string) => void;
+  itemType: ItemType;
 };
 
 export const ShareContext = createContext<ShareContextType>({
@@ -43,6 +44,7 @@ export const ShareContext = createContext<ShareContextType>({
   getSharedItems: () => undefined,
   removeSharedItem: () => undefined,
   updateShare: () => undefined,
+  itemType: 'reminders',
 });
 
 type Props = {
@@ -56,8 +58,10 @@ export const ShareProvider: FC<Props> = ({ children }) => {
   const [acceptedReminders, setAcceptedReminders] = useState<Reminder[]>();
   const [pendingTodos, setPendingTodos] = useState<TodoList[]>();
   const [acceptedTodos, setAcceptedTodos] = useState<TodoList[]>();
+  const [itemType, setItemType] = useState<ItemType>('reminders');
 
-  const toggleShare = (visible: boolean) => {
+  const toggleShare = (visible: boolean, itemType: ItemType) => {
+    setItemType(itemType);
     setShareVisible(visible);
   };
 
@@ -175,6 +179,7 @@ export const ShareProvider: FC<Props> = ({ children }) => {
         pendingTodos,
         getSharedItems,
         removeSharedItem,
+        itemType,
       }}
     >
       {children}

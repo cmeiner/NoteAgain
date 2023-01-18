@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { FC } from 'react';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   KeyboardAvoidingView,
@@ -11,17 +11,12 @@ import {
   View,
 } from 'react-native';
 import { shareItem_db } from '../../../hooks/firebase/ShareHooks';
-import { ItemType } from '../../../types/FirebaseTypes';
 import { useShareContext } from '../../contexts/ShareContext';
 import { TextH3, TextThin } from '../../utils/styles/FontStyles';
 import { FormButton } from '../small/FormButton';
 
-type Props = {
-  type: ItemType;
-};
-
-export const ShareModal: FC<Props> = ({ type }) => {
-  const { shareVisible, toggleShare, shareID } = useShareContext();
+export const ShareModal = () => {
+  const { shareVisible, toggleShare, shareID, itemType } = useShareContext();
 
   const {
     control,
@@ -36,8 +31,8 @@ export const ShareModal: FC<Props> = ({ type }) => {
 
   const onSubmit = () => {
     const receiver = getValues('receiver');
-    shareItem_db(shareID, type, receiver.toLocaleLowerCase()); // ! MÅSTE FIXA SÅ VI SER VILKEN ITEMTYPE VI HAR SATT IN. "Reminder" är bara satt för NUET
-    toggleShare(false);
+    shareItem_db(shareID, itemType, receiver.toLocaleLowerCase());
+    toggleShare(false, itemType);
     setValue('receiver', '');
   };
 
@@ -50,7 +45,7 @@ export const ShareModal: FC<Props> = ({ type }) => {
             size={40}
             color="black"
             onPress={() => {
-              toggleShare(false);
+              toggleShare(false, 'reminders');
               setValue('receiver', '');
               clearErrors();
             }}

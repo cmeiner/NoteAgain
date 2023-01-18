@@ -15,7 +15,7 @@ export const sharesRef = collection(db, 'shares'); // * Gets the collection of r
 
 export const shareItem_db = async (
   itemID: string,
-  itemType: any,
+  itemType: ItemType,
   receiverEmail: string
 ) => {
   const users = [];
@@ -47,7 +47,7 @@ export const shareItem_db = async (
     await addDoc(sharesRef, sharesData);
     return sharesData;
   } catch (e) {
-    return;
+    console.log(e);
   }
 };
 

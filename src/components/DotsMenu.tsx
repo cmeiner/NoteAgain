@@ -36,7 +36,7 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
     hideMenu();
     console.log(data);
     idToShare(data.id);
-    setTimeout(() => toggleShare(true), 150);
+    setTimeout(() => toggleShare(true, type), 150);
   };
 
   const bookmark = () => {
@@ -77,7 +77,7 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
         </View>
       </Menu>
       <EditModal />
-      <ShareModal type={type} />
+      <ShareModal />
     </View>
   );
 };
