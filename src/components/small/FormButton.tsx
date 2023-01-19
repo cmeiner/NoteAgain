@@ -5,11 +5,16 @@ type Props = {
   onPress: () => void;
   title: string | any;
   disabled?: boolean;
+  small?: boolean;
 };
 
-export const FormButton: FC<Props> = ({ onPress, title, disabled }) => {
+export const FormButton: FC<Props> = ({ onPress, title, disabled, small }) => {
   return (
-    <Pressable style={styles.button} onPress={onPress} disabled={disabled}>
+    <Pressable
+      style={small ? styles.small : styles.button}
+      onPress={onPress}
+      disabled={disabled}
+    >
       <Text style={styles.text}>{title}</Text>
     </Pressable>
   );
@@ -32,5 +37,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'white',
+  },
+  small: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 120,
+    marginHorizontal: 5,
+    marginTop: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    elevation: 3,
+    backgroundColor: '#D77451',
   },
 });

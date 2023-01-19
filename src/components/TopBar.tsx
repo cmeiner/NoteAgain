@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import { auth } from '../../config/firebaseConfig';
+import { useUserContext } from '../contexts/UserContext';
 import { TextH2, TextP } from '../utils/styles/FontStyles';
 import { SettingsButton } from './small/SettingsButton';
 import { Logo, ProfilePic } from './SvgLibary';
@@ -10,6 +11,7 @@ type Props = {
 };
 
 export const TopBar = ({ settings }: Props) => {
+  const { currentUser } = useUserContext();
   return (
     <View style={styles.flexRow}>
       <View style={styles.flexRow}>
@@ -19,7 +21,14 @@ export const TopBar = ({ settings }: Props) => {
           </View>
         ) : (
           <>
-            <ProfilePic />
+            {currentUser && currentUser.displayImage.length > 2 ? (
+              <Image
+                style={{ width: 45, height: 45, borderRadius: 50 }}
+                source={{ uri: currentUser.displayImage }}
+              />
+            ) : (
+              <ProfilePic />
+            )}
             <View style={{ marginLeft: 10 }}>
               <TextP color="black">Welcome back</TextP>
               <TextH2 color="black">{auth.currentUser?.displayName}</TextH2>

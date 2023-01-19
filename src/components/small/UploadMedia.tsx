@@ -1,34 +1,39 @@
 import React, { useState } from 'react';
-import { Button, Image, View } from 'react-native';
-import { storage } from '../../../config/firebaseConfig';
+import { Image, View, ActivityIndicator } from 'react-native';
+import { auth, db, storage } from '../../../config/firebaseConfig';
 import * as ImagePicker from 'expo-image-picker';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
+import { doc, updateDoc } from 'firebase/firestore';
+import { useUserContext } from '../../contexts/UserContext';
+import { FormButton } from './FormButton';
+import { useModalContext } from '../../contexts/ModalContext';
+import { useSettingsContext } from '../../contexts/SettingsContext';
 
 export const UploadMedia = () => {
-  //   const [imageFile, setImageFile] = useState<File>();
-  const [imageName, setImageName] = useState('');
-  const [downloadURL, setDownloadURL] = useState('');
+  const { getUser } = useUserContext();
+  const { toggleSettingsModal } = useModalContext();
+  const { setCurrentlyShowing } = useSettingsContext();
+
   const [image, setImage] = useState(null);
-  //const updateField = async (url: string) => {}; // code to update field in database with the downloadURL
+  const [imageFile, setImageFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     const result: any = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [4, 4],
       quality: 1,
     });
 
     if (!result.canceled) {
-      const name = result.uri.split('/').pop();
-
-      setImageName(name);
-      await handleUploadFile(result);
+      setImage(result.assets[0].uri);
+      setImageFile(result);
     }
   };
 
-  const handleUploadFile = async (imageFile: any) => {
+  const handleUploadFile = async () => {
+    setLoading(true);
     if (imageFile) {
       const { uri } = imageFile;
       const fileName = uri.split('/').pop();
@@ -38,9 +43,15 @@ export const UploadMedia = () => {
       const reference = ref(storage, `/images/${fileName}`);
       const result = await uploadBytes(reference, blobFile);
       const url = await getDownloadURL(result.ref);
-      // const url = await getDownloadURL(uploadSnapshot.ref);
-      // console.log(url);
-      // await setDownloadURL(url);
+      const userRef = doc(db, 'users', auth.currentUser.uid);
+
+      await updateDoc(userRef, {
+        displayImage: url,
+      });
+      await getUser();
+      toggleSettingsModal(false);
+      setCurrentlyShowing('settings');
+      setLoading(false);
     } else {
       console.error('File not found');
     }
@@ -48,10 +59,40 @@ export const UploadMedia = () => {
 
   return (
     <View>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button title="Pick an image from camera roll" onPress={pickImage} />
-        {image && (
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {loading ? (
+          <ActivityIndicator size="large" color="#D77451" />
+        ) : (
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {image && (
+              <Image
+                source={{ uri: image }}
+                style={{ width: 200, height: 200 }}
+              />
+            )}
+            <View style={{ flexDirection: 'row' }}>
+              <FormButton
+                small={image ? true : false}
+                title={image ? 'Save' : 'Choose Image'}
+                onPress={image ? handleUploadFile : pickImage}
+              />
+              {image && (
+                <FormButton small={true} title={'Change'} onPress={pickImage} />
+              )}
+            </View>
+          </View>
         )}
       </View>
     </View>
