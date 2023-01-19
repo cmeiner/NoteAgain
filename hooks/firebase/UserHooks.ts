@@ -7,21 +7,14 @@ import {
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../config/firebaseConfig';
 import { showToast } from '../../src/utils/constants/ToastHelper';
-import { User } from '../../types/FirebaseTypes';
+import { UserType } from '../../types/FirebaseTypes';
 import { resetUserData, storeUserData } from '../StorageHooks';
 
-// export const usePost = async (api: string, data: object) => {
-//   await setDoc(doc(collection(db, api)), data);
-//   console.log(data, "added to the database");
-// };
-
-// export const GetUser = () => {
-//   const { currentUser } = useContext(AuthContext);
-//   const user = { ...(currentUser as UserProps) };
-//   return { user };
-// };
-
-export const registerUser = async ({ email, password, displayName }: User) => {
+export const registerUser = async ({
+  email,
+  password,
+  displayName,
+}: UserType) => {
   await createUserWithEmailAndPassword(auth, email, password);
   await setDoc(doc(db, `users/${auth.currentUser?.uid}`), {
     // TODO Add Profile Picture
@@ -39,7 +32,7 @@ export const registerUser = async ({ email, password, displayName }: User) => {
   console.log('sucessful register');
 };
 
-export const loginUser = async ({ email, password }: User) => {
+export const loginUser = async ({ email, password }: UserType) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
     storeUserData(email, password);

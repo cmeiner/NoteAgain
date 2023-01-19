@@ -18,7 +18,7 @@ export const AddNewModalContent = () => {
     >
       <View style={styles.modalTitle}>
         <TextH3 color="black">
-          {!newReminder ? 'New reminder' : 'New todo'}
+          {!newReminder ? 'New reminder' : 'New to-do'}
         </TextH3>
       </View>
       <SwitchWithIcons

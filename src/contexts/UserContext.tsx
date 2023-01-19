@@ -4,7 +4,7 @@ import {
   updatePassword,
   updateProfile,
 } from 'firebase/auth';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, {
   createContext,
   FC,
@@ -16,6 +16,7 @@ import React, {
 import { db } from '../../config/firebaseConfig';
 import { loginUser } from '../../hooks/firebase/UserHooks';
 import { checkUserData, getUserData } from '../../hooks/StorageHooks';
+import { UserType } from '../../types/FirebaseTypes';
 
 type UserContextType = {
   updateUserDisplayName: (newDisplayName: string) => void;
@@ -23,6 +24,8 @@ type UserContextType = {
   updateUserPassword: (newPassword: string) => void;
   isLoggedIn: boolean;
   updateLoggedIn: (status: boolean) => void;
+  getUser: () => void;
+  currentUser: UserType;
 };
 
 export const UserContext = createContext<UserContextType>({
@@ -31,6 +34,8 @@ export const UserContext = createContext<UserContextType>({
   updateUserPassword: () => undefined,
   isLoggedIn: false,
   updateLoggedIn: () => undefined,
+  getUser: () => undefined,
+  currentUser: {},
 });
 
 type Props = {
@@ -39,6 +44,7 @@ type Props = {
 
 export const UserProvider: FC<Props> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState<UserType>();
 
   const updateLoggedIn = (status: boolean) => {
     setIsLoggedIn(status);
@@ -49,6 +55,7 @@ export const UserProvider: FC<Props> = ({ children }) => {
       if (boolean) {
         getUserData().then((data) => {
           loginUser(data).then(() => {
+            getUser();
             setIsLoggedIn(true);
           });
         });
@@ -57,6 +64,18 @@ export const UserProvider: FC<Props> = ({ children }) => {
   }, [isLoggedIn]);
 
   const auth = getAuth();
+
+  const getUser = async () => {
+    const docRef = doc(db, 'users', auth.currentUser.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const UserData = docSnap.data();
+      setCurrentUser(UserData);
+    } else {
+      console.log('No such document!');
+    }
+  };
 
   const updateUserDisplayName = (newDisplayName: string) => {
     updateProfile(auth.currentUser, {
@@ -104,6 +123,8 @@ export const UserProvider: FC<Props> = ({ children }) => {
         updateUserDisplayName,
         updateUserEmail,
         updateUserPassword,
+        currentUser,
+        getUser,
       }}
     >
       {children}

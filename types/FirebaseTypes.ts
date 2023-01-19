@@ -62,10 +62,11 @@ export type Reminder = {
  * TODO Reminder Data
  * ? Should we TYPO ID ?
  */
-export type User = {
-  email: string;
+export type UserType = {
+  email?: string;
   displayName?: string;
-  password: string;
+  password?: string;
+  displayImage?: string;
 };
 // type User = {
 //   //   id?: string;

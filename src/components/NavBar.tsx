@@ -7,10 +7,13 @@ import { Login } from '../../pages/Login';
 import { Profile } from '../../pages/Profile';
 import { Saved } from '../../pages/Saved';
 import { Share } from '../../pages/Share';
+import { useUserContext } from '../contexts/UserContext';
 import { AddButton } from './small/AddButton';
+import { Image } from 'react-native';
 
 export const NavBar = () => {
   const Tab = createBottomTabNavigator();
+  const { currentUser } = useUserContext();
 
   return (
     <Tab.Navigator
@@ -64,16 +67,21 @@ export const NavBar = () => {
           ),
         }}
       />
-      {auth.currentUser ? (
+      {auth.currentUser && currentUser ? (
         <Tab.Screen
           name="Profile"
-          component={Profile} // todo check if the user is signed in :)
+          component={Profile}
           options={{
             tabBarIcon: ({ focused }) => (
-              <Ionicons
-                name={focused ? 'person-circle' : 'person-circle-outline'}
-                size={30}
-                color="black"
+              <Image
+                style={{
+                  width: 35,
+                  height: 35,
+                  borderRadius: 50,
+                  borderColor: focused ? '#D77451' : 'black',
+                  borderWidth: focused ? 5 : 2,
+                }}
+                source={{ uri: currentUser.displayImage }}
               />
             ),
           }}
