@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import { useSettingsContext } from '../../../contexts/SettingsContext';
 import { TextP } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
+import { UploadMedia } from '../../small/UploadMedia';
 
 export const ChangeDisplayPicture = () => {
   const { setCurrentlyShowing } = useSettingsContext();
@@ -16,7 +17,7 @@ export const ChangeDisplayPicture = () => {
         <TextP color="black">Change your display picture</TextP>
       </View>
       <View style={{ alignItems: 'center' }}>
-        <TextP color="black">Här ska de finnas knapp för att ändra DP</TextP>
+        <UploadMedia />
       </View>
 
       <View style={{ position: 'absolute', bottom: 10 }}>
