@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { auth } from '../../config/firebaseConfig';
 import { useUserContext } from '../contexts/UserContext';
 import { TextH2, TextP } from '../utils/styles/FontStyles';
@@ -21,10 +21,10 @@ export const TopBar = ({ settings }: Props) => {
           </View>
         ) : (
           <>
-            {currentUser && currentUser.displayImage.length > 2 ? (
+            {currentUser && currentUser.profilePicture.length > 2 ? (
               <Image
                 style={{ width: 45, height: 45, borderRadius: 50 }}
-                source={{ uri: currentUser.displayImage }}
+                source={{ uri: currentUser.profilePicture }}
               />
             ) : (
               <ProfilePic />

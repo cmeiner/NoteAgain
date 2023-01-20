@@ -29,9 +29,9 @@ export const SettingsPage = () => {
           width="250px"
         />
         <ChangeButton
-          title="Change display picture"
+          title="Change profile picture"
           onPress={() => {
-            setCurrentlyShowing('displayPicture');
+            setCurrentlyShowing('profilePicture');
           }}
           width="250px"
         />

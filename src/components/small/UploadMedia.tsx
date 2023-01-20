@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
-import { Image, View, ActivityIndicator } from 'react-native';
-import { auth, db, storage } from '../../../config/firebaseConfig';
 import * as ImagePicker from 'expo-image-picker';
-import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { doc, updateDoc } from 'firebase/firestore';
-import { useUserContext } from '../../contexts/UserContext';
-import { FormButton } from './FormButton';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import React, { useState } from 'react';
+import { ActivityIndicator, Image, View } from 'react-native';
+import { auth, db, storage } from '../../../config/firebaseConfig';
 import { useModalContext } from '../../contexts/ModalContext';
 import { useSettingsContext } from '../../contexts/SettingsContext';
+import { useUserContext } from '../../contexts/UserContext';
+import { FormButton } from './FormButton';
 
-export const UploadMedia = () => {
+type Props = {
+  mode: 'register' | 'change';
+};
+
+export const UploadMedia = ({ mode }: Props) => {
   const { getUser } = useUserContext();
   const { toggleSettingsModal } = useModalContext();
   const { setCurrentlyShowing } = useSettingsContext();
@@ -25,10 +29,10 @@ export const UploadMedia = () => {
       aspect: [4, 4],
       quality: 1,
     });
-
-    if (!result.canceled) {
+    if (!result.assets[0].canceled) {
+      // VAMONOS
       setImage(result.assets[0].uri);
-      setImageFile(result);
+      setImageFile(result.assets[0]);
     }
   };
 
@@ -46,7 +50,7 @@ export const UploadMedia = () => {
       const userRef = doc(db, 'users', auth.currentUser.uid);
 
       await updateDoc(userRef, {
-        displayImage: url,
+        profilePicture: url,
       });
       await getUser();
       toggleSettingsModal(false);
@@ -61,7 +65,6 @@ export const UploadMedia = () => {
     <View>
       <View
         style={{
-          flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
         }}
@@ -71,12 +74,11 @@ export const UploadMedia = () => {
         ) : (
           <View
             style={{
-              flex: 1,
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            {image && (
+            {mode === 'change' && image && (
               <Image
                 source={{ uri: image }}
                 style={{ width: 200, height: 200 }}
