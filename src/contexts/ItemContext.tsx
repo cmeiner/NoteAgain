@@ -21,9 +21,10 @@ import {
 import {
   createTodo_DB,
   removeTodo_DB,
+  updateCheckedTodo_DB,
   updateTodo_DB,
 } from '../../hooks/firebase/TodoHooks';
-import { Reminder, TodoList } from '../../types/FirebaseTypes';
+import { Reminder, Todo, TodoList } from '../../types/FirebaseTypes';
 import { useShareContext } from './ShareContext';
 
 type ItemContextType = {
@@ -36,6 +37,7 @@ type ItemContextType = {
   fetchAllItems: () => void;
   updateTodo: (data: TodoList) => void;
   updateReminder: (data: Reminder, newDate: any) => void;
+  updateCheckedBox: (itemList: Todo[], id: string) => void;
 };
 
 export const ItemContext = createContext<ItemContextType>({
@@ -48,6 +50,7 @@ export const ItemContext = createContext<ItemContextType>({
   fetchAllItems: () => undefined,
   updateTodo: () => undefined,
   updateReminder: () => undefined,
+  updateCheckedBox: () => undefined,
 });
 
 type Props = {
@@ -162,9 +165,18 @@ export const ItemProvider: FC<Props> = ({ children }) => {
     updateReminder_DB(data.id, firebaseObject);
   };
 
+  const updateCheckedBox = async (itemList: Todo[], id: string) => {
+    const newTodoArray = todos;
+    const changedTodo = newTodoArray.find((item) => item.id === id);
+    changedTodo.items = itemList;
+    updateCheckedTodo_DB(itemList, id);
+    setTodos(newTodoArray);
+  };
+
   return (
     <ItemContext.Provider
       value={{
+        updateCheckedBox,
         fetchAllItems,
         reminders,
         todos,

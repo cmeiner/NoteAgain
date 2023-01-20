@@ -1,11 +1,29 @@
 import Checkbox from 'expo-checkbox';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { TextP } from '../../src/utils/styles/FontStyles';
 import { Todo } from '../../types/FirebaseTypes';
 
-export const TodoCard = ({ desc, completed, id, share }: Todo) => {
+type todoProps = {
+  onChangeFunction: any;
+  share?: boolean;
+  id?: string;
+  desc: string;
+  completed: boolean;
+};
+
+export const TodoCard = ({
+  onChangeFunction,
+  share,
+  completed,
+  desc,
+  id,
+}: todoProps) => {
   const [isChecked, setChecked] = useState(completed);
+
+  useEffect(() => {
+    onChangeFunction(isChecked, desc);
+  }, [isChecked]);
   return (
     <View>
       <Pressable
