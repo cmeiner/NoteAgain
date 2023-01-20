@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { auth } from '../../config/firebaseConfig';
+import { updateCheckedTodo_DB } from '../../hooks/firebase/TodoHooks';
 import { TextH2 } from '../../src/utils/styles/FontStyles';
 import { Todo, TodoList } from '../../types/FirebaseTypes';
+import { useItemContext } from '../contexts/ItemContext';
 import { DotsMenu } from './DotsMenu';
 import { DeleteMenu } from './small/DeleteMenu';
 import { TodoCard } from './TodoCard';
@@ -15,6 +17,15 @@ export const TodoListCard = ({
   createdBy,
 }: TodoList) => {
   const data = { items, title, id };
+  const { updateCheckedBox } = useItemContext();
+
+  const changeCompletedValue = (value: boolean, desc: string) => {
+    console.log('clickClack');
+    const newArray = items;
+    const changedItem = newArray.find((item) => item.desc === desc);
+    changedItem.completed = value;
+    updateCheckedBox(newArray, id);
+  };
 
   return (
     <View style={TodoListStyles.paddingBox}>
@@ -36,6 +47,7 @@ export const TodoListCard = ({
       <View>
         {items.map((item: Todo, key) => (
           <TodoCard
+            onChangeFunction={changeCompletedValue}
             id={id}
             key={key}
             completed={item.completed}

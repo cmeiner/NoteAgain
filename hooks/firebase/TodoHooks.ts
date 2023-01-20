@@ -6,7 +6,7 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { auth, db } from '../../config/firebaseConfig';
-import { TodoList } from '../../types/FirebaseTypes';
+import { Todo, TodoList } from '../../types/FirebaseTypes';
 
 export const todoRef = collection(db, 'todos'); // * Gets the collection of to-dos.
 
@@ -42,6 +42,13 @@ export const updateTodo_DB = async (id: string, data: TodoList) => {
   } catch (e) {
     console.log(e);
   }
+};
+
+export const updateCheckedTodo_DB = async (itemList: Todo[], id: string) => {
+  const todosRef = doc(db, 'todos', id);
+  await updateDoc(todosRef, {
+    items: itemList,
+  });
 };
 
 // const washingtonRef = doc(db, 'cities', 'DC');
