@@ -11,7 +11,7 @@ export type ToastType =
   | 'displayNameUpdated'
   | 'emailUpdated'
   | 'passwordUpdated'
-  | 'displayPictureUpdated';
+  | 'profilePictureUpdated';
 
 export const toastMessage = (toastType: ToastType) => {
   switch (toastType) {
@@ -39,7 +39,7 @@ export const toastMessage = (toastType: ToastType) => {
       return 'Email updated 🙂';
     case 'passwordUpdated':
       return 'Password updated 🙂';
-    case 'displayPictureUpdated':
-      return 'Display Picture updated 🙂';
+    case 'profilePictureUpdated':
+      return 'Profile picture updated 🙂';
   }
 };

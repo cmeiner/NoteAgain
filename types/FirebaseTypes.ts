@@ -66,7 +66,7 @@ export type UserType = {
   email?: string;
   displayName?: string;
   password?: string;
-  displayImage?: string;
+  profilePicture?: string;
 };
 // type User = {
 //   //   id?: string;

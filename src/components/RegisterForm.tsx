@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
@@ -10,10 +12,8 @@ import {
   View,
 } from 'react-native';
 import { loginUser, registerUser } from '../../hooks/firebase/UserHooks';
-import { FormButton } from './small/FormButton';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
 import { showToast } from '../utils/constants/ToastHelper';
+import { FormButton } from './small/FormButton';
 
 type StackParamList = {
   HomeScreen: undefined;
@@ -34,7 +34,6 @@ export const RegisterForm = () => {
       email: '',
       displayName: '',
       password: '',
-      passwordConfirm: '',
     },
   });
 

@@ -6,8 +6,8 @@ import {
 } from '../../../contexts/SettingsContext';
 import { TextH3 } from '../../../utils/styles/FontStyles';
 import { ChangeDisplayName } from './ChangeDisplayName';
-import { ChangeDisplayPicture } from './ChangeDisplayPicture';
 import { ChangePassword } from './ChangePassword';
+import { ChangeProfilePicture } from './ChangeProfilePicture';
 import { SettingsPage } from './Settings';
 
 export const SettingsModalContent = () => {
@@ -20,8 +20,8 @@ export const SettingsModalContent = () => {
         return <SettingsPage />;
       case 'displayname':
         return <ChangeDisplayName />;
-      case 'displayPicture':
-        return <ChangeDisplayPicture />;
+      case 'profilePicture':
+        return <ChangeProfilePicture />;
       case 'password':
         return <ChangePassword />;
     }

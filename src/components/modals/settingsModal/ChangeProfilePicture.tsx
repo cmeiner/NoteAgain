@@ -5,7 +5,7 @@ import { TextP } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
 import { UploadMedia } from '../../small/UploadMedia';
 
-export const ChangeDisplayPicture = () => {
+export const ChangeProfilePicture = () => {
   const { setCurrentlyShowing } = useSettingsContext();
 
   return (
@@ -14,10 +14,10 @@ export const ChangeDisplayPicture = () => {
       style={styles.container}
     >
       <View style={{ alignItems: 'center' }}>
-        <TextP color="black">Change your display picture</TextP>
+        <TextP color="black">Change your profile picture</TextP>
       </View>
       <View style={{ alignItems: 'center', marginBottom: 70 }}>
-        <UploadMedia />
+        <UploadMedia mode="change" />
       </View>
 
       <View style={styles.buttonContainer}>

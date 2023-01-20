@@ -14,12 +14,14 @@ export const registerUser = async ({
   email,
   password,
   displayName,
+  profilePicture,
 }: UserType) => {
   await createUserWithEmailAndPassword(auth, email, password);
   await setDoc(doc(db, `users/${auth.currentUser?.uid}`), {
     // TODO Add Profile Picture
     displayName: displayName,
     email: email,
+    profilePicture: profilePicture,
   });
   auth.currentUser
     ? await updateProfile(auth.currentUser, {

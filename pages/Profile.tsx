@@ -1,11 +1,16 @@
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
+import { FormButton } from '../src/components/small/FormButton';
 import { TopBar } from '../src/components/TopBar';
+import { useModalContext } from '../src/contexts/ModalContext';
+import { useSettingsContext } from '../src/contexts/SettingsContext';
 import { useUserContext } from '../src/contexts/UserContext';
 import { TextH2 } from '../src/utils/styles/FontStyles';
 
 export const Profile = () => {
   const { currentUser } = useUserContext();
+  const { toggleSettingsModal } = useModalContext();
+  const { setCurrentlyShowing } = useSettingsContext();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -31,11 +36,27 @@ export const Profile = () => {
         <Image
           style={{ width: 180, height: 180, borderRadius: 10 }}
           source={
-            currentUser.displayImage.length > 2
-              ? { uri: currentUser.displayImage }
+            currentUser.profilePicture.length > 2
+              ? { uri: currentUser.profilePicture }
               : require('../assets/images/placeholder-profile.jpg')
           }
         />
+        {!currentUser.profilePicture.length ? (
+          <>
+            <View style={{ marginVertical: 20 }}>
+              <TextH2 color="black">
+                Looks like you haven't chosen a profile picture yet
+              </TextH2>
+            </View>
+            <FormButton
+              title="Choose profile picture"
+              onPress={() => {
+                toggleSettingsModal(true);
+                setCurrentlyShowing('profilePicture');
+              }}
+            />
+          </>
+        ) : null}
         <View style={{ height: 20 }} />
         <TextH2 color="black">{currentUser.displayName}</TextH2>
         <TextH2 color="black">{currentUser.email}</TextH2>
