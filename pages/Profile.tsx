@@ -8,13 +8,13 @@ import { useUserContext } from '../src/contexts/UserContext';
 import { TextH2 } from '../src/utils/styles/FontStyles';
 
 export const Profile = () => {
-  const { currentUser } = useUserContext();
+  const { currentUser, getUser } = useUserContext();
   const { toggleSettingsModal } = useModalContext();
   const { setCurrentlyShowing } = useSettingsContext();
 
   useEffect(() => {
-    console.log(currentUser.profilePicture);
-  });
+    getUser();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
