@@ -56,60 +56,62 @@ export const Home = () => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
         >
-          <View style={{ marginBottom: 'auto' }}>
-            <TextH2 color="black">Your reminders:</TextH2>
-            {acceptedReminders?.map((reminder, key) => {
-              return (
-                <ReminderCard
-                  description={reminder.description}
-                  key={key}
-                  title={reminder.title}
-                  remindAt={reminder.remindAt}
-                  id={reminder.id}
-                  createdBy={reminder.createdBy}
-                  shareID={reminder.shareID}
-                />
-              );
-            })}
-            {reminders.map((reminder, key) => {
-              return (
-                <ReminderCard
-                  description={reminder.description}
-                  key={key}
-                  title={reminder.title}
-                  remindAt={reminder.remindAt}
-                  id={reminder.id}
-                  createdBy={reminder.createdBy}
-                />
-              );
-            })}
-            <View style={{ marginTop: 15 }}>
-              <TextH2 color="black">Your to-do's:</TextH2>
-              {acceptedTodos?.map((todo, key) => {
+          {!refreshing && (
+            <View style={{ marginBottom: 'auto' }}>
+              <TextH2 color="black">Your reminders:</TextH2>
+              {acceptedReminders?.map((reminder, key) => {
                 return (
-                  <TodoListCard
+                  <ReminderCard
+                    description={reminder.description}
                     key={key}
-                    items={todo.items}
-                    title={todo.title}
-                    createdBy={todo.createdBy}
-                    id={todo.id}
-                    shareID={todo.shareID}
+                    title={reminder.title}
+                    remindAt={reminder.remindAt}
+                    id={reminder.id}
+                    createdBy={reminder.createdBy}
+                    shareID={reminder.shareID}
                   />
                 );
               })}
-              {todos.map((todo, key) => {
+              {reminders.map((reminder, key) => {
                 return (
-                  <TodoListCard
+                  <ReminderCard
+                    description={reminder.description}
                     key={key}
-                    items={todo.items}
-                    title={todo.title}
-                    createdBy={todo.createdBy}
-                    id={todo.id}
+                    title={reminder.title}
+                    remindAt={reminder.remindAt}
+                    id={reminder.id}
+                    createdBy={reminder.createdBy}
                   />
                 );
               })}
+              <View style={{ marginTop: 15 }}>
+                <TextH2 color="black">Your to-do's:</TextH2>
+                {acceptedTodos?.map((todo, key) => {
+                  return (
+                    <TodoListCard
+                      key={key}
+                      items={todo.items}
+                      title={todo.title}
+                      createdBy={todo.createdBy}
+                      id={todo.id}
+                      shareID={todo.shareID}
+                    />
+                  );
+                })}
+                {todos.map((todo, key) => {
+                  return (
+                    <TodoListCard
+                      key={key}
+                      items={todo.items}
+                      title={todo.title}
+                      createdBy={todo.createdBy}
+                      id={todo.id}
+                    />
+                  );
+                })}
+              </View>
             </View>
-          </View>
+          )}
         </ScrollView>
       ) : (
         <View
