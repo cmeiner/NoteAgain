@@ -10,7 +10,11 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import Toast, { BaseToast } from 'react-native-toast-message';
 import { loginUser } from './hooks/firebase/UserHooks';
-import { checkUserData, getUserData } from './hooks/StorageHooks';
+import {
+  checkUserData,
+  getUserData,
+  resetUserData,
+} from './hooks/StorageHooks';
 import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
 import { ContextProvider } from './src/contexts/ContextProvider';
@@ -21,8 +25,14 @@ const App = () => {
     checkUserData().then((boolean) => {
       if (boolean) {
         getUserData().then((data) => {
-          loginUser(data).then(() => {
-            setLoggedIn(true);
+          loginUser(data).then((status) => {
+            console.log(status);
+            if (status === 'Success') {
+              return setLoggedIn(true);
+            } else {
+              // parameter) status: "Success" | "Wrong Email or Password" | "No account found"
+              resetUserData();
+            }
           });
         });
       }

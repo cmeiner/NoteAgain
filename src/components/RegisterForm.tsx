@@ -24,6 +24,7 @@ type NavigationProps = NativeStackNavigationProp<StackParamList>;
 export const RegisterForm = () => {
   const navigation = useNavigation<NavigationProps>();
   const [isLoading, setIsLoading] = useState(false);
+  const [emailInUse, setEmailInUse] = useState(false);
 
   const {
     control,
@@ -38,15 +39,21 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = async (data) => {
-    await registerUser(data);
-    const signInMessage = await loginUser(data);
-    if (signInMessage !== 'Success') return console.log(signInMessage);
-    setIsLoading(true);
-    setTimeout(() => {
-      navigation.navigate('HomeScreen');
-      setIsLoading(false);
-    }, 1000);
-    showToast('accountCreated');
+    await registerUser(data).then((status) => {
+      if (status === 'Success') {
+        loginUser(data).then((statusLogin) => {
+          if (statusLogin !== 'Success') return console.log(statusLogin);
+          setIsLoading(true);
+          setTimeout(() => {
+            navigation.navigate('HomeScreen');
+            setIsLoading(false);
+          }, 1000);
+          showToast('accountCreated');
+        });
+      } else if (status === 'Account already found') {
+        setEmailInUse(true);
+      }
+    });
   };
 
   return (
@@ -68,7 +75,9 @@ export const RegisterForm = () => {
                 <TextInput
                   style={styles.input}
                   onBlur={onBlur}
-                  onChangeText={onChange}
+                  onChangeText={(text) => {
+                    setEmailInUse(false), onChange(text);
+                  }}
                   value={value}
                   placeholder="Email"
                   textContentType="emailAddress"
@@ -80,7 +89,12 @@ export const RegisterForm = () => {
             name="email"
           />
           {errors.email && (
-            <Text style={styles.errorText}>Please enter email</Text>
+            <Text style={styles.errorText}>Please enter a valid e-mail</Text>
+          )}
+          {emailInUse && (
+            <Text style={styles.errorText}>
+              A user with that e-mail already exists
+            </Text>
           )}
           <Controller
             control={control}
@@ -101,7 +115,7 @@ export const RegisterForm = () => {
             )}
             name="displayName"
           />
-          {errors.email && (
+          {errors.displayName && (
             <Text style={styles.errorText}>Please choose display name</Text>
           )}
 

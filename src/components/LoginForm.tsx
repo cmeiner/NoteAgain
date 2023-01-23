@@ -23,7 +23,7 @@ type NavigationProps = NativeStackNavigationProp<StackParamList>;
 
 export const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-
+  const [errorLogIn, setErrorLogIn] = useState('');
   const navigation = useNavigation<NavigationProps>();
   const {
     control,
@@ -37,7 +37,7 @@ export const LoginForm = () => {
   });
   const onSubmit = async (data) => {
     const signInMessage = await loginUser(data);
-    if (signInMessage !== 'Success') return console.log(signInMessage);
+    if (signInMessage !== 'Success') return setErrorLogIn(signInMessage);
     setIsLoading(true);
     setTimeout(() => {
       navigation.navigate('HomeScreen');
@@ -65,7 +65,9 @@ export const LoginForm = () => {
                 <TextInput
                   style={styles.input}
                   onBlur={onBlur}
-                  onChangeText={onChange}
+                  onChangeText={(text) => {
+                    onChange(text), setErrorLogIn('');
+                  }}
                   value={value}
                   placeholder="Email"
                   keyboardType="email-address"
@@ -90,7 +92,9 @@ export const LoginForm = () => {
                 <TextInput
                   style={styles.input}
                   onBlur={onBlur}
-                  onChangeText={onChange}
+                  onChangeText={(text) => {
+                    onChange(text), setErrorLogIn('');
+                  }}
                   value={value}
                   placeholder="Password"
                   secureTextEntry={true}
@@ -102,6 +106,9 @@ export const LoginForm = () => {
           />
           {errors.password && (
             <Text style={styles.errorText}>Please enter password</Text>
+          )}
+          {errorLogIn.length > 2 && (
+            <Text style={styles.errorText}>{errorLogIn}</Text>
           )}
           <FormButton title="Login" onPress={handleSubmit(onSubmit)} />
         </>
