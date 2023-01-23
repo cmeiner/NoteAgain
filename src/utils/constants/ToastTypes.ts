@@ -16,11 +16,11 @@ export type ToastType =
 export const toastMessage = (toastType: ToastType) => {
   switch (toastType) {
     case 'newTodo':
-      return 'New todo added 🙂';
+      return 'New to-do added 🙂';
     case 'editTodo':
-      return 'Todo updated 🙂';
+      return 'To-do updated 🙂';
     case 'deleteTodo':
-      return 'Todo deleted 🙂';
+      return 'To-do deleted 🙂';
     case 'newReminder':
       return 'New reminder added 🙂 ';
     case 'editReminder':

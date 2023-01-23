@@ -15,10 +15,9 @@ import { useShareContext } from '../src/contexts/ShareContext';
 import { TextH2, TextThin } from '../src/utils/styles/FontStyles';
 
 export const Share = () => {
+  const [refreshing, setRefreshing] = useState(false);
   const { pendingReminders, pendingTodos } = useShareContext();
   const { fetchAllItems } = useItemContext();
-
-  const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -33,7 +32,7 @@ export const Share = () => {
       <Image
         style={{
           position: 'absolute',
-          top: pendingTodos.length || pendingReminders.length ? 500 : 150,
+          top: 500,
         }}
         source={require('../assets/images/Wave.png')}
       />
@@ -54,7 +53,6 @@ export const Share = () => {
         {pendingReminders.length ? (
           <View
             style={{
-              marginHorizontal: 10,
               height: '100%',
               justifyContent: 'center',
             }}
@@ -84,7 +82,7 @@ export const Share = () => {
             ))}
           </View>
         ) : null}
-        {!pendingReminders && !pendingTodos ? (
+        {!refreshing && !pendingReminders.length && !pendingTodos.length ? (
           <View
             style={{
               height: '100%',
