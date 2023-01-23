@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   small: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 120,
+    width: 110,
     marginHorizontal: 5,
     marginTop: 10,
     paddingVertical: 6,
@@ -49,5 +49,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 3,
     backgroundColor: '#D77451',
+  },
+  disabled: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 250,
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 10,
+    elevation: 3,
+    backgroundColor: '#D77451',
+    opacity: 0.3,
   },
 });

@@ -86,7 +86,7 @@ export const NavBar = () => {
             ) : (
               <Ionicons
                 name={focused ? 'person-circle' : 'person-circle-outline'}
-                size={30}
+                size={38}
                 color="black"
               />
             );

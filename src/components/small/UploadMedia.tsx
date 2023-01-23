@@ -1,3 +1,4 @@
+import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 import { doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
@@ -27,12 +28,17 @@ export const UploadMedia = ({ mode }: Props) => {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 4],
-      quality: 1,
     });
     if (!result.assets[0].canceled) {
       // VAMONOS
-      setImage(result.assets[0].uri);
-      setImageFile(result.assets[0]);
+      const resizedImage = await manipulateAsync(
+        result.uri,
+        [{ resize: { width: 300, height: 300 } }],
+        { format: SaveFormat.JPEG, compress: 0.8 }
+      );
+      console.log('URI ' + resizedImage.uri);
+      setImage(resizedImage.uri);
+      setImageFile(resizedImage);
     }
   };
 
@@ -62,41 +68,39 @@ export const UploadMedia = ({ mode }: Props) => {
   };
 
   return (
-    <View>
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {loading ? (
-          <ActivityIndicator size="large" color="#D77451" />
-        ) : (
-          <View
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {mode === 'change' && image && (
-              <Image
-                source={{ uri: image }}
-                style={{ width: 200, height: 200 }}
-              />
+    <View
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {loading ? (
+        <ActivityIndicator size="large" color="#D77451" />
+      ) : (
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {mode === 'change' && image && (
+            <Image
+              source={{ uri: image }}
+              style={{ width: 200, height: 200 }}
+            />
+          )}
+          <View style={{ flexDirection: 'row' }}>
+            <FormButton
+              small={image ? true : false}
+              title={image ? 'Save' : 'Choose Image'}
+              onPress={image ? handleUploadFile : pickImage}
+            />
+            {image && (
+              <FormButton small={true} title={'Change'} onPress={pickImage} />
             )}
-            <View style={{ flexDirection: 'row' }}>
-              <FormButton
-                small={image ? true : false}
-                title={image ? 'Save' : 'Choose Image'}
-                onPress={image ? handleUploadFile : pickImage}
-              />
-              {image && (
-                <FormButton small={true} title={'Change'} onPress={pickImage} />
-              )}
-            </View>
           </View>
-        )}
-      </View>
+        </View>
+      )}
     </View>
   );
 };
