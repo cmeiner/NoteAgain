@@ -26,7 +26,6 @@ const App = () => {
       if (boolean) {
         getUserData().then((data) => {
           loginUser(data).then((status) => {
-            console.log(status);
             if (status === 'Success') {
               return setLoggedIn(true);
             } else {
