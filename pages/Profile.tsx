@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { FormButton } from '../src/components/small/FormButton';
 import { TopBar } from '../src/components/TopBar';
@@ -11,6 +11,10 @@ export const Profile = () => {
   const { currentUser } = useUserContext();
   const { toggleSettingsModal } = useModalContext();
   const { setCurrentlyShowing } = useSettingsContext();
+
+  useEffect(() => {
+    console.log(currentUser.profilePicture);
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,7 +45,7 @@ export const Profile = () => {
               : require('../assets/images/placeholder-profile.jpg')
           }
         />
-        {!currentUser.profilePicture.length ? (
+        {currentUser.profilePicture.length > 2 ? null : (
           <>
             <View style={{ marginVertical: 20 }}>
               <TextH2 color="black">
@@ -56,7 +60,7 @@ export const Profile = () => {
               }}
             />
           </>
-        ) : null}
+        )}
         <View style={{ height: 20 }} />
         <TextH2 color="black">{currentUser.displayName}</TextH2>
         <TextH2 color="black">{currentUser.email}</TextH2>

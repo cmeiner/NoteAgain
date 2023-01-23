@@ -14,24 +14,31 @@ export const registerUser = async ({
   email,
   password,
   displayName,
-  profilePicture,
 }: UserType) => {
-  await createUserWithEmailAndPassword(auth, email, password);
-  await setDoc(doc(db, `users/${auth.currentUser?.uid}`), {
-    // TODO Add Profile Picture
-    displayName: displayName,
-    email: email,
-    profilePicture: profilePicture,
-  });
-  auth.currentUser
-    ? await updateProfile(auth.currentUser, {
-        displayName: displayName,
-        // TODO Add Profile Picture
-      })
-    : null;
-  // TODO Create a nice toast message alerting the user that the account is created.
-  // TODO Send the user to the main page after user is created.
-  console.log('sucessful register');
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    await setDoc(doc(db, `users/${auth.currentUser?.uid}`), {
+      // TODO Add Profile Picture
+      displayName: displayName,
+      email: email,
+      profilePicture: '',
+    });
+    auth.currentUser
+      ? await updateProfile(auth.currentUser, {
+          displayName: displayName,
+          // TODO Add Profile Picture
+        })
+      : null;
+    // TODO Create a nice toast message alerting the user that the account is created.
+    // TODO Send the user to the main page after user is created.
+    return 'Success';
+  } catch (error) {
+    const errorMessage =
+      error.code === 'auth/email-already-in-use'
+        ? 'Account already found'
+        : 'Error';
+    return errorMessage;
+  }
 };
 
 export const loginUser = async ({ email, password }: UserType) => {
