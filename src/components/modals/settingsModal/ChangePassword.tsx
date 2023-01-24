@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    width: 280,
+    width: 250,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
