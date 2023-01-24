@@ -13,8 +13,10 @@ import { showToast } from '../../../utils/constants/ToastHelper';
 import { TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
 import * as Notifications from 'expo-notifications';
-import { addReminderNotification } from '../../../../hooks/notifHooks';
-
+import {
+  addNotification,
+  removeNotifcation,
+} from '../../../../hooks/notifHooks';
 
 export const ReminderForm = () => {
   const { reminderData, editVisible, toggleEdit } = useEditContext();
@@ -27,6 +29,15 @@ export const ReminderForm = () => {
       setDate(new Date(reminderData.remindAt));
       setChecked(true);
     }
+
+    async function test() {
+      const scheduledNotifications: any =
+        await Notifications.getAllScheduledNotificationsAsync();
+      for (let noti of scheduledNotifications) {
+        console.log(noti.trigger.dateComponents);
+      }
+    }
+    test();
   }, [reminderData]);
 
   const updateDate = (event: DateTimePickerEvent, date: Date) => {
@@ -49,13 +60,10 @@ export const ReminderForm = () => {
     data = isChecked
       ? { ...data, remindAt: date }
       : { ...data, remindAt: 'Dont remind' };
-    if(isChecked) {
-      let reminderTime = date.getTime();
-      let tenMinutesBefore = reminderTime - (10 * 60 * 1000);
-      const newDate : Date = new Date(new Date().getTime() + (5*60*1000))
-      // ! addReminderNotification("Reminder Title", date) 
+    if (isChecked) {
+      addNotification(date, `Don't forget ${data.title} in 10 Minutes`);
     }
-    
+
     addReminder(data);
     toggleNew(false);
     showToast('newReminder');
@@ -65,6 +73,20 @@ export const ReminderForm = () => {
     data = isChecked
       ? { ...data, remindAt: date }
       : { ...data, remindAt: 'Dont remind' };
+    if (isChecked) {
+      console.log('Icheckad');
+      if (reminderData.remindAt instanceof Date) {
+        console.log('finns date tar bort noti');
+        removeNotifcation(
+          `Don't forget ${reminderData.title} in 10 Minutes`,
+          reminderData.remindAt
+        );
+        addNotification(
+          data.remindAt,
+          `Don't forget ${data.title} in 10 Minutes`
+        );
+      }
+    }
     updateReminder(data, date.valueOf());
     toggleEdit(false, 'reminders');
     toggleNew(false);
