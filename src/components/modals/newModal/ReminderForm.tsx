@@ -12,6 +12,9 @@ import { useModalContext } from '../../../contexts/ModalContext';
 import { showToast } from '../../../utils/constants/ToastHelper';
 import { TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
+import * as Notifications from 'expo-notifications';
+import { addReminderNotification } from '../../../../hooks/notifHooks';
+
 
 export const ReminderForm = () => {
   const { reminderData, editVisible, toggleEdit } = useEditContext();
@@ -46,6 +49,13 @@ export const ReminderForm = () => {
     data = isChecked
       ? { ...data, remindAt: date }
       : { ...data, remindAt: 'Dont remind' };
+    if(isChecked) {
+      let reminderTime = date.getTime();
+      let tenMinutesBefore = reminderTime - (10 * 60 * 1000);
+      const newDate : Date = new Date(new Date().getTime() + (5*60*1000))
+      // ! addReminderNotification("Reminder Title", date) 
+    }
+    
     addReminder(data);
     toggleNew(false);
     showToast('newReminder');
