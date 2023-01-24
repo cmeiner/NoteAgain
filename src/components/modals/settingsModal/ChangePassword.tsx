@@ -42,8 +42,8 @@ export const ChangePassword = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <View style={{ alignItems: 'center' }}>
-        <TextP color="black">Change your Password</TextP>
+      <View style={{ alignItems: 'center', marginTop: 10 }}>
+        <TextP color="black">Change your password</TextP>
       </View>
 
       <View style={styles.formContainer}>
@@ -63,18 +63,18 @@ export const ChangePassword = () => {
                 placeholderTextColor="#808080"
                 autoCapitalize="none"
               />
+              {errors.newPassword && (
+                <Text style={styles.errorText}>
+                  Please choose a new password
+                </Text>
+              )}
             </View>
           )}
           name="newPassword"
         />
-        {errors.newPassword && (
-          <Text style={styles.errorText}>
-            Please please choose a new password
-          </Text>
-        )}
         <FormButton title="Save" onPress={handleSubmit(onSubmit)} />
       </View>
-      <View style={{ position: 'absolute', bottom: 10 }}>
+      <View>
         <FormButton
           title="Go back"
           onPress={() => {
@@ -88,19 +88,16 @@ export const ChangePassword = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 350,
     alignItems: 'center',
+    justifyContent: 'space-between',
+    flex: 1,
   },
   formContainer: {
     alignItems: 'center',
   },
-  inputContainer: {
-    marginTop: 20,
-    marginBottom: 30,
-  },
   input: {
     height: 40,
-    width: 280,
+    width: 250,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
@@ -109,7 +106,12 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    marginTop: -30,
-    marginBottom: 13,
+    position: 'absolute',
+    marginTop: 5,
+    marginLeft: 7,
+    bottom: -16,
+  },
+  inputContainer: {
+    marginBottom: 27,
   },
 });

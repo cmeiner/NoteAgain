@@ -44,10 +44,10 @@ export const RegisterForm = () => {
         loginUser(data).then((statusLogin) => {
           if (statusLogin !== 'Success') return console.log(statusLogin);
           setIsLoading(true);
-          setTimeout(() => {
-            navigation.navigate('HomeScreen');
-            setIsLoading(false);
-          }, 1000);
+          // setTimeout(() => {
+          navigation.navigate('HomeScreen');
+          setIsLoading(false);
+          // }, 1000);
           showToast('accountCreated');
         });
       } else if (status === 'Account already found') {
@@ -71,7 +71,7 @@ export const RegisterForm = () => {
               required: true,
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <View>
+              <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.input}
                   onBlur={onBlur}
@@ -84,25 +84,28 @@ export const RegisterForm = () => {
                   keyboardType="email-address"
                   autoCapitalize="none"
                 />
+                {errors.email && (
+                  <Text style={styles.errorText}>
+                    Please enter a valid e-mail
+                  </Text>
+                )}
+                {emailInUse && (
+                  <Text style={styles.errorText}>
+                    A user with that e-mail already exists
+                  </Text>
+                )}
               </View>
             )}
             name="email"
           />
-          {errors.email && (
-            <Text style={styles.errorText}>Please enter a valid e-mail</Text>
-          )}
-          {emailInUse && (
-            <Text style={styles.errorText}>
-              A user with that e-mail already exists
-            </Text>
-          )}
+
           <Controller
             control={control}
             rules={{
               required: true,
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <View>
+              <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.input}
                   onBlur={onBlur}
@@ -111,13 +114,15 @@ export const RegisterForm = () => {
                   placeholder="Display name"
                   textContentType="name"
                 />
+                {errors.displayName && (
+                  <Text style={styles.errorText}>
+                    Please choose display name
+                  </Text>
+                )}
               </View>
             )}
             name="displayName"
           />
-          {errors.displayName && (
-            <Text style={styles.errorText}>Please choose display name</Text>
-          )}
 
           <Controller
             control={control}
@@ -127,7 +132,7 @@ export const RegisterForm = () => {
               required: true,
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <View>
+              <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.input}
                   onBlur={onBlur}
@@ -138,13 +143,14 @@ export const RegisterForm = () => {
                   textContentType="newPassword"
                   autoCapitalize="none"
                 />
+
+                {errors.password && (
+                  <Text style={styles.errorText}>Please choose password</Text>
+                )}
               </View>
             )}
             name="password"
           />
-          {errors.password && (
-            <Text style={styles.errorText}>Please choose password</Text>
-          )}
           <FormButton title="Register" onPress={handleSubmit(onSubmit)} />
         </>
       )}
@@ -159,10 +165,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
-  formContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  inputContainer: {
+    marginBottom: 27,
   },
   inputTitle: {
     margin: 12,
@@ -170,13 +174,15 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     width: 350,
-    marginBottom: 24,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
   },
   errorText: {
     color: 'red',
+    position: 'absolute',
     marginTop: 5,
+    marginLeft: 7,
+    bottom: -16,
   },
 });

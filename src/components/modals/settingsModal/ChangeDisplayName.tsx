@@ -43,7 +43,7 @@ export const ChangeDisplayName = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <View style={{ alignItems: 'center' }}>
+      <View style={{ alignItems: 'center', marginTop: 10 }}>
         <TextP color="black">Change your display name</TextP>
       </View>
 
@@ -64,20 +64,23 @@ export const ChangeDisplayName = () => {
                 placeholder={auth.currentUser.displayName}
                 placeholderTextColor="#808080"
               />
+              {errors.newDisplayName && (
+                <Text style={styles.errorText}>
+                  Please choose a new display name
+                </Text>
+              )}
             </View>
           )}
           name="newDisplayName"
         />
-        {errors.newDisplayName && (
-          <Text style={styles.errorText}>Please choose a new display name</Text>
-        )}
+
         <FormButton
           title="Save"
           onPress={handleSubmit(onSubmit)}
           disabled={false}
         />
       </View>
-      <View style={{ position: 'absolute', bottom: 10 }}>
+      <View>
         <FormButton
           title="Go back"
           onPress={() => {
@@ -91,19 +94,16 @@ export const ChangeDisplayName = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 350,
     alignItems: 'center',
+    justifyContent: 'space-between',
+    flex: 1,
   },
   formContainer: {
     alignItems: 'center',
   },
-  inputContainer: {
-    marginTop: 20,
-    marginBottom: 30,
-  },
   input: {
     height: 40,
-    width: 280,
+    width: 250,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
@@ -112,7 +112,12 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
-    marginTop: -30,
-    marginBottom: 13,
+    position: 'absolute',
+    marginTop: 5,
+    marginLeft: 7,
+    bottom: -16,
+  },
+  inputContainer: {
+    marginBottom: 27,
   },
 });

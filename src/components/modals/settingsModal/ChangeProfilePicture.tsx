@@ -13,14 +13,13 @@ export const ChangeProfilePicture = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <View style={{ alignItems: 'center' }}>
+      <View style={{ alignItems: 'center', marginTop: 10 }}>
         <TextP color="black">Change your profile picture</TextP>
       </View>
-      <View style={{ alignItems: 'center', marginBottom: 70 }}>
+      <View style={{ alignItems: 'center' }}>
         <UploadMedia mode="change" />
       </View>
-
-      <View style={styles.buttonContainer}>
+      <View>
         <FormButton
           title="Go back"
           onPress={() => {
@@ -35,10 +34,7 @@ export const ChangeProfilePicture = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    height: 350,
-  },
-  buttonContainer: {
-    position: 'absolute',
-    bottom: 10,
+    justifyContent: 'space-between',
+    flex: 1,
   },
 });

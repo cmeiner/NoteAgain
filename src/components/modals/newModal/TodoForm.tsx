@@ -15,6 +15,7 @@ export const TodoForm = () => {
   const { todoData, toggleEdit, editVisible } = useEditContext();
   const { toggleNew } = useContext(ModalContext);
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [todoError, setTodoError] = useState(false);
 
   const {
     control,
@@ -39,10 +40,6 @@ export const TodoForm = () => {
 
   const onSubmitSaveEdit = async (data) => {
     data.items = todos;
-    // const dataObject = {
-    //   title: data.title,
-    //   items: data.items,
-    // };
     updateTodo(data);
     toggleEdit(false, 'todos');
     toggleNew(false);
@@ -55,9 +52,11 @@ export const TodoForm = () => {
     setTodos(array);
     setValue('inputPlaceholder', '');
   };
+
   useEffect(() => {
     setTodos(todoData.items);
-  }, [todos]);
+    setTodoError(false);
+  }, [todos, todos.length]);
 
   return (
     <View style={styles.container}>
@@ -78,13 +77,13 @@ export const TodoForm = () => {
                 placeholder='"Walk the dog"'
                 placeholderTextColor="#808080"
               />
+              {errors.title && (
+                <Text style={styles.errorText}> Please enter a title</Text>
+              )}
             </View>
           )}
           name="title"
         />
-        {errors.title && (
-          <Text style={styles.errorText}> Please enter a title</Text>
-        )}
         <Controller
           control={control}
           rules={{
@@ -135,13 +134,15 @@ export const TodoForm = () => {
                   }}
                 />
               </View>
+              {todoError && (
+                <Text style={styles.errorText}>
+                  Please add atleast one to-do
+                </Text>
+              )}
             </View>
           )}
           name="inputPlaceholder"
         />
-        {errors.inputPlaceholder && (
-          <Text style={styles.errorText}>Please enter a description</Text>
-        )}
       </View>
       <View>
         {editVisible ? (
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputContainer: {
-    marginBottom: 10,
+    marginBottom: 20,
     width: 280,
   },
   formContainer: {
@@ -204,6 +205,9 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
+    position: 'absolute',
     marginTop: 5,
+    marginLeft: 7,
+    bottom: -16,
   },
 });
