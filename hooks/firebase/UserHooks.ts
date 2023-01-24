@@ -54,7 +54,7 @@ export const loginUser = async ({ email, password }: UserType) => {
     const errorMessage =
       error.code === 'auth/invalid-email' ||
       error.code === 'auth/wrong-password'
-        ? 'Wrong Email or Password'
+        ? 'Wrong e-mail or password'
         : 'No account found';
     return errorMessage;
   }

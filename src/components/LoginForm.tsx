@@ -69,12 +69,14 @@ export const LoginForm = () => {
                     onChange(text), setErrorLogIn('');
                   }}
                   value={value}
-                  placeholder="Email"
+                  placeholder="E-mail"
                   keyboardType="email-address"
                   autoCapitalize="none"
                 />
                 {errors.email && (
-                  <Text style={styles.errorText}> Please enter email</Text>
+                  <Text style={styles.errorText}>
+                    Please enter your e-mail address
+                  </Text>
                 )}
               </View>
             )}
@@ -101,7 +103,9 @@ export const LoginForm = () => {
                   autoCapitalize="none"
                 />
                 {errors.password && (
-                  <Text style={styles.errorText}>Please enter password</Text>
+                  <Text style={styles.errorText}>
+                    Please enter your password
+                  </Text>
                 )}
                 {errorLogIn.length > 2 && (
                   <Text style={styles.errorText}>{errorLogIn}</Text>
@@ -111,7 +115,7 @@ export const LoginForm = () => {
             name="password"
           />
 
-          <FormButton title="Login" onPress={handleSubmit(onSubmit)} />
+          <FormButton title="Log in" onPress={handleSubmit(onSubmit)} />
         </>
       )}
     </KeyboardAvoidingView>
