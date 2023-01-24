@@ -82,7 +82,7 @@ export const UserProvider: FC<Props> = ({ children }) => {
       displayName: newDisplayName,
     })
       .then(async () => {
-        console.log('Display Name Changed');
+        console.log('Display name changed');
         const userRef = doc(db, 'users', auth.currentUser.uid);
         await updateDoc(userRef, { displayName: newDisplayName });
       })
@@ -98,7 +98,7 @@ export const UserProvider: FC<Props> = ({ children }) => {
         await updateDoc(userRef, { email: newEmail });
         const data = { email: newEmail, password };
         loginUser(data);
-        console.log('Email updated to' + newEmail);
+        console.log('E-mail updated to' + newEmail);
       })
       .catch((error) => {
         console.log(error);
@@ -108,7 +108,7 @@ export const UserProvider: FC<Props> = ({ children }) => {
   const updateUserPassword = (newPassword: string) => {
     updatePassword(auth.currentUser, newPassword)
       .then(() => {
-        console.log('password updated');
+        console.log('Password updated');
       })
       .catch((error) => {
         console.log(error);

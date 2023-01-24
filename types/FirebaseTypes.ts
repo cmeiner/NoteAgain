@@ -68,18 +68,3 @@ export type UserType = {
   password?: string;
   profilePicture?: string;
 };
-// type User = {
-//   //   id?: string;
-//   email: string;
-//   displayName: string;
-//   //   reminders: Reminder[];
-//   //   todos: TodoList[];
-//   //   receivedItems: {
-//   //     todos: TodoList[];
-//   //     reminders: Reminder[];
-//   //   };
-//   //   sharedItems: {
-//   //     todos: TodoList[];
-//   //     reminders: Reminder[];
-//   //   };
-// };

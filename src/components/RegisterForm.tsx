@@ -79,7 +79,7 @@ export const RegisterForm = () => {
                     setEmailInUse(false), onChange(text);
                   }}
                   value={value}
-                  placeholder="Email"
+                  placeholder="E-mail"
                   textContentType="emailAddress"
                   keyboardType="email-address"
                   autoCapitalize="none"
