@@ -1,11 +1,18 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { TopBar } from '../src/components/TopBar';
 import { TextH3 } from '../src/utils/styles/FontStyles';
 
 export const Saved = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <Image
+        style={{
+          position: 'absolute',
+          top: 500,
+        }}
+        source={require('../assets/images/Wave.png')}
+      />
       <View style={{ marginHorizontal: 10, marginBottom: 10 }}>
         <TopBar />
       </View>
