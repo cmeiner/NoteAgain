@@ -25,13 +25,8 @@ export async function removeNotifcation(title: string, date?: Date) {
     const notiHour = noti.trigger.dateComponents.hour;
     const notiMin = noti.trigger.dateComponents.minute;
     const notiTitle = noti.content.title;
-    console.log(
-      notiHour,
-      triggerDate.getHours(),
-      notiMin,
-      triggerDate.getMinutes(),
-      notiTitle
-    );
+    console.log('Notifciation title ' + notiTitle);
+    console.log('vanlig title' + title);
 
     if (
       notiHour === triggerDate.getHours() &&

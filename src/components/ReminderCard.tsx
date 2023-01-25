@@ -53,10 +53,23 @@ export const ReminderCard = ({
           {createdBy === auth.currentUser.uid ? (
             <>
               <DotsMenu type="reminders" data={data} />
-              <DeleteMenu type="reminder" id={id} shareID={shareID} />
+              <DeleteMenu
+                title={title}
+                date={remindAt}
+                type="reminder"
+                id={id}
+                shareID={shareID}
+              />
             </>
           ) : (
-            <DeleteMenu type="reminder" id={id} shareID={shareID} share />
+            <DeleteMenu
+              title={title}
+              date={remindAt}
+              type="reminder"
+              id={id}
+              shareID={shareID}
+              share
+            />
           )}
         </View>
       ) : remindAt === 'Dont remind' ? null : (
