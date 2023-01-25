@@ -18,9 +18,11 @@ import {
 import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
 import { ContextProvider } from './src/contexts/ContextProvider';
+import * as Permissions from 'expo-permissions';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [notificationPermission, setNotificationPermission] = useState(null);
   useEffect(() => {
     checkUserData().then((boolean) => {
       if (boolean) {
@@ -36,6 +38,17 @@ const App = () => {
         });
       }
     });
+    async function checkNotificationPermission() {
+      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        finalStatus = status;
+      }
+      setNotificationPermission(finalStatus);
+  }
+
+  checkNotificationPermission();
   }, [loggedIn]);
   const [fontsLoaded] = useFonts({
     Sora_700Bold,

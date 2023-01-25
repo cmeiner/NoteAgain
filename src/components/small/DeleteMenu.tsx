@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 import { Menu, MenuItem } from 'react-native-material-menu';
+import { removeNotifcation } from '../../../hooks/notifHooks';
 import { useItemContext } from '../../contexts/ItemContext';
 import { useShareContext } from '../../contexts/ShareContext';
 import { showToast } from '../../utils/constants/ToastHelper';
@@ -12,9 +13,18 @@ type Props = {
   type: 'reminder' | 'todo';
   share?: boolean;
   shareID: string;
+  date?: any;
+  title?: string;
 };
 
-export const DeleteMenu: FC<Props> = ({ id, type, share, shareID }) => {
+export const DeleteMenu: FC<Props> = ({
+  id,
+  type,
+  share,
+  shareID,
+  title,
+  date,
+}) => {
   const { removeReminder, removeTodo } = useItemContext();
   const { removeSharedItem } = useShareContext();
   const [visible, setVisible] = useState(false);
@@ -34,6 +44,11 @@ export const DeleteMenu: FC<Props> = ({ id, type, share, shareID }) => {
       type === 'reminder'
         ? (removeReminder(id), showToast('deleteReminder'))
         : (removeTodo(id), showToast('deleteTodo'));
+      if (type === 'reminder') {
+        if (date instanceof Date) {
+          removeNotifcation(`Don't forget ${title} in 10 Minutes`, date);
+        }
+      }
     }
   };
 

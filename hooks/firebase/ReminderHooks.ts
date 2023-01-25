@@ -39,7 +39,6 @@ export const createReminder_DB = async ({
 export const removeReminder_DB = async (id: string) => {
   try {
     await deleteDoc(doc(db, 'reminders', id));
-    console.log('Reminder Removed');
   } catch (e) {
     console.log(e);
   }
@@ -48,7 +47,6 @@ export const removeReminder_DB = async (id: string) => {
 export const updateReminder_DB = async (id: string, data: Reminder) => {
   try {
     await updateDoc(doc(db, 'reminders', id), data);
-    console.log('Reminder Updated');
   } catch (e) {
     console.log(e);
   }

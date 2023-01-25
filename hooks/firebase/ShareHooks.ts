@@ -54,7 +54,7 @@ export const updateStatus_db = async (shareID: string) => {
   const docData = (await getDoc(docRef)).data();
   const updatedData = docData;
   updatedData.status = 'accepted';
-  updateDoc(docRef, updatedData).then(() => console.log('data updated.'));
+  updateDoc(docRef, updatedData);
 };
 
 export const declineShare = async (shareID: string) => {
