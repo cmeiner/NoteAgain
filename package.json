@@ -44,7 +44,7 @@
     "react-native-toast-message": "^2.1.5",
     "react-native-web": "~0.18.9",
     "typescript": "^4.6.3",
-    "expo-notifications": "~0.17.0"
+    "expo-notifications": "~0.17.0",
     "expo-image-manipulator": "~11.0.0"
   },
   "devDependencies": {

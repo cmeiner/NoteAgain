@@ -14,7 +14,7 @@ type Props = {
   share?: boolean;
   shareID: string;
   date?: any;
-  title: string;
+  title?: string;
 };
 
 export const DeleteMenu: FC<Props> = ({
