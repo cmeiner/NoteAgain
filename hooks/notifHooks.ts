@@ -21,19 +21,16 @@ export async function removeNotifcation(title: string, date?: Date) {
   const scheduledNotifications: any =
     await Notifications.getAllScheduledNotificationsAsync();
   const triggerDate = new Date(date.getTime() - 10 * 60 * 1000);
-  for (let noti of scheduledNotifications) {
+  for (const noti of scheduledNotifications) {
     const notiHour = noti.trigger.dateComponents.hour;
     const notiMin = noti.trigger.dateComponents.minute;
     const notiTitle = noti.content.title;
-    console.log('Notifciation title ' + notiTitle);
-    console.log('vanlig title' + title);
 
     if (
       notiHour === triggerDate.getHours() &&
       notiMin === triggerDate.getMinutes() &&
       notiTitle === title
     ) {
-      console.log('Ska ta bort noti');
       await Notifications.cancelScheduledNotificationAsync(noti.identifier);
     }
   }
