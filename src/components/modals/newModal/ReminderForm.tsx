@@ -29,15 +29,6 @@ export const ReminderForm = () => {
       setDate(new Date(reminderData.remindAt));
       setChecked(true);
     }
-
-    async function test() {
-      const scheduledNotifications: any =
-        await Notifications.getAllScheduledNotificationsAsync();
-      for (let noti of scheduledNotifications) {
-        console.log(noti.trigger.dateComponents);
-      }
-    }
-    test();
   }, [reminderData]);
 
   const updateDate = (event: DateTimePickerEvent, date: Date) => {
