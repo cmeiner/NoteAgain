@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
@@ -10,10 +12,8 @@ import {
   View,
 } from 'react-native';
 import { loginUser } from '../../hooks/firebase/UserHooks';
-import { FormButton } from './small/FormButton';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { showToast } from '../utils/constants/ToastHelper';
+import { FormButton } from './small/FormButton';
 
 type StackParamList = {
   HomeScreen: undefined;
@@ -61,7 +61,7 @@ export const LoginForm = () => {
               required: true,
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <View>
+              <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.input}
                   onBlur={onBlur}
@@ -69,17 +69,19 @@ export const LoginForm = () => {
                     onChange(text), setErrorLogIn('');
                   }}
                   value={value}
-                  placeholder="Email"
+                  placeholder="E-mail"
                   keyboardType="email-address"
                   autoCapitalize="none"
                 />
+                {errors.email && (
+                  <Text style={styles.errorText}>
+                    Please enter your e-mail address
+                  </Text>
+                )}
               </View>
             )}
             name="email"
           />
-          {errors.email && (
-            <Text style={styles.errorText}> Please enter email</Text>
-          )}
 
           <Controller
             control={control}
@@ -88,7 +90,7 @@ export const LoginForm = () => {
               required: true,
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <View>
+              <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.input}
                   onBlur={onBlur}
@@ -100,17 +102,20 @@ export const LoginForm = () => {
                   secureTextEntry={true}
                   autoCapitalize="none"
                 />
+                {errors.password && (
+                  <Text style={styles.errorText}>
+                    Please enter your password
+                  </Text>
+                )}
+                {errorLogIn.length > 2 && (
+                  <Text style={styles.errorText}>{errorLogIn}</Text>
+                )}
               </View>
             )}
             name="password"
           />
-          {errors.password && (
-            <Text style={styles.errorText}>Please enter password</Text>
-          )}
-          {errorLogIn.length > 2 && (
-            <Text style={styles.errorText}>{errorLogIn}</Text>
-          )}
-          <FormButton title="Login" onPress={handleSubmit(onSubmit)} />
+
+          <FormButton title="Log in" onPress={handleSubmit(onSubmit)} />
         </>
       )}
     </KeyboardAvoidingView>
@@ -135,13 +140,18 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     width: 350,
-    marginBottom: 24,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
   },
   errorText: {
     color: 'red',
+    position: 'absolute',
     marginTop: 5,
+    marginLeft: 7,
+    bottom: -16,
+  },
+  inputContainer: {
+    marginBottom: 27,
   },
 });

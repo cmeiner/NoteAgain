@@ -113,13 +113,13 @@ export const ReminderForm = () => {
                 placeholderTextColor="#808080"
                 enablesReturnKeyAutomatically={true}
               />
+              {errors.title && (
+                <Text style={styles.errorText}> Please enter a title</Text>
+              )}
             </View>
           )}
           name="title"
         />
-        {errors.title && (
-          <Text style={styles.errorText}> Please enter a title</Text>
-        )}
 
         <Controller
           control={control}
@@ -139,13 +139,14 @@ export const ReminderForm = () => {
                 enablesReturnKeyAutomatically={true}
                 multiline
               />
+              {errors.description && (
+                <Text style={styles.errorText}>Please enter a description</Text>
+              )}
             </View>
           )}
           name="description"
         />
-        {errors.description && (
-          <Text style={styles.errorText}>Please enter a description</Text>
-        )}
+
         <View
           style={{
             flexDirection: 'row',
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputContainer: {
-    marginBottom: 10,
+    marginBottom: 20,
   },
   formContainer: {
     flex: 1,
@@ -231,7 +232,10 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red',
+    position: 'absolute',
     marginTop: 5,
+    marginLeft: 7,
+    bottom: -16,
   },
   checkbox: {
     alignItems: 'center',

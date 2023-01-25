@@ -22,7 +22,7 @@ export const toastMessage = (toastType: ToastType) => {
     case 'deleteTodo':
       return 'To-do deleted 🙂';
     case 'newReminder':
-      return 'New reminder added 🙂 ';
+      return 'New reminder added 🙂';
     case 'editReminder':
       return 'Reminder updated 🙂';
     case 'deleteReminder':
@@ -36,7 +36,7 @@ export const toastMessage = (toastType: ToastType) => {
     case 'displayNameUpdated':
       return 'Displayname updated 🙂';
     case 'emailUpdated':
-      return 'Email updated 🙂';
+      return 'E-mail updated 🙂';
     case 'passwordUpdated':
       return 'Password updated 🙂';
     case 'profilePictureUpdated':
