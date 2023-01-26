@@ -22,6 +22,7 @@ export const Home = () => {
 
   useEffect(() => {
     fetchAllItems();
+    // Hej
   }, []);
 
   const onRefresh = useCallback(() => {
