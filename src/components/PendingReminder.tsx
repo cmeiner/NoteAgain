@@ -6,7 +6,6 @@ import { Reminder } from '../../types/FirebaseTypes';
 import { useShareContext } from '../contexts/ShareContext';
 import { TextH2, TextThin } from '../utils/styles/FontStyles';
 
-// ? Think of "RemindAt" attribute
 export const PendingReminder = ({
   title,
   remindAt,

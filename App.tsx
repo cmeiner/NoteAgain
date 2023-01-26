@@ -6,49 +6,50 @@ import {
 } from '@expo-google-fonts/sora';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as Permissions from 'expo-permissions';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import Toast, { BaseToast } from 'react-native-toast-message';
-import { loginUser } from './hooks/firebase/UserHooks';
-import {
-  checkUserData,
-  getUserData,
-  resetUserData,
-} from './hooks/StorageHooks';
 import { Login } from './pages/Login';
 import { NavBar } from './src/components/NavBar';
 import { ContextProvider } from './src/contexts/ContextProvider';
-import * as Permissions from 'expo-permissions';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [notificationPermission, setNotificationPermission] = useState(null);
   useEffect(() => {
-    checkUserData().then((boolean) => {
-      if (boolean) {
-        getUserData().then((data) => {
-          loginUser(data).then((status) => {
-            if (status === 'Success') {
-              return setLoggedIn(true);
-            } else {
-              // parameter) status: "Success" | "Wrong Email or Password" | "No account found"
-              resetUserData();
-            }
-          });
-        });
-      }
-    });
+    // Put this back if you want automatic login.
+    //
+    // checkUserData().then((boolean) => {
+    //   if (boolean) {
+    //     getUserData().then((data) => {
+    //       loginUser(data).then((status) => {
+    //         if (status === 'Success') {
+    //           return setLoggedIn(true);
+    //         } else {
+    //           // parameter) status: "Success" | "Wrong Email or Password" | "No account found"
+    //           resetUserData();
+    //         }
+    //       });
+    //     });
+    //   }
+    // });
+
     async function checkNotificationPermission() {
-      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
       let finalStatus = existingStatus;
       if (existingStatus !== 'granted') {
-        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        const { status } = await Permissions.askAsync(
+          Permissions.NOTIFICATIONS
+        );
         finalStatus = status;
       }
       setNotificationPermission(finalStatus);
-  }
+    }
 
-  checkNotificationPermission();
+    checkNotificationPermission();
   }, [loggedIn]);
   const [fontsLoaded] = useFonts({
     Sora_700Bold,

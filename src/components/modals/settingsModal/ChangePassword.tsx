@@ -16,7 +16,7 @@ import { TextP, TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
 
 export const ChangePassword = () => {
-  const { updateUserPassword } = useUserContext();
+  const { updateUserPassword, getUser } = useUserContext();
   const { setCurrentlyShowing } = useSettingsContext();
   const { toggleSettingsModal } = useModalContext();
 
@@ -32,6 +32,7 @@ export const ChangePassword = () => {
 
   const onSubmit = async (data) => {
     updateUserPassword(data.newPassword);
+    getUser();
     showToast('passwordUpdated');
     setCurrentlyShowing('settings');
     toggleSettingsModal(false);

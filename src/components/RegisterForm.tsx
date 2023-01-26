@@ -44,10 +44,8 @@ export const RegisterForm = () => {
         loginUser(data).then((statusLogin) => {
           if (statusLogin !== 'Success') return console.log(statusLogin);
           setIsLoading(true);
-          // setTimeout(() => {
           navigation.navigate('HomeScreen');
           setIsLoading(false);
-          // }, 1000);
           showToast('accountCreated');
         });
       } else if (status === 'Account already found') {

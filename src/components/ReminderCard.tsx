@@ -14,7 +14,6 @@ import { TextH2, TextThin } from '../utils/styles/FontStyles';
 import { DotsMenu } from './DotsMenu';
 import { DeleteMenu } from './small/DeleteMenu';
 
-// ? Think of "RemindAt" attribute
 export const ReminderCard = ({
   title,
   remindAt,

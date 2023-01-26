@@ -68,7 +68,6 @@ export const UserProvider: FC<Props> = ({ children }) => {
   const getUser = async () => {
     const docRef = doc(db, 'users', auth.currentUser.uid);
     const docSnap = await getDoc(docRef);
-
     if (docSnap.exists()) {
       const UserData = docSnap.data();
       setCurrentUser(UserData);
@@ -82,9 +81,9 @@ export const UserProvider: FC<Props> = ({ children }) => {
       displayName: newDisplayName,
     })
       .then(async () => {
-        console.log('Display name changed');
         const userRef = doc(db, 'users', auth.currentUser.uid);
         await updateDoc(userRef, { displayName: newDisplayName });
+        getUser();
       })
       .catch((error) => {
         console.log(error);
@@ -98,7 +97,6 @@ export const UserProvider: FC<Props> = ({ children }) => {
         await updateDoc(userRef, { email: newEmail });
         const data = { email: newEmail, password };
         loginUser(data);
-        console.log('E-mail updated to' + newEmail);
       })
       .catch((error) => {
         console.log(error);

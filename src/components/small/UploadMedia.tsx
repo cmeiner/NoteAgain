@@ -30,13 +30,11 @@ export const UploadMedia = ({ mode }: Props) => {
       aspect: [4, 4],
     });
     if (!result.assets[0].canceled) {
-      // VAMONOS
       const resizedImage = await manipulateAsync(
         result.uri,
         [{ resize: { width: 300, height: 300 } }],
         { format: SaveFormat.JPEG, compress: 0.8 }
       );
-      console.log('URI ' + resizedImage.uri);
       setImage(resizedImage.uri);
       setImageFile(resizedImage);
     }

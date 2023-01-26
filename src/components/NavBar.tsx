@@ -38,7 +38,6 @@ export const NavBar = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons
-              // name={focused ? 'paper-plane' : 'paper-plane-outline'}
               name={focused ? 'rocket' : 'rocket-outline'}
               size={30}
               color="black"

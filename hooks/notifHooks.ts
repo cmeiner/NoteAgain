@@ -1,7 +1,6 @@
 import * as Notifications from 'expo-notifications';
 
 export async function addNotification(date: Date, title: string) {
-  // create a new date object with the time 10 minutes before the provided date
   const triggerDate = new Date(date.getTime() - 10 * 60 * 1000);
 
   const schedulingOptions = {

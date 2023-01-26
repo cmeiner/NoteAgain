@@ -5,18 +5,16 @@ import Checkbox from 'expo-checkbox';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-//import { createReminder } from '../../../hooks/firebase/ReminderHooks';
+import {
+  addNotification,
+  removeNotifcation,
+} from '../../../../hooks/notifHooks';
 import { useEditContext } from '../../../contexts/EditContext';
 import { useItemContext } from '../../../contexts/ItemContext';
 import { useModalContext } from '../../../contexts/ModalContext';
 import { showToast } from '../../../utils/constants/ToastHelper';
 import { TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
-import * as Notifications from 'expo-notifications';
-import {
-  addNotification,
-  removeNotifcation,
-} from '../../../../hooks/notifHooks';
 
 export const ReminderForm = () => {
   const { reminderData, editVisible, toggleEdit } = useEditContext();
@@ -65,9 +63,7 @@ export const ReminderForm = () => {
       ? { ...data, remindAt: date }
       : { ...data, remindAt: 'Dont remind' };
     if (isChecked) {
-      console.log('Icheckad');
       if (reminderData.remindAt instanceof Date) {
-        console.log('finns date tar bort noti');
         removeNotifcation(
           `Don't forget ${reminderData.title} in 10 Minutes`,
           reminderData.remindAt

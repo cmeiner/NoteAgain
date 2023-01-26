@@ -13,14 +13,13 @@ export const todoRef = collection(db, 'todos'); // * Gets the collection of to-d
 export const createTodo_DB = async ({ title, items }: TodoList) => {
   try {
     const user = await auth.currentUser;
-    if (!user) return console.log('No user'); // TODO Do something more useful here, maybe send user to login page?
+    if (!user) return console.log('No user');
     const todo = await addDoc(todoRef, {
       title: title,
       items: items,
       createdBy: user.uid,
     });
     return { title: title, items: items, createdBy: user.uid, id: todo.id };
-    // TODO Create a nice toast message that a reminder is created.
   } catch (Error) {
     console.log(Error);
   }
@@ -50,10 +49,3 @@ export const updateCheckedTodo_DB = async (itemList: Todo[], id: string) => {
     items: itemList,
   });
 };
-
-// const washingtonRef = doc(db, 'cities', 'DC');
-
-// // Set the "capital" field of the city 'DC'
-// await updateDoc(washingtonRef, {
-//   capital: true,
-// });
