@@ -12,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import { loginUser, registerUser } from '../../hooks/firebase/UserHooks';
+import { useUserContext } from '../contexts/UserContext';
 import { showToast } from '../utils/constants/ToastHelper';
 import { FormButton } from './small/FormButton';
 
@@ -23,6 +24,7 @@ type NavigationProps = NativeStackNavigationProp<StackParamList>;
 
 export const RegisterForm = () => {
   const navigation = useNavigation<NavigationProps>();
+  const { getUser } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
   const [emailInUse, setEmailInUse] = useState(false);
 
@@ -46,6 +48,7 @@ export const RegisterForm = () => {
           setIsLoading(true);
           navigation.navigate('HomeScreen');
           setIsLoading(false);
+          getUser();
           showToast('accountCreated');
         });
       } else if (status === 'Account already found') {
