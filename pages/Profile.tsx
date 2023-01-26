@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
 import { FormButton } from '../src/components/small/FormButton';
 import { TopBar } from '../src/components/TopBar';
@@ -11,10 +11,6 @@ export const Profile = () => {
   const { currentUser, getUser } = useUserContext();
   const { toggleSettingsModal } = useModalContext();
   const { setCurrentlyShowing } = useSettingsContext();
-
-  useEffect(() => {
-    getUser();
-  }, [currentUser]);
 
   return (
     <SafeAreaView style={styles.container}>

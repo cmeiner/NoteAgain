@@ -20,7 +20,6 @@ export const TodoListCard = ({
   const { updateCheckedBox } = useItemContext();
 
   const changeCompletedValue = (value: boolean, desc: string) => {
-    console.log('clickClack');
     const newArray = items;
     const changedItem = newArray.find((item) => item.desc === desc);
     changedItem.completed = value;

@@ -9,7 +9,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../../config/firebaseConfig';
 import { ItemType, Share } from '../../types/FirebaseTypes';
-export const sharesRef = collection(db, 'shares'); // * Gets the collection of reminders.
+export const sharesRef = collection(db, 'shares'); // * Gets the collection of shares.
 
 export const shareItem_db = async (
   itemID: string,

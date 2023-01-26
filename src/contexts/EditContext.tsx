@@ -40,8 +40,6 @@ export const EditProvider: FC<Props> = ({ children }) => {
 
   const updateData = (datax: any, type: ItemType) => {
     if (type === 'reminders') {
-      console.log('EDIT CONTEXT WHEN SETTING DATA');
-      console.log(datax.remindAt);
       if (datax.remindAt !== 'Dont remind') {
         let updatedDate;
         if (datax.remindAt instanceof Timestamp) {

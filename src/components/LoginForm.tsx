@@ -12,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import { loginUser } from '../../hooks/firebase/UserHooks';
+import { useUserContext } from '../contexts/UserContext';
 import { showToast } from '../utils/constants/ToastHelper';
 import { FormButton } from './small/FormButton';
 
@@ -25,6 +26,7 @@ export const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorLogIn, setErrorLogIn] = useState('');
   const navigation = useNavigation<NavigationProps>();
+  const { getUser } = useUserContext();
   const {
     control,
     handleSubmit,
@@ -38,6 +40,7 @@ export const LoginForm = () => {
   const onSubmit = async (data) => {
     const signInMessage = await loginUser(data);
     if (signInMessage !== 'Success') return setErrorLogIn(signInMessage);
+    getUser();
     setIsLoading(true);
     setTimeout(() => {
       navigation.navigate('HomeScreen');
