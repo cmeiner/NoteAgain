@@ -17,7 +17,7 @@ import { TextP, TextThin } from '../../../utils/styles/FontStyles';
 import { FormButton } from '../../small/FormButton';
 
 export const ChangeDisplayName = () => {
-  const { updateUserDisplayName, getUser } = useUserContext();
+  const { updateUserDisplayName } = useUserContext();
   const { setCurrentlyShowing } = useSettingsContext();
   const { toggleSettingsModal } = useModalContext();
 
@@ -35,7 +35,6 @@ export const ChangeDisplayName = () => {
     updateUserDisplayName(data.newDisplayName);
     showToast('displayNameUpdated');
     setCurrentlyShowing('settings');
-    getUser();
     toggleSettingsModal(false);
   };
 

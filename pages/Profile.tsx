@@ -14,7 +14,7 @@ export const Profile = () => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [currentUser]);
 
   return (
     <SafeAreaView style={styles.container}>
