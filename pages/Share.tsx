@@ -53,8 +53,8 @@ export const Share = () => {
         {pendingReminders.length ? (
           <View
             style={{
-              height: '100%',
               justifyContent: 'center',
+              marginBottom: 30,
             }}
           >
             <TextH2 color="black">Your pending reminders:</TextH2>

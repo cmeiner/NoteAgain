@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { auth } from '../../config/firebaseConfig';
-import { updateCheckedTodo_DB } from '../../hooks/firebase/TodoHooks';
 import { TextH2 } from '../../src/utils/styles/FontStyles';
 import { Todo, TodoList } from '../../types/FirebaseTypes';
 import { useItemContext } from '../contexts/ItemContext';
@@ -18,7 +17,6 @@ export const TodoListCard = ({
 }: TodoList) => {
   const data = { items, title, id };
   const { updateCheckedBox } = useItemContext();
-
   const changeCompletedValue = (value: boolean, desc: string) => {
     const newArray = items;
     const changedItem = newArray.find((item) => item.desc === desc);

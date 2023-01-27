@@ -12,6 +12,7 @@ export const PendingReminder = ({
   description,
   id,
   shareID,
+  createdBy,
 }: Reminder) => {
   const data = { title, remindAt, description, id };
   const { removeSharedItem, updateShare } = useShareContext();
@@ -20,6 +21,7 @@ export const PendingReminder = ({
     <View style={ReminderStyles.Box}>
       <View>
         <TextH2 color="white">{title}</TextH2>
+        <TextH2 color="white">{createdBy}</TextH2>
         <TextThin color="white">
           {remindAt instanceof Timestamp
             ? `${new Date(

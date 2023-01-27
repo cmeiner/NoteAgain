@@ -2,14 +2,13 @@ import Checkbox from 'expo-checkbox';
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { TextP } from '../../src/utils/styles/FontStyles';
-import { Todo } from '../../types/FirebaseTypes';
 
-type todoProps = {
-  onChangeFunction: any;
-  share?: boolean;
-  id?: string;
+type TodoProps = {
   desc: string;
   completed: boolean;
+  onChangeFunction?: (a: any, b: any) => void;
+  share?: boolean;
+  id?: string;
 };
 
 export const TodoCard = ({
@@ -17,13 +16,13 @@ export const TodoCard = ({
   share,
   completed,
   desc,
-  id,
-}: todoProps) => {
+}: TodoProps) => {
   const [isChecked, setChecked] = useState(completed);
 
   useEffect(() => {
-    onChangeFunction(isChecked, desc);
+    onChangeFunction ? onChangeFunction(isChecked, desc) : null;
   }, [isChecked]);
+
   return (
     <View>
       <Pressable
