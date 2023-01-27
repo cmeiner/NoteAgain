@@ -7,8 +7,9 @@ import {
   getDocs,
   updateDoc,
 } from 'firebase/firestore';
-import { db } from '../../config/firebaseConfig';
+import { auth, db } from '../../config/firebaseConfig';
 import { ItemType, Share } from '../../types/FirebaseTypes';
+
 export const sharesRef = collection(db, 'shares'); // * Gets the collection of shares.
 
 export const shareItem_db = async (
@@ -20,7 +21,10 @@ export const shareItem_db = async (
   const shares = [];
   const usersSnapshot = await getDocs(collection(db, 'users'));
   usersSnapshot.forEach((doc) => {
-    users.push({ ...doc.data(), id: doc.id });
+    users.push({
+      ...doc.data(),
+      id: doc.id,
+    });
   });
 
   const sharesSnapshot = await getDocs(collection(db, 'shares'));
@@ -40,6 +44,7 @@ export const shareItem_db = async (
       itemID: itemID,
       itemType: itemType,
       receiverID: receiverUser.id,
+      author: auth.currentUser.displayName,
       status: 'pending',
     };
     await addDoc(sharesRef, sharesData);

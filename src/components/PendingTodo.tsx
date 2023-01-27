@@ -1,12 +1,18 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Todo, TodoList } from '../../types/FirebaseTypes';
 import { useShareContext } from '../contexts/ShareContext';
 import { TextH2 } from '../utils/styles/FontStyles';
 import { TodoCard } from './TodoCard';
 
-export const PendingTodo = ({ items, title, id, shareID }: TodoList) => {
+export const PendingTodo = ({
+  items,
+  title,
+  id,
+  shareID,
+  createdBy,
+}: TodoList) => {
   const { removeSharedItem, updateShare } = useShareContext();
   return (
     <View style={TodoListStyles.paddingBox}>
@@ -14,6 +20,7 @@ export const PendingTodo = ({ items, title, id, shareID }: TodoList) => {
         <View>
           <TextH2 color="white">{title}</TextH2>
         </View>
+        <Text>Created by {createdBy}</Text>
         <View style={TodoListStyles.flexRow}>
           <Ionicons
             name="checkmark"

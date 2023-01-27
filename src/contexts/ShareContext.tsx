@@ -30,6 +30,7 @@ type ShareContextType = {
   removeSharedItem: (a: string) => void;
   updateShare: (shareID: string) => void;
   itemType: ItemType;
+  author: string;
 };
 
 export const ShareContext = createContext<ShareContextType>({
@@ -45,6 +46,7 @@ export const ShareContext = createContext<ShareContextType>({
   removeSharedItem: () => undefined,
   updateShare: () => undefined,
   itemType: 'reminders',
+  author: '',
 });
 
 type Props = {
@@ -59,6 +61,7 @@ export const ShareProvider: FC<Props> = ({ children }) => {
   const [pendingTodos, setPendingTodos] = useState<TodoList[]>();
   const [acceptedTodos, setAcceptedTodos] = useState<TodoList[]>();
   const [itemType, setItemType] = useState<ItemType>('reminders');
+  const [author, setAuthor] = useState('');
 
   const toggleShare = (visible: boolean, itemType: ItemType) => {
     setItemType(itemType);
@@ -82,6 +85,7 @@ export const ShareProvider: FC<Props> = ({ children }) => {
       data.docs.map((item) => {
         if (item.data().itemType === 'reminders') {
           const docRef = doc(db, 'reminders', item.data().itemID);
+          setAuthor(item.data().author);
           getDoc(docRef).then((data) => {
             if (item.data().status === 'pending') {
               pendingReminderArray.push({ ...data.data(), shareID: item.id });
@@ -94,6 +98,7 @@ export const ShareProvider: FC<Props> = ({ children }) => {
           });
         } else if (item.data().itemType === 'todos') {
           const docRef = doc(db, 'todos', item.data().itemID);
+          setAuthor(item.data().author);
           getDoc(docRef).then((data) => {
             if (item.data().status === 'pending') {
               pendingTodoArray.push({ ...data.data(), shareID: item.id });
@@ -177,6 +182,7 @@ export const ShareProvider: FC<Props> = ({ children }) => {
         getSharedItems,
         removeSharedItem,
         itemType,
+        author,
       }}
     >
       {children}

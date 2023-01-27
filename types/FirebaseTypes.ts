@@ -40,6 +40,7 @@ export type Share = {
   receiverID: string;
   itemType: ItemType;
   status: Status;
+  author: string;
 };
 
 /**

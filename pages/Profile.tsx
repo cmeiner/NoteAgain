@@ -8,7 +8,7 @@ import { useUserContext } from '../src/contexts/UserContext';
 import { TextH2 } from '../src/utils/styles/FontStyles';
 
 export const Profile = () => {
-  const { currentUser, getUser } = useUserContext();
+  const { currentUser } = useUserContext();
   const { toggleSettingsModal } = useModalContext();
   const { setCurrentlyShowing } = useSettingsContext();
 
