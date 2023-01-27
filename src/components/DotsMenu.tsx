@@ -38,9 +38,9 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
     setTimeout(() => toggleShare(true, type), 150);
   };
 
-  const bookmark = () => {
-    hideMenu();
-  };
+  // const bookmark = () => {
+  //   hideMenu();
+  // };
 
   return (
     <View
@@ -70,9 +70,9 @@ export const DotsMenu: FC<Props> = ({ data, type }) => {
           <MenuItem onPress={share}>
             <TextP color="black">Share</TextP>
           </MenuItem>
-          <MenuItem onPress={bookmark}>
+          {/* <MenuItem onPress={bookmark}>
             <TextP color="black">Bookmark</TextP>
-          </MenuItem>
+          </MenuItem> */}
         </View>
       </Menu>
       <EditModal />
