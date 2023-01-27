@@ -63,6 +63,7 @@ export const ChangePassword = () => {
                 value={value}
                 placeholderTextColor="#808080"
                 autoCapitalize="none"
+                secureTextEntry
               />
               {errors.newPassword && (
                 <Text style={styles.errorText}>

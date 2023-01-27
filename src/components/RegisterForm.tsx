@@ -70,6 +70,10 @@ export const RegisterForm = () => {
             control={control}
             rules={{
               required: true,
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Please enter a valid e-mail format',
+              },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <View style={styles.inputContainer}>
@@ -86,9 +90,7 @@ export const RegisterForm = () => {
                   autoCapitalize="none"
                 />
                 {errors.email && (
-                  <Text style={styles.errorText}>
-                    Please enter a valid e-mail
-                  </Text>
+                  <Text style={styles.errorText}>{errors.email.message}</Text>
                 )}
                 {emailInUse && (
                   <Text style={styles.errorText}>
