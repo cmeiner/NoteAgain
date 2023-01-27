@@ -67,7 +67,6 @@ export const Home = () => {
                     title={reminder.title}
                     remindAt={reminder.remindAt}
                     id={reminder.id}
-                    createdBy={reminder.createdBy}
                     shareID={reminder.shareID}
                   />
                 );
